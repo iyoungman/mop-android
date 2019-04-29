@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:weightSum="1">
+
+        <EditText
+            android:id="@+id/et_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="아이디"
+            android:gravity="center" />
+
+        <EditText
+            android:id="@+id/et_pw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="비밀번호"
+            android:gravity="center" />
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="이름"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/et_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="phone"
+            android:hint="핸드폰"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/et_hobby"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="phone"
+            android:hint="핸드폰"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/btn_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="회 원 가 입"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="돌 아 가 기"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>
