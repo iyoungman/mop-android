@@ -1,5 +1,7 @@
 package com.youngman.mop.contract;
 
+import android.support.annotation.NonNull;
+
 import com.youngman.mop.model.dto.SignUpDto;
 
 /**
@@ -9,11 +11,11 @@ import com.youngman.mop.model.dto.SignUpDto;
 public interface SignUpContract {
 
     interface View {
-        void showErrorMessage(String message);
+        void showErrorMessage(@NonNull String message);
         void startSignInActivity();
     }
 
     interface Presenter {
-        void callSignUp(SignUpDto signUpDto);
+        void callSignUp(@NonNull SignUpDto signUpDto);
     }
 }

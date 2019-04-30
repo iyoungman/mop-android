@@ -16,7 +16,7 @@ import retrofit2.Response;
  * Created by YoungMan on 2019-04-28.
  */
 
-public class UserModel {
+public class SignUpModel {
 
     private String id;
     private String pw;
@@ -41,19 +41,18 @@ public class UserModel {
     }
 
     public void callSignUp(@NonNull final ApiListener listener) {
-        Call<Void> result = NetRetrofit.getInstance().getNetRetrofitInterface().singup(this);
-        result.enqueue(new Callback<Void>() {
+        Call<Boolean> result = NetRetrofit.getInstance().getNetRetrofitInterface().singUp(this);
+        result.enqueue(new Callback<Boolean>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 listener.onSuccess();
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Boolean> call, Throwable t) {
                 listener.onFail(t.getMessage());
             }
         });
-
     }
 
     public interface ApiListener {

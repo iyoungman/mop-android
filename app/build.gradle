@@ -34,6 +34,8 @@ dependencies {
     // https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-gson
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    compileOnly "org.projectlombok:lombok:1.18.2"
+    implementation "org.projectlombok:lombok:1.18.2"
+    implementation 'com.google.dagger:dagger:2.22.1'
     annotationProcessor "org.projectlombok:lombok:1.18.2"
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.22.1'
 }

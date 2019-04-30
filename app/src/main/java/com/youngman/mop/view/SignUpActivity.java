@@ -48,19 +48,14 @@ public class SignUpActivity extends Activity implements SignUpContract.View {
         etHobby = (EditText) findViewById(R.id.et_hobby);
         btnSignUp = (Button) findViewById(R.id.btn_signup);
 
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.callSignUp(SignUpDto.builder()
-                        .id(etId.getText().toString())
-                        .pw(etPw.getText().toString())
-                        .name(etName.getText().toString())
-                        .mobile(etMobile.getText().toString())
-                        .hobby(etHobby.getText().toString())
-                        .build()
-                );
-            }
-        });
+        btnSignUp.setOnClickListener(v -> presenter.callSignUp(SignUpDto.builder()
+                .id(etId.getText().toString())
+                .pw(etPw.getText().toString())
+                .name(etName.getText().toString())
+                .mobile(etMobile.getText().toString())
+                .hobby(etHobby.getText().toString())
+                .build()
+        ));
     }
 
     @Override
@@ -70,6 +65,6 @@ public class SignUpActivity extends Activity implements SignUpContract.View {
 
     @Override
     public void startSignInActivity() {
-
+        finish();
     }
 }
