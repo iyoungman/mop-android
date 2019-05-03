@@ -1,6 +1,7 @@
 package com.youngman.mop.adapter.holder;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -9,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.youngman.mop.R;
-import com.youngman.mop.listener.OnItemClickListener;
+import com.youngman.mop.listener.OnMyClubItemClickListener;
 import com.youngman.mop.model.dto.ClubDto;
 
 /**
@@ -24,23 +25,29 @@ public class MyClubViewHolder extends RecyclerView.ViewHolder {
     private ImageView ivMyClub;
     private TextView tvMyClubRecentSchedule;
 
-    private OnItemClickListener onItemClickListener;
+    private OnMyClubItemClickListener onMyClubItemClickListener;
 
-    public MyClubViewHolder(Context context, ViewGroup parent, OnItemClickListener onItemClickListener) {
+    public MyClubViewHolder(@NonNull Context context,
+                            @NonNull ViewGroup parent,
+                            @NonNull OnMyClubItemClickListener onMyClubItemClickListener) {
         super(LayoutInflater.from(context).inflate(R.layout.item_myclub, parent, false));
         this.context = context;
         this.tvMyClubName = itemView.findViewById(R.id.tv_myclub_name);
         this.btnMyClubDelete = itemView.findViewById(R.id.btn_myclub_delete);
         this.ivMyClub = itemView.findViewById(R.id.iv_myclub);
         this.tvMyClubRecentSchedule = itemView.findViewById(R.id.tv_myclub_recent_schedule);
-        this.onItemClickListener = onItemClickListener;
+        this.onMyClubItemClickListener = onMyClubItemClickListener;
     }
 
-    public void onBind(ClubDto clubDto, final int position) {
-
+    public void onBind(@NonNull ClubDto clubDto, @NonNull final Integer position) {
         btnMyClubDelete.setOnClickListener(view -> {
-            onItemClickListener.onDeleteMyClubClick(position);
+            onMyClubItemClickListener.onDeleteMyClubClick(position);
         });
+
+        ivMyClub.setOnClickListener(view -> {
+            onMyClubItemClickListener.onStartMyClubClick(position);
+        });
+
 
     }
 }

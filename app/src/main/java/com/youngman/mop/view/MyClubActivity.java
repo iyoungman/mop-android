@@ -53,7 +53,8 @@ public class MyClubActivity extends AppCompatActivity implements MyClubContract.
 
     @Override
     public void startClubListActivity() {
-        //동호회 목록으로 이동
+        Intent intent = new Intent(context, ClubListActivity.class);
+        startActivity(intent);
     }
 
     @Override

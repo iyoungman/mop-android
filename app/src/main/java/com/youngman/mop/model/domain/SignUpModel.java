@@ -2,9 +2,12 @@ package com.youngman.mop.model.domain;
 
 import android.support.annotation.NonNull;
 
+import com.youngman.mop.model.dto.MyClubDto;
 import com.youngman.mop.model.dto.SignUpDto;
 import com.youngman.mop.network.NetRetrofit;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -24,7 +27,7 @@ public class SignUpModel {
     private String mobile;
     private String hobby;
 
-    public void setUserData(@NonNull SignUpDto signUpDto) {
+    public void setSignUpData(@NonNull SignUpDto signUpDto) {
         this.id = signUpDto.getId();
         this.pw = signUpDto.getPw();
         this.name = signUpDto.getName();
@@ -41,23 +44,34 @@ public class SignUpModel {
     }
 
     public void callSignUp(@NonNull final ApiListener listener) {
-        Call<Boolean> result = NetRetrofit.getInstance().getNetRetrofitInterface().singUp(this);
+
+        Map<String, String> signUpParams = new HashMap<>();
+        signUpParams.put("id", id);
+        signUpParams.put("pw", pw);
+        signUpParams.put("name", name);
+        signUpParams.put("mobile", mobile);
+        signUpParams.put("hobby", hobby);
+
+        Call<Boolean> result = NetRetrofit.getInstance().getNetRetrofitInterface().callSingUp(signUpParams);
         result.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                listener.onSuccess();
+                if(response.isSuccessful() && response.body() != null) {
+                    listener.onSuccess();
+                    return;
+                }
+                listener.onFail("저장에 실패하였습니다.");
             }
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
-                listener.onFail(t.getMessage());
+                listener.onFail("통신에 실패하였습니다.");
             }
         });
     }
 
     public interface ApiListener {
         void onSuccess();
-
         void onFail(String message);
     }
 }

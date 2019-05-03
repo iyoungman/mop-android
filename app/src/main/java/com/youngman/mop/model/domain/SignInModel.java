@@ -2,8 +2,11 @@ package com.youngman.mop.model.domain;
 
 import android.support.annotation.NonNull;
 
+import com.youngman.mop.model.dto.MyClubDto;
 import com.youngman.mop.network.NetRetrofit;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -20,7 +23,7 @@ public class SignInModel {
     private String id;
     private String pw;
 
-    public void setUserData(@NonNull String id, @NonNull String pw) {
+    public void setSignInData(@NonNull String id, @NonNull String pw) {
         this.id = id;
         this.pw = pw;
     }
@@ -33,24 +36,32 @@ public class SignInModel {
         return isAllNonNull.test(count);
     }
 
-    public void callSignIn(@NonNull final SignInModel.ApiListener listener) {
-        Call<Boolean> result = NetRetrofit.getInstance().getNetRetrofitInterface().singIn(this);
+    public void callSignIn(@NonNull final ApiListener listener) {
+
+        Map<String, String> signInParams = new HashMap<>();
+        signInParams.put("id", id);
+        signInParams.put("pw", pw);
+
+        Call<Boolean> result = NetRetrofit.getInstance().getNetRetrofitInterface().callSingIn(signInParams);
         result.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                listener.onSuccess();
+                if(response.isSuccessful() && response.body() != null) {
+                    listener.onSuccess(id);
+                    return;
+                }
+                listener.onFail("로그인에 실패하였습니다.");
             }
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
-                listener.onFail(t.getMessage());
+                listener.onFail("통신에 실패하였습니다.");
             }
         });
     }
 
     public interface ApiListener {
-        void onSuccess();
-
+        void onSuccess(String userId);
         void onFail(String message);
     }
 }

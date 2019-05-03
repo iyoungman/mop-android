@@ -15,6 +15,8 @@ import com.youngman.mop.model.dto.SignUpDto;
 import com.youngman.mop.presenter.SignUpPresenter;
 import com.youngman.mop.util.ToastUtils;
 
+import butterknife.BindView;
+
 /**
  * Created by YoungMan on 2019-04-28.
  */
@@ -48,7 +50,7 @@ public class SignUpActivity extends Activity implements SignUpContract.View {
         etHobby = (EditText) findViewById(R.id.et_hobby);
         btnSignUp = (Button) findViewById(R.id.btn_signup);
 
-        btnSignUp.setOnClickListener(v -> presenter.callSignUp(SignUpDto.builder()
+        btnSignUp.setOnClickListener(view -> presenter.callSignUp(SignUpDto.builder()
                 .id(etId.getText().toString())
                 .pw(etPw.getText().toString())
                 .name(etName.getText().toString())
@@ -65,6 +67,7 @@ public class SignUpActivity extends Activity implements SignUpContract.View {
 
     @Override
     public void startSignInActivity() {
+        ToastUtils.showToast(context, "회원가입 성공");
         finish();
     }
 }

@@ -88,7 +88,14 @@
                 android:text="자동 로그인"
                 android:textColor="@color/white"
                 android:textSize="17dp"/>
-                <!--android:theme="@style/MyCheckBox" -->
+
+            <Button
+                android:id="@+id/btn_start_signup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="회원가입" />
+            <!--android:theme="@style/MyCheckBox" -->
         </LinearLayout>
 
 

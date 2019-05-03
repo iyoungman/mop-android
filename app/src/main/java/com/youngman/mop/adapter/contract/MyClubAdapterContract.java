@@ -17,8 +17,8 @@ public interface MyClubAdapterContract {
     }
 
     interface Model {
-        void addItems(@NonNull List<ClubDto> clubDtos);
-        void deleteItem(@NonNull int position);
-        ClubDto getClubDto(@NonNull int position);
+        void addItems(@NonNull List<ClubDto> clubDtoList);
+        void deleteItem(@NonNull Integer position);
+        ClubDto getItem(@NonNull Integer position);
     }
 }

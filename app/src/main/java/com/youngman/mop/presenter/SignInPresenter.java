@@ -11,21 +11,22 @@ import com.youngman.mop.model.domain.SignInModel;
 
 public class SignInPresenter implements SignInContract.Presenter {
 
-    SignInContract.View signInView;
-    SignInModel signInModel;
+    private SignInContract.View signInView;
+    private SignInModel signInModel;
 
     public SignInPresenter(SignInContract.View signInView) {
         this.signInView = signInView;
+        this.signInModel = new SignInModel();
     }
 
     @Override
     public void callSignIn(@NonNull String id, @NonNull String pw) {
-        signInModel.setUserData(id, pw);
+        signInModel.setSignInData(id, pw);
         if(signInModel.checkData()) {
             signInModel.callSignIn(new SignInModel.ApiListener() {
                 @Override
-                public void onSuccess() {
-                    signInView.startMyPageActivity();
+                public void onSuccess(String userId) {
+                    signInView.startMyClubActivity(userId);
                 }
                 @Override
                 public void onFail(String message) {

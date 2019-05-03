@@ -5,17 +5,13 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.youngman.mop.R;
 import com.youngman.mop.contract.SignInContract;
-import com.youngman.mop.contract.SignUpContract;
-import com.youngman.mop.model.domain.MyPageModel;
-import com.youngman.mop.model.dto.SignUpDto;
 import com.youngman.mop.presenter.SignInPresenter;
-import com.youngman.mop.presenter.SignUpPresenter;
+import com.youngman.mop.util.SignUtils;
 import com.youngman.mop.util.ToastUtils;
 
 public class SignInActivity extends AppCompatActivity implements SignInContract.View {
@@ -24,6 +20,7 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
     private EditText etId;
     private EditText etPw;
     private Button btnSignIn;
+    private Button btnStartSignUp;
 
     SignInContract.Presenter presenter;
 
@@ -40,10 +37,13 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
         etId = (EditText) findViewById(R.id.et_id);
         etPw = (EditText) findViewById(R.id.et_pw);
         btnSignIn = (Button) findViewById(R.id.btn_signin);
+        btnStartSignUp = (Button) findViewById(R.id.btn_start_signup);
 
-        btnSignIn.setOnClickListener(v -> presenter.callSignIn(etId.getText().toString(),
+        btnSignIn.setOnClickListener(view -> presenter.callSignIn(etId.getText().toString(),
                 etPw.getText().toString()
         ));
+
+        btnStartSignUp.setOnClickListener(view -> startSignUpActivity());
     }
 
     @Override
@@ -52,10 +52,12 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
     }
 
     @Override
-    public void startMyPageActivity() {
-        Intent intent = new Intent(context, MyPageActivity.class);
-        intent.putExtra("MyPageModel", MyPageModel);//MyPage에 셋팅할 정보를 가져온다.
+    public void startMyClubActivity(@NonNull String userId) {
+        SignUtils.writeUserIdToPref(context, userId);
+
+        Intent intent = new Intent(context, MyClubActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void startSignUpActivity() {

@@ -11,10 +11,4 @@
         android:layout_height="wrap_content"
         app:layoutManager="GridLayoutManager"/>
 
-    <Button
-        android:id="@+id/btn_delete_myclub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-
 </LinearLayout>

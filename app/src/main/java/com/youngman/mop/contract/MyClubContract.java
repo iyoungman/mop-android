@@ -18,8 +18,8 @@ public interface MyClubContract {
     }
 
     interface Presenter {
-        void setMyClubAdapterView(MyClubAdapterContract.View adapterView);
-        void setMyClubAdapterModel(MyClubAdapterContract.Model adapterModel);
-        void callMyClubList(String userId);
+        void setMyClubAdapterView(@NonNull MyClubAdapterContract.View adapterView);
+        void setMyClubAdapterModel(@NonNull MyClubAdapterContract.Model adapterModel);
+        void callMyClubList(@NonNull String userId);
     }
 }

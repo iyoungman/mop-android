@@ -12,16 +12,17 @@ import com.youngman.mop.model.dto.SignUpDto;
 
 public class SignUpPresenter implements SignUpContract.Presenter {
 
-    SignUpContract.View signUpView;
-    SignUpModel signUpModel;
+    private SignUpContract.View signUpView;
+    private SignUpModel signUpModel;
 
     public SignUpPresenter(@NonNull SignUpContract.View signUpView) {
         this.signUpView = signUpView;
+        this.signUpModel = new SignUpModel();
     }
 
     @Override
     public void callSignUp(@NonNull SignUpDto signUpDto) {
-        signUpModel.setUserData(signUpDto);
+        signUpModel.setSignUpData(signUpDto);
         if (signUpModel.checkData()) {
             signUpModel.callSignUp(new SignUpModel.ApiListener() {
                 @Override

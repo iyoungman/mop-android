@@ -1,15 +1,12 @@
 package com.youngman.mop.model.dto;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 /**
  * Created by YoungMan on 2019-04-28.
  */
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class SignUpDto {
     private String id;
