@@ -1,6 +1,7 @@
 package com.youngman.mop.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,12 +21,12 @@ import com.youngman.mop.util.ToastUtils;
 public class ClubListActivity extends AppCompatActivity implements ClubListContract.View {
 
     private Context context;
+    private RecyclerView recyclerView;
     private EditText etSearchClubList;
     private Button btnSearchClubList;
-    private RecyclerView recyclerView;
     private ClubListAdapter clubListAdapter;
 
-    ClubListPresenter presenter;
+    ClubListContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,8 @@ public class ClubListActivity extends AppCompatActivity implements ClubListContr
         setContentView(R.layout.activity_clublist);
         initView();
         presenter = new ClubListPresenter(this);
+        presenter.setClubListAdapterView(clubListAdapter);
+        presenter.setClubListAdapterModel(clubListAdapter);
         presenter.callClubListByUserInfo(SignUtils.readUserIdFromPref(context));
     }
 
@@ -63,5 +66,12 @@ public class ClubListActivity extends AppCompatActivity implements ClubListContr
     @Override
     public void showErrorMessage(@NonNull String message) {
         ToastUtils.showToast(context, message);
+    }
+
+    @Override
+    public void startClubActivity(@NonNull String clubId) {
+        Intent intent = new Intent(context, ClubActivity.class);
+        intent.putExtra("EXTRA_CLUB_ID", clubId);
+        startActivity(intent);
     }
 }

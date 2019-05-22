@@ -19,9 +19,10 @@ import retrofit2.Response;
 
 public class ClubListModel {
 
+    private final int PAGE_SIZE = 48;
     private List<ClubModel> clubModelList = new ArrayList<>();
 
-    public void callClubListByUserInfo(@NonNull String userId, @NonNull final ListApiListener listener) {
+    public void callClubListByUserInfo(@NonNull String userId, @NonNull int pageNum, @NonNull final ListApiListener listener) {
         Call<List<ClubModel>> result = NetRetrofit.getInstance().getNetRetrofitInterface().callClubListByUserInfo(userId);
         result.enqueue(new Callback<List<ClubModel>>() {
             @Override
@@ -40,7 +41,7 @@ public class ClubListModel {
         });
     }
 
-    public void callClubListBySearch(@NonNull String searchClub, @NonNull final ListApiListener listener) {
+    public void callClubListBySearch(@NonNull String searchClub, @NonNull int pageSize, @NonNull final ListApiListener listener) {
         Call<List<ClubModel>> result = NetRetrofit.getInstance().getNetRetrofitInterface().callClubListBySearch(searchClub);
         result.enqueue(new Callback<List<ClubModel>>() {
             @Override

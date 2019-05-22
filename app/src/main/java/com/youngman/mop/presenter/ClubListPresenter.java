@@ -6,6 +6,7 @@ import com.youngman.mop.adapter.ClubListAdapter;
 import com.youngman.mop.adapter.contract.ClubListAdapterContract;
 import com.youngman.mop.adapter.contract.MyClubAdapterContract;
 import com.youngman.mop.contract.ClubListContract;
+import com.youngman.mop.listener.OnClubListItemClickListener;
 import com.youngman.mop.model.domain.ClubListModel;
 import com.youngman.mop.model.dto.ClubListDto;
 
@@ -13,7 +14,7 @@ import com.youngman.mop.model.dto.ClubListDto;
  * Created by YoungMan on 2019-05-03.
  */
 
-public class ClubListPresenter implements ClubListContract.Presenter {
+public class ClubListPresenter implements ClubListContract.Presenter, OnClubListItemClickListener {
 
     private ClubListContract.View clubListView;
     private ClubListModel clubListModel;
@@ -56,12 +57,18 @@ public class ClubListPresenter implements ClubListContract.Presenter {
     }
 
     @Override
-    public void setMyClubAdapterView(@NonNull ClubListAdapterContract.View adapterView) {
+    public void onStartClubClick(@NonNull int position) {
+        String clubId = adapterModel.getItem(position).getId();
+        clubListView.startClubActivity(clubId);
+    }
+
+    @Override
+    public void setClubListAdapterView(@NonNull ClubListAdapterContract.View adapterView) {
         this.adapterView = adapterView;
     }
 
     @Override
-    public void setMyClubAdapterModel(@NonNull ClubListAdapterContract.Model adapterModel) {
+    public void setClubListAdapterModel(@NonNull ClubListAdapterContract.Model adapterModel) {
         this.adapterModel = adapterModel;
     }
 }

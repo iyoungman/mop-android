@@ -34,9 +34,26 @@ public class ClubListAdapter extends RecyclerView.Adapter<ClubListViewHolder> im
         this.onClubListItemClickListener = onClubListItemClickListener;
     }
 
+    /*public void addInitItems(@NonNull List<ClubDto> initClubDtoList) {
+        clubDtoList.clear();
+        clubDtoList.addAll(initClubDtoList);
+    }*/
+
+    /*public void addMoreItems(@NonNull List<ClubDto> moreClubDtoList) {
+        clubDtoList.addAll(moreClubDtoList);
+    }
+
+    public void notifyAdapterRange() {
+        notifyItemRangeChanged(0, clubDtoList.size() - 1);
+    }*/
+
+   /* public void notiftAdapterDataSet() {
+        notifyDataSetChanged();
+    }*/
+
     @Override
     public void addItems(@NonNull List<ClubDto> clubDtoList) {
-        this.clubDtoList = clubDtoList;
+        this.clubDtoList.addAll(clubDtoList);
     }
 
     @Override

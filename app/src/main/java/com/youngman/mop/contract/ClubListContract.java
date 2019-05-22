@@ -13,11 +13,12 @@ public interface ClubListContract {
 
     interface View {
         void showErrorMessage(@NonNull String message);
+        void startClubActivity(@NonNull String clubId);
     }
 
     interface Presenter {
-        void setMyClubAdapterView(@NonNull ClubListAdapterContract.View adapterView);
-        void setMyClubAdapterModel(@NonNull ClubListAdapterContract.Model adapterModel);
+        void setClubListAdapterView(@NonNull ClubListAdapterContract.View adapterView);
+        void setClubListAdapterModel(@NonNull ClubListAdapterContract.Model adapterModel);
         void callClubListByUserInfo(@NonNull String userId);
         void callClubListBySearch(@NonNull String searchClub);
     }
