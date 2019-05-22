@@ -19,3 +19,7 @@
 
 ## Design Pattern
 * [Android Architecture Blueprints [beta] - MVP + Clean Architecture](https://github.com/googlesamples/android-architecture/tree/todo-mvp-clean/)
+
+## Test
+* TDD(Test-Driven Development) 방식
+* JUnit + Mockito 
