@@ -30,6 +30,7 @@ public class MyClubViewHolder extends RecyclerView.ViewHolder {
     public MyClubViewHolder(@NonNull Context context,
                             @NonNull ViewGroup parent,
                             @NonNull OnMyClubItemClickListener onMyClubItemClickListener) {
+
         super(LayoutInflater.from(context).inflate(R.layout.item_myclub, parent, false));
         this.context = context;
         this.tvMyClubName = itemView.findViewById(R.id.tv_myclub_name);
@@ -40,6 +41,10 @@ public class MyClubViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBind(@NonNull ClubDto clubDto, @NonNull final Integer position) {
+
+        tvMyClubName.setText(clubDto.getName());
+        tvMyClubRecentSchedule.setText(clubDto.getUpComingMeeting() + clubDto.getUpComingMeetingDate());
+
         btnMyClubDelete.setOnClickListener(view -> {
             onMyClubItemClickListener.onDeleteMyClubClick(position);
         });

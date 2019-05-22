@@ -1,14 +1,14 @@
 package com.youngman.mop.model.dto;
 
+import android.support.annotation.NonNull;
+
 import com.youngman.mop.model.domain.ClubModel;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 /**
  * Created by YoungMan on 2019-05-01.
@@ -17,16 +17,15 @@ import lombok.NoArgsConstructor;
 @Getter
 public class MyClubDto {
 
-    private List<ClubDto> clubDtos;
+    private List<ClubDto> clubDtoList;
 
     @Builder
-    public MyClubDto(List<ClubDto> clubDtos) {
-        this.clubDtos = clubDtos;
+    public MyClubDto(@NonNull List<ClubDto> clubDtoList) {
+        this.clubDtoList = clubDtoList;
     }
 
-    public static MyClubDto of(List<ClubModel> clubModels) {
-        return new MyClubDto(clubModels
-                .stream()
+    public static MyClubDto of(@NonNull List<ClubModel> clubModelList) {
+        return new MyClubDto(clubModelList.stream()
                 .map(ClubDto::of)
                 .collect(Collectors.toList()));
     }

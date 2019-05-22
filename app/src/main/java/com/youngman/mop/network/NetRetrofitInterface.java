@@ -12,6 +12,7 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -27,9 +28,15 @@ public interface NetRetrofitInterface {
     @POST("mop/singup")
     Call<Boolean> callSingUp(@Body Map<String, String> signUpParams);
 
-    @POST("mop/myclub")
-    Call<List<ClubModel>> callClubList(@Body String userId);
+    @GET("mop/myclub/userid/{userId}")
+    Call<List<ClubModel>> callMyClubList(@Path("userId") String userId);
 
     @DELETE("mop/myclub/{id}")
     Call<Boolean> deleteMyClub(@Path("id") String id);
+
+    @GET("mop/clublist/search/{searchClub}")
+    Call<List<ClubModel>> callClubListBySearch(@Path("searchClub") String searchClub);
+
+    @GET("mop/clublist/userid/{userId}")
+    Call<List<ClubModel>> callClubListByUserInfo(@Path("userId") String userId);
 }

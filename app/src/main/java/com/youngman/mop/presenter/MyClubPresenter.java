@@ -25,21 +25,11 @@ public class MyClubPresenter implements MyClubContract.Presenter, OnMyClubItemCl
     }
 
     @Override
-    public void setMyClubAdapterView(@NonNull MyClubAdapterContract.View adapterView) {
-        this.adapterView = adapterView;
-    }
-
-    @Override
-    public void setMyClubAdapterModel(@NonNull MyClubAdapterContract.Model adapterModel) {
-        this.adapterModel = adapterModel;
-    }
-
-    @Override
     public void callMyClubList(@NonNull String userId) {
             myClubModel.callMyClubList(userId, new MyClubModel.ListApiListener() {
                 @Override
                 public void onSuccess(MyClubDto myClubDto) {
-                    adapterModel.addItems(myClubDto.getClubDtos());
+                    adapterModel.addItems(myClubDto.getClubDtoList());
                     adapterView.notifyAdapter();
                 }
                 @Override
@@ -52,7 +42,7 @@ public class MyClubPresenter implements MyClubContract.Presenter, OnMyClubItemCl
     @Override
     public void onDeleteMyClubClick(@NonNull int position) {
         String myClubId = adapterModel.getItem(position).getId();
-        myClubModel.callDeleteMyClubModel(myClubId, new MyClubModel.DeleteApiListener() {
+        myClubModel.callDeleteMyClubModel(position, myClubId, new MyClubModel.DeleteApiListener() {
             @Override
             public void onSuccess() {
                 adapterModel.deleteItem(position);
@@ -69,5 +59,15 @@ public class MyClubPresenter implements MyClubContract.Presenter, OnMyClubItemCl
     public void onStartMyClubClick(@NonNull int position) {
         String myClubId = adapterModel.getItem(position).getId();
         myClubView.startClubActivity(myClubId);
+    }
+
+    @Override
+    public void setMyClubAdapterView(@NonNull MyClubAdapterContract.View adapterView) {
+        this.adapterView = adapterView;
+    }
+
+    @Override
+    public void setMyClubAdapterModel(@NonNull MyClubAdapterContract.Model adapterModel) {
+        this.adapterModel = adapterModel;
     }
 }

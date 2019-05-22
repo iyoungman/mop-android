@@ -18,15 +18,15 @@ import retrofit2.Response;
 
 public class MyClubModel {
 
-    private List<ClubModel> clubModels = new ArrayList<>();
+    private List<ClubModel> clubModelList = new ArrayList<>();
 
     public void callMyClubList(@NonNull String userId, @NonNull final ListApiListener listener) {
-        Call<List<ClubModel>> result = NetRetrofit.getInstance().getNetRetrofitInterface().callClubList(userId);
+        Call<List<ClubModel>> result = NetRetrofit.getInstance().getNetRetrofitInterface().callMyClubList(userId);
         result.enqueue(new Callback<List<ClubModel>>() {
             @Override
             public void onResponse(Call<List<ClubModel>> call, Response<List<ClubModel>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    clubModels = response.body();
+                    clubModelList = response.body();
                     listener.onSuccess(modelToDto());
                     return;
                 }
@@ -39,12 +39,15 @@ public class MyClubModel {
         });
     }
 
-    public void callDeleteMyClubModel(@NonNull String userId, @NonNull final DeleteApiListener listener) {
+    public void callDeleteMyClubModel(@NonNull int position,
+                                      @NonNull String userId,
+                                      @NonNull final DeleteApiListener listener) {
         Call<Boolean> result = NetRetrofit.getInstance().getNetRetrofitInterface().deleteMyClub(userId);
         result.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (response.isSuccessful() && response.body()) {
+                    clubModelList.remove(position);
                     listener.onSuccess();
                     return;
                 }
@@ -58,7 +61,7 @@ public class MyClubModel {
     }
 
     private MyClubDto modelToDto() {
-        return MyClubDto.of(clubModels);
+        return MyClubDto.of(clubModelList);
     }
 
     public interface ListApiListener {

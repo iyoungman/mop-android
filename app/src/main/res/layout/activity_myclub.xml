@@ -6,9 +6,15 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_myclub"
+        android:id="@+id/rv_myclublist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="GridLayoutManager"/>
+
+    <Button
+        android:id="@+id/btn_start_clublist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 </LinearLayout>

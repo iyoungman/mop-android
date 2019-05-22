@@ -13,6 +13,7 @@ public class ClubModel {
     private String name;
     private String introduce;
     private String createDate;//생성날짜
+    private String region;
     private String hobby;
     private String upComingMeeting;//다가오는 모임
     private String upComingMeetingDate;//다가오는 모임 날짜

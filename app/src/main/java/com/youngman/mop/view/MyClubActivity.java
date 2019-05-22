@@ -12,8 +12,6 @@ import android.widget.Button;
 import com.youngman.mop.R;
 import com.youngman.mop.adapter.MyClubAdapter;
 import com.youngman.mop.contract.MyClubContract;
-import com.youngman.mop.model.domain.MyClubModel;
-import com.youngman.mop.model.dto.MyClubDto;
 import com.youngman.mop.presenter.MyClubPresenter;
 import com.youngman.mop.util.SignUtils;
 import com.youngman.mop.util.ToastUtils;
@@ -22,6 +20,7 @@ public class MyClubActivity extends AppCompatActivity implements MyClubContract.
 
     private Context context;
     private RecyclerView recyclerView;
+    private Button btnStartClubList;
     private MyClubAdapter myClubAdapter;
 
     MyClubContract.Presenter presenter;
@@ -39,11 +38,16 @@ public class MyClubActivity extends AppCompatActivity implements MyClubContract.
 
     private void initView() {
         context = getApplicationContext();
-        recyclerView = (RecyclerView) findViewById(R.id.rv_myclub);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_myclublist);
+        btnStartClubList = (Button) findViewById(R.id.btn_start_clublist);
 
         myClubAdapter = new MyClubAdapter(context);
         recyclerView.setAdapter(myClubAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+
+        btnStartClubList.setOnClickListener(view -> {
+            startClubListActivity();
+        });
     }
 
     @Override
@@ -51,7 +55,6 @@ public class MyClubActivity extends AppCompatActivity implements MyClubContract.
         ToastUtils.showToast(context, message);
     }
 
-    @Override
     public void startClubListActivity() {
         Intent intent = new Intent(context, ClubListActivity.class);
         startActivity(intent);
