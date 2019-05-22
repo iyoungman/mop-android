@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    android:id="@+id/itemCustomerLayout">
+
+    <!--콜 체크 - 사용안함-->
+    <ImageView
+        android:id="@+id/iv_club_img"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="0.2"
+        android:padding="5dp" />
+    <!--android:src="@drawable/img_profile_grey"-->
+
+    <!--이름, 이메일, 핸드폰 TextView-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.15" />
+
+        <TextView
+            android:id="@+id/tv_club_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
+            android:textColor="@color/md_grey_600"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/tv_club_region"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:textColor="@color/md_grey_500"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tv_club_hobby"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:textColor="@color/md_black_1000"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1" />
+
+    </LinearLayout>
+
+    <!--공백-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.12" />
+
+    <!--카운트-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.18"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/callCountTextView"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:gravity="center"
+            android:textColor="@color/md_grey_600"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
