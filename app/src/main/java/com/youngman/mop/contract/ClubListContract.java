@@ -19,7 +19,7 @@ public interface ClubListContract {
     interface Presenter {
         void setClubListAdapterView(@NonNull ClubListAdapterContract.View adapterView);
         void setClubListAdapterModel(@NonNull ClubListAdapterContract.Model adapterModel);
-        void callClubListByUserInfo(@NonNull String userId);
-        void callClubListBySearch(@NonNull String searchClub);
+        void callClubListByUserInfo(@NonNull String userId, @NonNull Integer pageNum);
+//        void callClubListBySearch(@NonNull String searchClub);
     }
 }

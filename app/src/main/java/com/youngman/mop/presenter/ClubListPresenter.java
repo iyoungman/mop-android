@@ -27,12 +27,13 @@ public class ClubListPresenter implements ClubListContract.Presenter, OnClubList
     }
 
     @Override
-    public void callClubListByUserInfo(@NonNull String userId) {
-        clubListModel.callClubListByUserInfo(userId, new ClubListModel.ListApiListener() {
+    public void callClubListByUserInfo(@NonNull String userId, @NonNull Integer pageNo) {
+        clubListModel.callClubListByUserInfo(userId, pageNo, new ClubListModel.ListApiListener() {
             @Override
             public void onSuccess(ClubListDto clubListDto) {
                 adapterModel.addItems(clubListDto.getClubDtoList());
                 adapterView.notifyAdapter();
+                adapterModel.setMoreLoading(false);///////////////////////////////////////
             }
             @Override
             public void onFail(String message) {
@@ -41,7 +42,7 @@ public class ClubListPresenter implements ClubListContract.Presenter, OnClubList
         });
     }
 
-    @Override
+    /*@Override
     public void callClubListBySearch(@NonNull String searchClub) {
         clubListModel.callClubListBySearch(searchClub, new ClubListModel.ListApiListener() {
             @Override
@@ -54,7 +55,7 @@ public class ClubListPresenter implements ClubListContract.Presenter, OnClubList
                 clubListView.showErrorMessage(message);
             }
         });
-    }
+    }*/
 
     @Override
     public void onStartClubClick(@NonNull int position) {

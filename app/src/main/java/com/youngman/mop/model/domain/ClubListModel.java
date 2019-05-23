@@ -7,7 +7,9 @@ import com.youngman.mop.model.dto.MyClubDto;
 import com.youngman.mop.network.NetRetrofit;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,11 +21,17 @@ import retrofit2.Response;
 
 public class ClubListModel {
 
-    private final int PAGE_SIZE = 48;
+    private final int PAGE_SIZE = 24;
     private List<ClubModel> clubModelList = new ArrayList<>();
 
-    public void callClubListByUserInfo(@NonNull String userId, @NonNull int pageNum, @NonNull final ListApiListener listener) {
-        Call<List<ClubModel>> result = NetRetrofit.getInstance().getNetRetrofitInterface().callClubListByUserInfo(userId);
+    public void callClubListByUserInfo(@NonNull String userId, @NonNull Integer pageNo, @NonNull final ListApiListener listener) {
+
+        Map<String, Object> clubListParams = new HashMap<>();
+        clubListParams.put("userId", userId);
+        clubListParams.put("pageSize", PAGE_SIZE);
+        clubListParams.put("pageNo", pageNo);
+
+        Call<List<ClubModel>> result = NetRetrofit.getInstance().getNetRetrofitInterface().callClubListByUserInfo(clubListParams);
         result.enqueue(new Callback<List<ClubModel>>() {
             @Override
             public void onResponse(Call<List<ClubModel>> call, Response<List<ClubModel>> response) {
@@ -41,7 +49,7 @@ public class ClubListModel {
         });
     }
 
-    public void callClubListBySearch(@NonNull String searchClub, @NonNull int pageSize, @NonNull final ListApiListener listener) {
+    /*public void callClubListBySearch(@NonNull String searchClub, @NonNull int pageSize, @NonNull final ListApiListener listener) {
         Call<List<ClubModel>> result = NetRetrofit.getInstance().getNetRetrofitInterface().callClubListBySearch(searchClub);
         result.enqueue(new Callback<List<ClubModel>>() {
             @Override
@@ -58,7 +66,7 @@ public class ClubListModel {
                 listener.onFail("통신에 실패하였습니다.");
             }
         });
-    }
+    }*/
 
     private ClubListDto modelToDto() {
         return ClubListDto.of(clubModelList);

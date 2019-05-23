@@ -37,6 +37,6 @@ public interface NetRetrofitInterface {
     @GET("mop/clublist/search/{searchClub}")
     Call<List<ClubModel>> callClubListBySearch(@Path("searchClub") String searchClub);
 
-    @GET("mop/clublist/userid/{userId}")
-    Call<List<ClubModel>> callClubListByUserInfo(@Path("userId") String userId);
+    @POST("mop/clublist/userid/")
+    Call<List<ClubModel>> callClubListByUserInfo(@Body Map<String, Object> clubListParams);
 }

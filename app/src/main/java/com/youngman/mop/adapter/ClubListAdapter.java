@@ -2,6 +2,7 @@ package com.youngman.mop.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -10,11 +11,13 @@ import com.youngman.mop.adapter.contract.MyClubAdapterContract;
 import com.youngman.mop.adapter.holder.ClubListViewHolder;
 import com.youngman.mop.adapter.holder.MyClubViewHolder;
 import com.youngman.mop.listener.OnClubListItemClickListener;
+import com.youngman.mop.listener.OnLoadMoreListener;
 import com.youngman.mop.listener.OnMyClubItemClickListener;
 import com.youngman.mop.model.dto.ClubDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Created by YoungMan on 2019-05-03.
@@ -25,13 +28,44 @@ public class ClubListAdapter extends RecyclerView.Adapter<ClubListViewHolder> im
     private Context context;
     private List<ClubDto> clubDtoList = new ArrayList<>();
     private OnClubListItemClickListener onClubListItemClickListener;
+    private OnLoadMoreListener onLoadMoreListener;
+    private LinearLayoutManager linearLayoutManager;
 
-    public ClubListAdapter(Context context) {
+    private boolean isMoreLoading = false;
+
+    public ClubListAdapter(Context context, OnLoadMoreListener onLoadMoreListener) {
         this.context = context;
+        this.onLoadMoreListener = onLoadMoreListener;
     }
 
     public void setOnClubListItemClickListener(@NonNull OnClubListItemClickListener onClubListItemClickListener) {
         this.onClubListItemClickListener = onClubListItemClickListener;
+    }
+
+    public void setLinearLayoutManager(LinearLayoutManager linearLayoutManager) {
+        this.linearLayoutManager = linearLayoutManager;
+    }
+
+    public void setRecyclerView(RecyclerView recyclerView) {
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (isVisibleLastItem(recyclerView)) {
+                    if (onLoadMoreListener != null) {
+                        onLoadMoreListener.onLoadMore();
+                    }
+                    isMoreLoading = true;
+                }
+            }
+        });
+    }
+
+    private boolean isVisibleLastItem(RecyclerView recyclerView) {
+        return  !isMoreLoading && (linearLayoutManager.getItemCount() - recyclerView.getChildCount())
+                <= (linearLayoutManager.findFirstVisibleItemPosition() + 1);
     }
 
     /*public void addInitItems(@NonNull List<ClubDto> initClubDtoList) {
@@ -80,5 +114,10 @@ public class ClubListAdapter extends RecyclerView.Adapter<ClubListViewHolder> im
     public void onBindViewHolder(final ClubListViewHolder holder, int position) {
         if (holder == null) return;
         holder.onBind(clubDtoList.get(position), position);
+    }
+
+    @Override
+    public void setMoreLoading(@NonNull Boolean isMoreLoading) {
+        this.isMoreLoading = isMoreLoading;
     }
 }

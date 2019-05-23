@@ -25,5 +25,7 @@ public interface ClubListAdapterContract {
         ClubDto getItem(@NonNull Integer position);
 
         void addItems(@NonNull List<ClubDto> clubDtoList);
+
+        void setMoreLoading(@NonNull Boolean isMoreLoading);
     }
 }
