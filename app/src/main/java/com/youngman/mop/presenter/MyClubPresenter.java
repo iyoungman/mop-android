@@ -40,9 +40,9 @@ public class MyClubPresenter implements MyClubContract.Presenter, OnMyClubItemCl
     }
 
     @Override
-    public void onDeleteMyClubClick(@NonNull int position) {
-        String myClubId = adapterModel.getItem(position).getId();
-        myClubModel.callDeleteMyClubModel(position, myClubId, new MyClubModel.DeleteApiListener() {
+    public void onDeleteMyClubClick(@NonNull String email, @NonNull int position) {
+        Long clubId = adapterModel.getItem(position).getClubId();
+        myClubModel.callDeleteMyClubModel(email, clubId, position, new MyClubModel.DeleteApiListener() {
             @Override
             public void onSuccess() {
                 adapterModel.deleteItem(position);
@@ -57,8 +57,8 @@ public class MyClubPresenter implements MyClubContract.Presenter, OnMyClubItemCl
 
     @Override
     public void onStartMyClubClick(@NonNull int position) {
-        String myClubId = adapterModel.getItem(position).getId();
-        myClubView.startClubActivity(myClubId);
+        Long clubId = adapterModel.getItem(position).getClubId();
+        myClubView.startClubActivity(clubId);
     }
 
     @Override

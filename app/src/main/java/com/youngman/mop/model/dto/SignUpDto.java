@@ -12,19 +12,19 @@ import lombok.Getter;
 @Getter
 public class SignUpDto {
 
-    private String id;
+    private String email;
     private String pw;
     private String name;
     private String mobile;
     private String hobby;
 
     @Builder
-    public SignUpDto(@NonNull String id,
+    public SignUpDto(@NonNull String email,
                      @NonNull String pw,
                      @NonNull String name,
                      @NonNull String mobile,
                      @NonNull String hobby) {
-        this.id = id;
+        this.email = email;
         this.pw = pw;
         this.name = name;
         this.mobile = mobile;

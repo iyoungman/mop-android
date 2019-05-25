@@ -2,6 +2,9 @@ package com.youngman.mop.model.dto;
 
 import com.youngman.mop.model.domain.ClubModel;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -13,44 +16,40 @@ import lombok.NonNull;
 @Getter
 public class ClubDto {
 
-    private String id;
+    private Long clubId;
     private String name;
     private String introduce;
     private String createDate;
     private String region;
     private String hobby;
-    private String upComingMeeting;
     private String upComingMeetingDate;
 
     @Builder
-    public ClubDto(@NonNull String id,
+    public ClubDto(@NonNull Long clubId,
                    @NonNull String name,
                    @NonNull String introduce,
                    @NonNull String createDate,
                    @NonNull String region,
                    @NonNull String hobby,
-                   @NonNull String upComingMeeting,
                    @NonNull String upComingMeetingDate) {
 
-        this.id = id;
+        this.clubId = clubId;
         this.name = name;
         this.introduce = introduce;
         this.createDate = createDate;
         this.region = region;
         this.hobby = hobby;
-        this.upComingMeeting = upComingMeeting;
         this.upComingMeetingDate = upComingMeetingDate;
     }
 
     public static ClubDto of(@NonNull ClubModel clubModel) {
         return ClubDto.builder()
-                .id(clubModel.getId())
+                .clubId(clubModel.getClubId())
                 .name(clubModel.getName())
                 .introduce(clubModel.getIntroduce())
                 .createDate(clubModel.getCreateDate())
                 .region(clubModel.getRegion())
                 .hobby(clubModel.getHobby())
-                .upComingMeeting(clubModel.getUpComingMeeting())
                 .upComingMeetingDate(clubModel.getUpComingMeetingDate())
                 .build();
     }

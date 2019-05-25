@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.youngman.mop.R;
 import com.youngman.mop.listener.OnMyClubItemClickListener;
 import com.youngman.mop.model.dto.ClubDto;
+import com.youngman.mop.util.SignUtils;
 
 /**
  * Created by YoungMan on 2019-05-01.
@@ -43,10 +44,10 @@ public class MyClubViewHolder extends RecyclerView.ViewHolder {
     public void onBind(@NonNull ClubDto clubDto, @NonNull final Integer position) {
 
         tvMyClubName.setText(clubDto.getName());
-        tvMyClubRecentSchedule.setText(clubDto.getUpComingMeeting() + clubDto.getUpComingMeetingDate());
+        tvMyClubRecentSchedule.setText(clubDto.getUpComingMeetingDate().toString());
 
         btnMyClubDelete.setOnClickListener(view -> {
-            onMyClubItemClickListener.onDeleteMyClubClick(position);
+            onMyClubItemClickListener.onDeleteMyClubClick(SignUtils.readUserIdFromPref(context), position);
         });
 
         ivMyClub.setOnClickListener(view -> {

@@ -13,13 +13,13 @@ public interface ClubListContract {
 
     interface View {
         void showErrorMessage(@NonNull String message);
-        void startClubActivity(@NonNull String clubId);
+        void startClubActivity(@NonNull Long clubId);
     }
 
     interface Presenter {
         void setClubListAdapterView(@NonNull ClubListAdapterContract.View adapterView);
         void setClubListAdapterModel(@NonNull ClubListAdapterContract.Model adapterModel);
-        void callClubListByUserInfo(@NonNull String userId, @NonNull Integer pageNum);
-//        void callClubListBySearch(@NonNull String searchClub);
+        void callClubListByUserInfo(@NonNull String email, @NonNull Integer pageNum);
+//        void callPagingClubsBySearch(@NonNull String searchClub);
     }
 }

@@ -2,7 +2,6 @@ package com.youngman.mop.model.domain;
 
 import android.support.annotation.NonNull;
 
-import com.youngman.mop.model.dto.MyClubDto;
 import com.youngman.mop.network.NetRetrofit;
 
 import java.util.HashMap;
@@ -20,16 +19,19 @@ import retrofit2.Response;
 
 public class SignInModel {
 
-    private String id;
+    private String email;
     private String pw;
 
-    public void setSignInData(@NonNull String id, @NonNull String pw) {
-        this.id = id;
+    public void setSignInData(@NonNull String email, @NonNull String pw) {
+        this.email = email;
         this.pw = pw;
     }
 
+    /**
+     * email, pw 가 빈 문자열인지 검사
+     */
     public boolean checkData() {
-        long count =  Stream.of(id, pw)
+        long count =  Stream.of(email, pw)
                 .filter(data -> !data.isEmpty())
                 .count();
         Predicate<Long> isAllNonNull = cnt -> cnt == 2;
@@ -38,16 +40,12 @@ public class SignInModel {
 
     public void callSignIn(@NonNull final ApiListener listener) {
 
-        Map<String, String> signInParams = new HashMap<>();
-        signInParams.put("id", id);
-        signInParams.put("pw", pw);
-
-        Call<Boolean> result = NetRetrofit.getInstance().getNetRetrofitInterface().callSingIn(signInParams);
+        Call<Boolean> result = NetRetrofit.getInstance().getNetRetrofitInterface().callSingIn(makeParams());
         result.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if(response.isSuccessful() && response.body() != null) {
-                    listener.onSuccess(id);
+                    listener.onSuccess(email);
                     return;
                 }
                 listener.onFail("로그인에 실패하였습니다.");
@@ -60,8 +58,16 @@ public class SignInModel {
         });
     }
 
+    private Map<String, String> makeParams() {
+        Map<String, String> signInParams = new HashMap<>();
+        signInParams.put("email", email);
+        signInParams.put("pw", pw);
+
+        return signInParams;
+    }
+
     public interface ApiListener {
-        void onSuccess(String userId);
+        void onSuccess(String email);
         void onFail(String message);
     }
 }

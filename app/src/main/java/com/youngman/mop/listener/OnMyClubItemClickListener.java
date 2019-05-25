@@ -5,7 +5,7 @@ package com.youngman.mop.listener;
  */
 
 public interface OnMyClubItemClickListener {
-    void onDeleteMyClubClick(int position);
+    void onDeleteMyClubClick(String email, int position);
 //    void onAddMyClubClick(int position);
     void onStartMyClubClick(int position);
 }

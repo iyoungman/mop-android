@@ -1,11 +1,10 @@
-package com.youngman.mop.view;
+package com.youngman.mop.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
@@ -62,7 +61,7 @@ public class MyClubActivity extends AppCompatActivity implements MyClubContract.
     }
 
     @Override
-    public void startClubActivity(@NonNull String clubId) {
+    public void startClubActivity(@NonNull Long clubId) {
         Intent intent = new Intent(context, ClubActivity.class);
         intent.putExtra("EXTRA_CLUB_ID", clubId);
         startActivity(intent);

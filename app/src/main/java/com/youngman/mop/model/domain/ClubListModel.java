@@ -1,9 +1,9 @@
 package com.youngman.mop.model.domain;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.youngman.mop.model.dto.ClubListDto;
-import com.youngman.mop.model.dto.MyClubDto;
 import com.youngman.mop.network.NetRetrofit;
 
 import java.util.ArrayList;
@@ -24,18 +24,16 @@ public class ClubListModel {
     private final int PAGE_SIZE = 24;
     private List<ClubModel> clubModelList = new ArrayList<>();
 
-    public void callClubListByUserInfo(@NonNull String userId, @NonNull Integer pageNo, @NonNull final ListApiListener listener) {
+    public void callClubListByUserInfo(@NonNull String email,
+                                       @NonNull Integer pageNo,
+                                       @NonNull final ListApiListener listener) {
 
-        Map<String, Object> clubListParams = new HashMap<>();
-        clubListParams.put("userId", userId);
-        clubListParams.put("pageSize", PAGE_SIZE);
-        clubListParams.put("pageNo", pageNo);
-
-        Call<List<ClubModel>> result = NetRetrofit.getInstance().getNetRetrofitInterface().callClubListByUserInfo(clubListParams);
+        Call<List<ClubModel>> result = NetRetrofit.getInstance().getNetRetrofitInterface().callPagingClubsByMember(makeParams(email, pageNo));
         result.enqueue(new Callback<List<ClubModel>>() {
             @Override
             public void onResponse(Call<List<ClubModel>> call, Response<List<ClubModel>> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    Log.d("CLub",String.valueOf(response.body().size()));
                     clubModelList = response.body();
                     listener.onSuccess(modelToDto());
                     return;
@@ -49,8 +47,16 @@ public class ClubListModel {
         });
     }
 
-    /*public void callClubListBySearch(@NonNull String searchClub, @NonNull int pageSize, @NonNull final ListApiListener listener) {
-        Call<List<ClubModel>> result = NetRetrofit.getInstance().getNetRetrofitInterface().callClubListBySearch(searchClub);
+    private Map makeParams(String email, Integer pageNo) {
+        Map<String, Object> pagingClubsByMemberParams = new HashMap<>();
+        pagingClubsByMemberParams.put("email", email);
+        pagingClubsByMemberParams.put("pageNo", pageNo);
+
+        return pagingClubsByMemberParams;
+    }
+
+    /*public void callPagingClubsBySearch(@NonNull String searchClub, @NonNull int pageSize, @NonNull final ListApiListener listener) {
+        Call<List<ClubModel>> result = NetRetrofit.getInstance().getNetRetrofitInterface().callPagingClubsBySearch(searchClub);
         result.enqueue(new Callback<List<ClubModel>>() {
             @Override
             public void onResponse(Call<List<ClubModel>> call, Response<List<ClubModel>> response) {
@@ -69,6 +75,8 @@ public class ClubListModel {
     }*/
 
     private ClubListDto modelToDto() {
+        ClubListDto c = ClubListDto.of(clubModelList);
+        Log.d("CLub",String.valueOf(c.getClubDtoList().size()));
         return ClubListDto.of(clubModelList);
     }
 

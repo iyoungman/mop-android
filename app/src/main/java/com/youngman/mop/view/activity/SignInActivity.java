@@ -1,4 +1,4 @@
-package com.youngman.mop.view;
+package com.youngman.mop.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -34,7 +34,7 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
 
     private void initView() {
         context = getApplicationContext();
-        etId = (EditText) findViewById(R.id.et_id);
+        etId = (EditText) findViewById(R.id.et_email);
         etPw = (EditText) findViewById(R.id.et_pw);
         btnSignIn = (Button) findViewById(R.id.btn_signin);
         btnStartSignUp = (Button) findViewById(R.id.btn_start_signup);

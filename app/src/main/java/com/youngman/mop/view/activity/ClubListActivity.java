@@ -1,4 +1,4 @@
-package com.youngman.mop.view;
+package com.youngman.mop.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,6 @@ import com.youngman.mop.adapter.ClubListAdapter;
 import com.youngman.mop.contract.ClubListContract;
 import com.youngman.mop.listener.OnLoadMoreListener;
 import com.youngman.mop.presenter.ClubListPresenter;
-import com.youngman.mop.util.EmptyCheckUtils;
 import com.youngman.mop.util.SignUtils;
 import com.youngman.mop.util.ToastUtils;
 
@@ -55,7 +54,7 @@ public class ClubListActivity extends AppCompatActivity implements ClubListContr
 
         /*btnSearchClubList.setOnClickListener(view -> {
             if (isNotEmpty())
-                presenter.callClubListBySearch(etSearchClubList.getText().toString());
+                presenter.callPagingClubsBySearch(etSearchClubList.getText().toString());
         });*/
     }
 
@@ -96,14 +95,14 @@ public class ClubListActivity extends AppCompatActivity implements ClubListContr
     }
 
     @Override
-    public void startClubActivity(@NonNull String clubId) {
+    public void startClubActivity(@NonNull Long clubId) {
         Intent intent = new Intent(context, ClubActivity.class);
         intent.putExtra("EXTRA_CLUB_ID", clubId);
         startActivity(intent);
     }
 
     private void startClubSearchActivity() {
-        Intent intent = new Intent(context, ClubSearchActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(context, ClubSearchActivity.class);
+//        startActivity(intent);
     }
 }

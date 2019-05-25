@@ -14,7 +14,7 @@ public interface MyClubContract {
 
     interface View {
         void showErrorMessage(@NonNull String message);
-        void startClubActivity(@NonNull String clubId);
+        void startClubActivity(@NonNull Long clubId);
     }
 
     interface Presenter {

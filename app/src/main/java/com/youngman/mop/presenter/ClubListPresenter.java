@@ -2,9 +2,7 @@ package com.youngman.mop.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.youngman.mop.adapter.ClubListAdapter;
 import com.youngman.mop.adapter.contract.ClubListAdapterContract;
-import com.youngman.mop.adapter.contract.MyClubAdapterContract;
 import com.youngman.mop.contract.ClubListContract;
 import com.youngman.mop.listener.OnClubListItemClickListener;
 import com.youngman.mop.model.domain.ClubListModel;
@@ -27,13 +25,13 @@ public class ClubListPresenter implements ClubListContract.Presenter, OnClubList
     }
 
     @Override
-    public void callClubListByUserInfo(@NonNull String userId, @NonNull Integer pageNo) {
-        clubListModel.callClubListByUserInfo(userId, pageNo, new ClubListModel.ListApiListener() {
+    public void callClubListByUserInfo(@NonNull String email, @NonNull Integer pageNo) {
+        clubListModel.callClubListByUserInfo(email, pageNo, new ClubListModel.ListApiListener() {
             @Override
             public void onSuccess(ClubListDto clubListDto) {
                 adapterModel.addItems(clubListDto.getClubDtoList());
                 adapterView.notifyAdapter();
-                adapterModel.setMoreLoading(false);///////////////////////////////////////
+                adapterModel.setMoreLoading(false);
             }
             @Override
             public void onFail(String message) {
@@ -43,8 +41,8 @@ public class ClubListPresenter implements ClubListContract.Presenter, OnClubList
     }
 
     /*@Override
-    public void callClubListBySearch(@NonNull String searchClub) {
-        clubListModel.callClubListBySearch(searchClub, new ClubListModel.ListApiListener() {
+    public void callPagingClubsBySearch(@NonNull String searchClub) {
+        clubListModel.callPagingClubsBySearch(searchClub, new ClubListModel.ListApiListener() {
             @Override
             public void onSuccess(ClubListDto clubListDto) {
                 adapterModel.addItems(clubListDto.getClubDtoList());
@@ -59,7 +57,7 @@ public class ClubListPresenter implements ClubListContract.Presenter, OnClubList
 
     @Override
     public void onStartClubClick(@NonNull int position) {
-        String clubId = adapterModel.getItem(position).getId();
+        Long clubId = adapterModel.getItem(position).getClubId();
         clubListView.startClubActivity(clubId);
     }
 

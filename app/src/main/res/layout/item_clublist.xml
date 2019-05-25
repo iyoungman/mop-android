@@ -4,10 +4,8 @@
     android:layout_height="100dp"
     android:background="@color/white"
     android:orientation="horizontal"
-    android:weightSum="1"
-    android:id="@+id/itemCustomerLayout">
+    android:weightSum="1">
 
-    <!--콜 체크 - 사용안함-->
     <ImageView
         android:id="@+id/iv_club_img"
         android:layout_width="0dp"
@@ -15,7 +13,6 @@
         android:layout_gravity="center"
         android:layout_weight="0.2"
         android:padding="5dp" />
-    <!--android:src="@drawable/img_profile_grey"-->
 
     <!--이름, 이메일, 핸드폰 TextView-->
     <LinearLayout
@@ -68,8 +65,7 @@
         android:layout_height="match_parent"
         android:layout_weight="0.12" />
 
-    <!--카운트-->
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.18"
@@ -83,6 +79,6 @@
             android:textColor="@color/md_grey_600"
             android:textSize="18dp" />
 
-    </LinearLayout>
+    </LinearLayout>-->
 
 </LinearLayout>

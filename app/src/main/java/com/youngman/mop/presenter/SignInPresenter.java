@@ -25,8 +25,8 @@ public class SignInPresenter implements SignInContract.Presenter {
         if(signInModel.checkData()) {
             signInModel.callSignIn(new SignInModel.ApiListener() {
                 @Override
-                public void onSuccess(String userId) {
-                    signInView.startMyClubActivity(userId);
+                public void onSuccess(String email) {
+                    signInView.startMyClubActivity(email);
                 }
                 @Override
                 public void onFail(String message) {

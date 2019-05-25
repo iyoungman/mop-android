@@ -1,4 +1,4 @@
-package com.youngman.mop.view;
+package com.youngman.mop.view.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

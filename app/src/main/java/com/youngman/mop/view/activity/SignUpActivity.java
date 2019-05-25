@@ -1,11 +1,9 @@
-package com.youngman.mop.view;
+package com.youngman.mop.view.activity;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -15,8 +13,6 @@ import com.youngman.mop.model.dto.SignUpDto;
 import com.youngman.mop.presenter.SignUpPresenter;
 import com.youngman.mop.util.ToastUtils;
 
-import butterknife.BindView;
-
 /**
  * Created by YoungMan on 2019-04-28.
  */
@@ -24,7 +20,7 @@ import butterknife.BindView;
 public class SignUpActivity extends Activity implements SignUpContract.View {
 
     private Context context;
-    private EditText etId;
+    private EditText etEmail;
     private EditText etPw;
     private EditText etName;
     private EditText etMobile;
@@ -43,7 +39,7 @@ public class SignUpActivity extends Activity implements SignUpContract.View {
 
     private void initView() {
         context = getApplicationContext();
-        etId = (EditText) findViewById(R.id.et_id);
+        etEmail = (EditText) findViewById(R.id.et_email);
         etPw = (EditText) findViewById(R.id.et_pw);
         etName = (EditText) findViewById(R.id.et_name);
         etMobile = (EditText) findViewById(R.id.et_mobile);
@@ -51,7 +47,7 @@ public class SignUpActivity extends Activity implements SignUpContract.View {
         btnSignUp = (Button) findViewById(R.id.btn_signup);
 
         btnSignUp.setOnClickListener(view -> presenter.callSignUp(SignUpDto.builder()
-                .id(etId.getText().toString())
+                .email(etEmail.getText().toString())
                 .pw(etPw.getText().toString())
                 .name(etName.getText().toString())
                 .mobile(etMobile.getText().toString())
