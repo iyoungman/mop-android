@@ -13,19 +13,13 @@ import java.util.List;
 public interface ClubListAdapterContract {
 
     interface View {
-//        void notifyAdapterRange();
-//        void notiftAdapterDataSet();
-
         void notifyAdapter();
     }
 
     interface Model {
-//        void addInitItems(@NonNull List<ClubDto> clubDtoList);
-//        void addMoreItems(@NonNull List<ClubDto> clubDtoList);
         ClubDto getItem(@NonNull Integer position);
-
         void addItems(@NonNull List<ClubDto> clubDtoList);
-
+        void setIsLast(@NonNull Boolean isLast);
         void setMoreLoading(@NonNull Boolean isMoreLoading);
     }
 }

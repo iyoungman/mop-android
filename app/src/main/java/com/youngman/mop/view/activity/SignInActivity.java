@@ -17,7 +17,7 @@ import com.youngman.mop.util.ToastUtils;
 public class SignInActivity extends AppCompatActivity implements SignInContract.View {
 
     private Context context;
-    private EditText etId;
+    private EditText etEmail;
     private EditText etPw;
     private Button btnSignIn;
     private Button btnStartSignUp;
@@ -34,12 +34,12 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
 
     private void initView() {
         context = getApplicationContext();
-        etId = (EditText) findViewById(R.id.et_email);
+        etEmail = (EditText) findViewById(R.id.et_email);
         etPw = (EditText) findViewById(R.id.et_pw);
         btnSignIn = (Button) findViewById(R.id.btn_signin);
         btnStartSignUp = (Button) findViewById(R.id.btn_start_signup);
 
-        btnSignIn.setOnClickListener(view -> presenter.callSignIn(etId.getText().toString(),
+        btnSignIn.setOnClickListener(view -> presenter.callSignIn(etEmail.getText().toString(),
                 etPw.getText().toString()
         ));
 
@@ -52,8 +52,8 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
     }
 
     @Override
-    public void startMyClubActivity(@NonNull String userId) {
-        SignUtils.writeUserIdToPref(context, userId);
+    public void startMyClubActivity(@NonNull String email) {
+        SignUtils.writeUserIdToPref(context, email);
 
         Intent intent = new Intent(context, MyClubActivity.class);
         startActivity(intent);

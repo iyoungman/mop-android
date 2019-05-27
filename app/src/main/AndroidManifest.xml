@@ -16,6 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".view.activity.ClubSearchActivity"></activity>
+        <activity android:name=".view.fragment.MainFragment" />
+        <activity android:name=".view.fragment.MapFragment" />
+        <activity android:name=".view.fragment.BoardFragment" />
+        <activity android:name=".view.fragment.ScheduleFragment" />
         <activity android:name=".view.activity.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

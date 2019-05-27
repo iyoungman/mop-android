@@ -7,17 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.youngman.mop.adapter.contract.ClubListAdapterContract;
-import com.youngman.mop.adapter.contract.MyClubAdapterContract;
 import com.youngman.mop.adapter.holder.ClubListViewHolder;
-import com.youngman.mop.adapter.holder.MyClubViewHolder;
 import com.youngman.mop.listener.OnClubListItemClickListener;
 import com.youngman.mop.listener.OnLoadMoreListener;
-import com.youngman.mop.listener.OnMyClubItemClickListener;
 import com.youngman.mop.model.dto.ClubDto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 /**
  * Created by YoungMan on 2019-05-03.
@@ -26,12 +22,14 @@ import java.util.function.Predicate;
 public class ClubListAdapter extends RecyclerView.Adapter<ClubListViewHolder> implements ClubListAdapterContract.View, ClubListAdapterContract.Model {
 
     private Context context;
-    private List<ClubDto> clubDtoList = new ArrayList<>();
+    private List<ClubDto> clubDtos = new ArrayList<>();
     private OnClubListItemClickListener onClubListItemClickListener;
     private OnLoadMoreListener onLoadMoreListener;
     private LinearLayoutManager linearLayoutManager;
 
     private boolean isMoreLoading = false;
+    private boolean isLast = false;
+
 
     public ClubListAdapter(Context context, OnLoadMoreListener onLoadMoreListener) {
         this.context = context;
@@ -47,13 +45,12 @@ public class ClubListAdapter extends RecyclerView.Adapter<ClubListViewHolder> im
     }
 
     public void setRecyclerView(RecyclerView recyclerView) {
-
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+            public void onScrolled(RecyclerView rv, int dx, int dy) {
+                super.onScrolled(rv, dx, dy);
 
-                if (isVisibleLastItem(recyclerView)) {
+                if (isVisibleLastItem(rv)) {
                     if (onLoadMoreListener != null) {
                         onLoadMoreListener.onLoadMore();
                     }
@@ -64,40 +61,23 @@ public class ClubListAdapter extends RecyclerView.Adapter<ClubListViewHolder> im
     }
 
     private boolean isVisibleLastItem(RecyclerView recyclerView) {
-        return  !isMoreLoading && (linearLayoutManager.getItemCount() - recyclerView.getChildCount())
-                <= (linearLayoutManager.findFirstVisibleItemPosition() + 1);
+        return (!isLast && !isMoreLoading && (linearLayoutManager.getItemCount() - recyclerView.getChildCount())
+                <= (linearLayoutManager.findFirstVisibleItemPosition() + 1));
     }
-
-    /*public void addInitItems(@NonNull List<ClubDto> initClubDtoList) {
-        clubDtoList.clear();
-        clubDtoList.addAll(initClubDtoList);
-    }*/
-
-    /*public void addMoreItems(@NonNull List<ClubDto> moreClubDtoList) {
-        clubDtoList.addAll(moreClubDtoList);
-    }
-
-    public void notifyAdapterRange() {
-        notifyItemRangeChanged(0, clubDtoList.size() - 1);
-    }*/
-
-   /* public void notiftAdapterDataSet() {
-        notifyDataSetChanged();
-    }*/
 
     @Override
-    public void addItems(@NonNull List<ClubDto> clubDtoList) {
-        this.clubDtoList.addAll(clubDtoList);
+    public void addItems(@NonNull List<ClubDto> clubDtos) {
+        this.clubDtos.addAll(clubDtos);
     }
 
     @Override
     public ClubDto getItem(@NonNull Integer position) {
-        return clubDtoList.get(position);
+        return clubDtos.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return clubDtoList != null ? clubDtoList.size() : 0;
+        return clubDtos != null ? clubDtos.size() : 0;
     }
 
     @Override
@@ -113,11 +93,16 @@ public class ClubListAdapter extends RecyclerView.Adapter<ClubListViewHolder> im
     @Override
     public void onBindViewHolder(final ClubListViewHolder holder, int position) {
         if (holder == null) return;
-        holder.onBind(clubDtoList.get(position), position);
+        holder.onBind(clubDtos.get(position), position);
     }
 
     @Override
     public void setMoreLoading(@NonNull Boolean isMoreLoading) {
         this.isMoreLoading = isMoreLoading;
+    }
+
+    @Override
+    public void setIsLast(@NonNull Boolean isLast) {
+        this.isLast = isLast;
     }
 }

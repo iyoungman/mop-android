@@ -84,7 +84,7 @@ public class ClubListActivity extends AppCompatActivity implements ClubListContr
     }
 
     private int calculatePageNo() {
-        int pageSize = 24;
+        final int pageSize = 24;
         int itemCount = clubListAdapter.getItemCount();
         return (itemCount == 0) ? 0 : (itemCount / pageSize) + 1;
     }

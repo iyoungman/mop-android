@@ -28,9 +28,10 @@ public class ClubListPresenter implements ClubListContract.Presenter, OnClubList
     public void callClubListByUserInfo(@NonNull String email, @NonNull Integer pageNo) {
         clubListModel.callClubListByUserInfo(email, pageNo, new ClubListModel.ListApiListener() {
             @Override
-            public void onSuccess(ClubListDto clubListDto) {
+            public void onSuccess(ClubListDto clubListDto, boolean isLast) {
                 adapterModel.addItems(clubListDto.getClubDtoList());
                 adapterView.notifyAdapter();
+                adapterModel.setIsLast(isLast);
                 adapterModel.setMoreLoading(false);
             }
             @Override

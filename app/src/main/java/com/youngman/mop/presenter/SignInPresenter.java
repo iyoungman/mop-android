@@ -20,8 +20,8 @@ public class SignInPresenter implements SignInContract.Presenter {
     }
 
     @Override
-    public void callSignIn(@NonNull String id, @NonNull String pw) {
-        signInModel.setSignInData(id, pw);
+    public void callSignIn(@NonNull String email, @NonNull String pw) {
+        signInModel.setSignInData(email, pw);
         if(signInModel.checkData()) {
             signInModel.callSignIn(new SignInModel.ApiListener() {
                 @Override

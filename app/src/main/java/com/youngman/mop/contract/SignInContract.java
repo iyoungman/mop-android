@@ -12,10 +12,10 @@ public interface SignInContract {
 
     interface View {
         void showErrorMessage(@NonNull String message);
-        void startMyClubActivity(@NonNull String userId);
+        void startMyClubActivity(@NonNull String email);
     }
 
     interface Presenter {
-        void callSignIn(@NonNull String id, @NonNull String pw);
+        void callSignIn(@NonNull String email, @NonNull String pw);
     }
 }
