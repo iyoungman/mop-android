@@ -72,11 +72,11 @@
             android:layout_height="1dp"
             android:background="@color/md_black_1000" />
 
-        <ListView
-            android:id="@+id/listView"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_members"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </ListView>
+            android:layout_height="wrap_content"
+            app:layoutManager="GridLayoutManager"/>
 
     </LinearLayout>
 

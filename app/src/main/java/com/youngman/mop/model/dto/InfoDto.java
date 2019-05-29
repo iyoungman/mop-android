@@ -19,18 +19,18 @@ import lombok.Getter;
 public class InfoDto {
 
     private ClubDto clubDto;
-    private List<MemberDto> memberDtoList;
+    private List<MemberDto> memberDtos;
 
     @Builder
-    public InfoDto(@NonNull ClubDto clubDto, @NonNull List<MemberDto> memberDtoList) {
+    public InfoDto(@NonNull ClubDto clubDto, @NonNull List<MemberDto> memberDtos) {
         this.clubDto = clubDto;
-        this.memberDtoList = memberDtoList;
+        this.memberDtos = memberDtos;
     }
 
-    public static InfoDto of(@NonNull ClubModel clubModel, @NonNull List<MemberModel> memberModelList) {
+    public static InfoDto of(@NonNull ClubModel clubModel, @NonNull List<MemberModel> memberModels) {
         return InfoDto.builder()
                 .clubDto(ClubDto.of(clubModel))
-                .memberDtoList(memberModelList.stream()
+                .memberDtos(memberModels.stream()
                         .map(MemberDto::of)
                         .collect(Collectors.toList())
                 )

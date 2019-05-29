@@ -17,20 +17,16 @@ import lombok.Getter;
 @Getter
 public class ClubListDto {
 
-    private List<ClubDto> clubDtoList;
+    private List<ClubDto> clubDtos;
 
     @Builder
-    public ClubListDto(@NonNull List<ClubDto> clubDtoList) {
-        this.clubDtoList = clubDtoList;
+    public ClubListDto(@NonNull List<ClubDto> clubDtos) {
+        this.clubDtos = clubDtos;
     }
 
-    public static ClubListDto of(@NonNull List<ClubModel> clubModelList) {
-        /*return new ClubListDto(clubModelList.stream()
-                .map(ClubDto::of)
-                .collect(Collectors.toList()));
-        */
+    public static ClubListDto of(@NonNull List<ClubModel> clubModels) {
         return ClubListDto.builder()
-                .clubDtoList(clubModelList.stream()
+                .clubDtos(clubModels.stream()
                         .map(ClubDto::of)
                         .collect(Collectors.toList())
                 )

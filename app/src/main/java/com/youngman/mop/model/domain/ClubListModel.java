@@ -1,7 +1,6 @@
 package com.youngman.mop.model.domain;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 import com.youngman.mop.model.dto.ClubListDto;
@@ -12,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import lombok.Getter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,7 +22,7 @@ import retrofit2.Response;
 public class ClubListModel {
 
     @SerializedName("myClubResponseDtos")
-    private List<ClubModel> clubModelList = new ArrayList<>();
+    private List<ClubModel> clubModels = new ArrayList<>();
 
     @SerializedName("last")
     private boolean isLast;
@@ -39,7 +37,7 @@ public class ClubListModel {
             @Override
             public void onResponse(Call<ClubListModel> call, Response<ClubListModel> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    clubModelList = response.body().clubModelList;
+                    clubModels = response.body().clubModels;
                     isLast = response.body().isLast;
                     listener.onSuccess(modelToDto(), isLast);
                     return;
@@ -67,7 +65,7 @@ public class ClubListModel {
             @Override
             public void onResponse(Call<List<ClubModel>> call, Response<List<ClubModel>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    clubModelList = response.body();
+                    clubModels = response.body();
                     listener.onSuccess(modelToDto());
                     return;
                 }
@@ -81,7 +79,7 @@ public class ClubListModel {
     }*/
 
     private ClubListDto modelToDto() {
-        return ClubListDto.of(clubModelList);
+        return ClubListDto.of(clubModels);
     }
 
     public interface ListApiListener {

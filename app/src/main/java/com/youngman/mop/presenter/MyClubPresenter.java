@@ -1,7 +1,6 @@
 package com.youngman.mop.presenter;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.youngman.mop.adapter.contract.MyClubAdapterContract;
 import com.youngman.mop.contract.MyClubContract;
@@ -30,7 +29,7 @@ public class MyClubPresenter implements MyClubContract.Presenter, OnMyClubItemCl
             myClubModel.callMyClubList(userId, new MyClubModel.ListApiListener() {
                 @Override
                 public void onSuccess(MyClubDto myClubDto) {
-                    adapterModel.addItems(myClubDto.getClubDtoList());
+                    adapterModel.addItems(myClubDto.getClubDtos());
                     adapterView.notifyAdapter();
                 }
 

@@ -29,7 +29,7 @@ public class ClubListPresenter implements ClubListContract.Presenter, OnClubList
         clubListModel.callClubListByUserInfo(email, pageNo, new ClubListModel.ListApiListener() {
             @Override
             public void onSuccess(ClubListDto clubListDto, boolean isLast) {
-                adapterModel.addItems(clubListDto.getClubDtoList());
+                adapterModel.addItems(clubListDto.getClubDtos());
                 adapterView.notifyAdapter();
                 adapterModel.setIsLast(isLast);
                 adapterModel.setMoreLoading(false);
@@ -47,7 +47,7 @@ public class ClubListPresenter implements ClubListContract.Presenter, OnClubList
         clubListModel.callPagingClubsBySearch(searchClub, new ClubListModel.ListApiListener() {
             @Override
             public void onSuccess(ClubListDto clubListDto) {
-                adapterModel.addItems(clubListDto.getClubDtoList());
+                adapterModel.addItems(clubListDto.getClubDtos());
                 adapterView.notifyAdapter();
             }
             @Override

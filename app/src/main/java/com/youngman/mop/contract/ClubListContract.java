@@ -3,7 +3,6 @@ package com.youngman.mop.contract;
 import android.support.annotation.NonNull;
 
 import com.youngman.mop.adapter.contract.ClubListAdapterContract;
-import com.youngman.mop.adapter.contract.MyClubAdapterContract;
 
 /**
  * Created by YoungMan on 2019-05-03.

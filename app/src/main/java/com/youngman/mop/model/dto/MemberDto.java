@@ -6,11 +6,13 @@ import com.youngman.mop.model.domain.MemberModel;
 
 
 import lombok.Builder;
+import lombok.Getter;
 
 /**
  * Created by YoungMan on 2019-05-28.
  */
 
+@Getter
 public class MemberDto {
 
     private String email;

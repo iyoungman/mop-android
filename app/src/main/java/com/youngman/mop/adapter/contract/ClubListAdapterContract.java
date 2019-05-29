@@ -18,7 +18,7 @@ public interface ClubListAdapterContract {
 
     interface Model {
         ClubDto getItem(@NonNull Integer position);
-        void addItems(@NonNull List<ClubDto> clubDtoList);
+        void addItems(@NonNull List<ClubDto> clubDtos);
         void setIsLast(@NonNull Boolean isLast);
         void setMoreLoading(@NonNull Boolean isMoreLoading);
     }

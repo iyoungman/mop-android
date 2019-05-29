@@ -64,7 +64,7 @@ public class InfoFragment extends Fragment implements InfoContract.View {
         tvClubRegion.setText(clubDto.getRegion());
         tvClubHobby.setText(clubDto.getHobby());
 
-        List<MemberDto> memberDtos = infoDto.getMemberDtoList();
+        List<MemberDto> memberDtos = infoDto.getMemberDtos();
 
     }
 

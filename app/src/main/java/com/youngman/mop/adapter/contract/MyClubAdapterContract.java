@@ -14,12 +14,12 @@ import java.util.List;
 public interface MyClubAdapterContract {
 
     interface View {
-        void setOnMyClubItemClickListener(OnMyClubItemClickListener onMyClubItemClickListener);
+        void setOnMyClubItemClickListener(@NonNull OnMyClubItemClickListener onMyClubItemClickListener);
         void notifyAdapter();
     }
 
     interface Model {
-        void addItems(@NonNull List<ClubDto> clubDtoList);
+        void addItems(@NonNull List<ClubDto> clubDtos);
         void deleteItem(@NonNull Integer position);
         ClubDto getItem(@NonNull Integer position);
     }

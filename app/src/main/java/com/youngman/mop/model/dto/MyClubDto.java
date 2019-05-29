@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.youngman.mop.model.domain.ClubModel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,16 +18,16 @@ import lombok.Getter;
 @Getter
 public class MyClubDto {
 
-    private List<ClubDto> clubDtoList;
+    private List<ClubDto> clubDtos;
 
     @Builder
-    public MyClubDto(@NonNull List<ClubDto> clubDtoList) {
-        this.clubDtoList = clubDtoList;
+    public MyClubDto(@NonNull List<ClubDto> clubDtos) {
+        this.clubDtos = clubDtos;
     }
 
-    public static MyClubDto of(@NonNull List<ClubModel> clubModelList) {
+    public static MyClubDto of(@NonNull List<ClubModel> clubModels) {
         return MyClubDto.builder()
-                .clubDtoList(clubModelList.stream()
+                .clubDtos(clubModels.stream()
                         .map(ClubDto::of)
                         .collect(Collectors.toList())
                 )

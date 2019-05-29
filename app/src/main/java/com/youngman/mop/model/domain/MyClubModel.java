@@ -5,10 +5,7 @@ import android.util.Log;
 
 import com.youngman.mop.model.dto.MyClubDto;
 import com.youngman.mop.network.NetRetrofit;
-import com.youngman.mop.util.SignUtils;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +21,7 @@ import retrofit2.Response;
 
 public class MyClubModel {
 
-    private List<ClubModel> clubModelList = new ArrayList<>();
+    private List<ClubModel> clubModels = new ArrayList<>();
 
     public void callMyClubList(@NonNull String email, @NonNull final ListApiListener listener) {
         Call<List<ClubModel>> result = NetRetrofit.getInstance().getNetRetrofitInterface().callMyClubsByMemberEmail(email);
@@ -32,7 +29,7 @@ public class MyClubModel {
             @Override
             public void onResponse(Call<List<ClubModel>> call, Response<List<ClubModel>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    clubModelList = response.body();
+                    clubModels = response.body();
                     listener.onSuccess(modelToDto());
                     return;
                 }
@@ -56,7 +53,7 @@ public class MyClubModel {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    clubModelList.remove(position);
+                    clubModels.remove(position);
                     listener.onSuccess();
                     return;
                 }
@@ -78,7 +75,7 @@ public class MyClubModel {
     }
 
     private MyClubDto modelToDto() {
-        return MyClubDto.of(clubModelList);
+        return MyClubDto.of(clubModels);
     }
 
     public interface ListApiListener {

@@ -33,8 +33,8 @@ public class MyClubAdapter extends RecyclerView.Adapter<MyClubViewHolder> implem
     }
 
     @Override
-    public void addItems(@NonNull List<ClubDto> clubDtoList) {
-        this.clubDtoList = clubDtoList;
+    public void addItems(@NonNull List<ClubDto> clubDtos) {
+        this.clubDtoList = clubDtos;
     }
 
     @Override
