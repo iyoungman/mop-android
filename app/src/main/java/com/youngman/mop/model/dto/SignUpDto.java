@@ -19,11 +19,8 @@ public class SignUpDto {
     private String hobby;
 
     @Builder
-    public SignUpDto(@NonNull String email,
-                     @NonNull String pw,
-                     @NonNull String name,
-                     @NonNull String mobile,
-                     @NonNull String hobby) {
+    public SignUpDto(@NonNull String email, @NonNull String pw, @NonNull String name,
+                     @NonNull String mobile, @NonNull String hobby) {
         this.email = email;
         this.pw = pw;
         this.name = name;

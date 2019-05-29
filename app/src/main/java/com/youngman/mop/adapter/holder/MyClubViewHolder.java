@@ -3,6 +3,7 @@ package com.youngman.mop.adapter.holder;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -44,7 +45,7 @@ public class MyClubViewHolder extends RecyclerView.ViewHolder {
     public void onBind(@NonNull ClubDto clubDto, @NonNull final Integer position) {
 
         tvMyClubName.setText(clubDto.getName());
-        tvMyClubRecentSchedule.setText(clubDto.getUpComingMeetingDate().toString());
+        tvMyClubRecentSchedule.setText(clubDto.getUpComingMeetingDate());
 
         btnMyClubDelete.setOnClickListener(view -> {
             onMyClubItemClickListener.onDeleteMyClubClick(SignUtils.readUserIdFromPref(context), position);
@@ -54,6 +55,6 @@ public class MyClubViewHolder extends RecyclerView.ViewHolder {
             onMyClubItemClickListener.onStartMyClubClick(position);
         });
 
-
     }
+
 }

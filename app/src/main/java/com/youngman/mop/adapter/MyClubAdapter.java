@@ -27,6 +27,7 @@ public class MyClubAdapter extends RecyclerView.Adapter<MyClubViewHolder> implem
         this.context = context;
     }
 
+    @Override
     public void setOnMyClubItemClickListener(@NonNull OnMyClubItemClickListener onMyClubItemClickListener) {
         this.onMyClubItemClickListener = onMyClubItemClickListener;
     }

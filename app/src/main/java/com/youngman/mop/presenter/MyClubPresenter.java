@@ -1,6 +1,7 @@
 package com.youngman.mop.presenter;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.youngman.mop.adapter.contract.MyClubAdapterContract;
 import com.youngman.mop.contract.MyClubContract;
@@ -32,6 +33,7 @@ public class MyClubPresenter implements MyClubContract.Presenter, OnMyClubItemCl
                     adapterModel.addItems(myClubDto.getClubDtoList());
                     adapterView.notifyAdapter();
                 }
+
                 @Override
                 public void onFail(String message) {
                     myClubView.showErrorMessage(message);
@@ -56,7 +58,7 @@ public class MyClubPresenter implements MyClubContract.Presenter, OnMyClubItemCl
     }
 
     @Override
-    public void onStartMyClubClick(@NonNull int position) {
+    public void onStartMyClubClick(@NonNull Integer position) {
         Long clubId = adapterModel.getItem(position).getClubId();
         myClubView.startClubActivity(clubId);
     }
@@ -64,6 +66,7 @@ public class MyClubPresenter implements MyClubContract.Presenter, OnMyClubItemCl
     @Override
     public void setMyClubAdapterView(@NonNull MyClubAdapterContract.View adapterView) {
         this.adapterView = adapterView;
+        this.adapterView.setOnMyClubItemClickListener(this);
     }
 
     @Override

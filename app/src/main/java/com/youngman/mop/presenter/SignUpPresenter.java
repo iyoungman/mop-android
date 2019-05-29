@@ -29,6 +29,7 @@ public class SignUpPresenter implements SignUpContract.Presenter {
                 public void onSuccess() {
                     signUpView.startSignInActivity();
                 }
+
                 @Override
                 public void onFail(String message) {
                     signUpView.showErrorMessage(message);

@@ -2,9 +2,6 @@ package com.youngman.mop.model.dto;
 
 import com.youngman.mop.model.domain.ClubModel;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -25,14 +22,9 @@ public class ClubDto {
     private String upComingMeetingDate;
 
     @Builder
-    public ClubDto(@NonNull Long clubId,
-                   @NonNull String name,
-                   @NonNull String introduce,
-                   @NonNull String createDate,
-                   @NonNull String region,
-                   @NonNull String hobby,
+    public ClubDto(@NonNull Long clubId, @NonNull String name, @NonNull String introduce,
+                   @NonNull String createDate, @NonNull String region, @NonNull String hobby,
                    @NonNull String upComingMeetingDate) {
-
         this.clubId = clubId;
         this.name = name;
         this.introduce = introduce;
@@ -50,7 +42,7 @@ public class ClubDto {
                 .createDate(clubModel.getCreateDate())
                 .region(clubModel.getRegion())
                 .hobby(clubModel.getHobby())
-                .upComingMeetingDate(clubModel.getUpComingMeetingDate())
+                .upComingMeetingDate(clubModel.getUpComingMeetingDate() != null ? clubModel.getUpComingMeetingDate() : "예정된 모임이 없습니다.")
                 .build();
     }
 }

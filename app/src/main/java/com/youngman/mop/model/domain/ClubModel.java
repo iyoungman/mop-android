@@ -17,10 +17,10 @@ public class ClubModel {
     private Long clubId;
     private String name;
     private String introduce;
-    private String createDate;//생성날짜
+    private String createDate;
     private String region;
     private String hobby;
-    private String upComingMeetingDate;//다가오는 모임 날짜
+    private String upComingMeetingDate;
 
     @Builder
     public ClubModel(@NonNull Long clubId, @NonNull String name, @NonNull String introduce, @NonNull String createDate,

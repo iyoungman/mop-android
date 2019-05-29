@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view.activity.ClubSearchActivity"></activity>
-        <activity android:name=".view.fragment.MainFragment" />
+        <activity android:name=".view.fragment.InfoFragment" />
         <activity android:name=".view.fragment.MapFragment" />
         <activity android:name=".view.fragment.BoardFragment" />
         <activity android:name=".view.fragment.ScheduleFragment" />

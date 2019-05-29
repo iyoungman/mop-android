@@ -28,6 +28,7 @@ public class SignInPresenter implements SignInContract.Presenter {
                 public void onSuccess(String email) {
                     signInView.startMyClubActivity(email);
                 }
+
                 @Override
                 public void onFail(String message) {
                     signInView.showErrorMessage(message);

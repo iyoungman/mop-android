@@ -30,8 +30,8 @@ public class NetRetrofit {
             .client(client)
             .build();
 
-    public NetRetrofitInterface getNetRetrofitInterface(){
-        if(netRetrofitInterface ==null){
+    public NetRetrofitInterface getNetRetrofitInterface() {
+        if (netRetrofitInterface == null) {
             netRetrofitInterface = retrofit.create(NetRetrofitInterface.class);
         }
         return netRetrofitInterface;

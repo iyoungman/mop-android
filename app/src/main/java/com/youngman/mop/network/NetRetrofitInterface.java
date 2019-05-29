@@ -2,6 +2,7 @@ package com.youngman.mop.network;
 
 import com.youngman.mop.model.domain.ClubListModel;
 import com.youngman.mop.model.domain.ClubModel;
+import com.youngman.mop.model.domain.InfoModel;
 
 import java.util.List;
 import java.util.Map;
@@ -51,9 +52,7 @@ public interface NetRetrofitInterface {
     @GET("mop/club/search")
     Call<List<ClubModel>> callPagingClubsBySearch(@Query("searchClub") String searchClub);
 
-    /*@GET("mop/club/member")
-    Call<List<ClubModel>> callPagingClubsByMember(@QueryMap Map<String, Object> pagingClubsByMemberParams);*/
-    @GET("mop/club/test")
+    @GET("mop/club/member")
     Call<ClubListModel> callPagingClubsByMember(@QueryMap Map<String, Object> pagingClubsByMemberParams);
 
     @PUT("mop/club")
@@ -62,6 +61,9 @@ public interface NetRetrofitInterface {
     @DELETE("mop/club")
     Call<Void> callDeleteClub();
 
+
+    @GET
+    Call<InfoModel> callClubInfoByClubId(@Query("clubId") Long clubId);
 
     @POST("mop/schedule")
     Call<Void> callCreateSchedule();

@@ -2,6 +2,7 @@ package com.youngman.mop.adapter.contract;
 
 import android.support.annotation.NonNull;
 
+import com.youngman.mop.listener.OnMyClubItemClickListener;
 import com.youngman.mop.model.dto.ClubDto;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 public interface MyClubAdapterContract {
 
     interface View {
+        void setOnMyClubItemClickListener(OnMyClubItemClickListener onMyClubItemClickListener);
         void notifyAdapter();
     }
 

@@ -25,8 +25,15 @@ public class ClubListDto {
     }
 
     public static ClubListDto of(@NonNull List<ClubModel> clubModelList) {
-        return new ClubListDto(clubModelList.stream()
+        /*return new ClubListDto(clubModelList.stream()
                 .map(ClubDto::of)
                 .collect(Collectors.toList()));
+        */
+        return ClubListDto.builder()
+                .clubDtoList(clubModelList.stream()
+                        .map(ClubDto::of)
+                        .collect(Collectors.toList())
+                )
+                .build();
     }
 }

@@ -34,6 +34,7 @@ public class ClubListPresenter implements ClubListContract.Presenter, OnClubList
                 adapterModel.setIsLast(isLast);
                 adapterModel.setMoreLoading(false);
             }
+
             @Override
             public void onFail(String message) {
                 clubListView.showErrorMessage(message);
