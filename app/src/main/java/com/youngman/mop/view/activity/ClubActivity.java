@@ -44,7 +44,7 @@ public class ClubActivity extends AppCompatActivity {
 
         ivTabMap.setOnClickListener(view -> {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.ll_fragment_container, MapFragment.createFragment())
+                    .replace(R.id.ll_fragment_container, MapFragment.createFragment(clubId))
                     .commit();
         });
 

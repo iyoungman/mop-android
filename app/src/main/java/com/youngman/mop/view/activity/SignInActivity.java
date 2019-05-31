@@ -21,8 +21,7 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
     private EditText etPw;
     private Button btnSignIn;
     private Button btnStartSignUp;
-
-    SignInContract.Presenter presenter;
+    private SignInContract.Presenter presenter;
 
 
     @Override

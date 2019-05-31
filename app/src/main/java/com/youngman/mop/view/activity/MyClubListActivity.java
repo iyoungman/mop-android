@@ -22,8 +22,7 @@ public class MyClubListActivity extends AppCompatActivity implements MyClubListC
     private RecyclerView recyclerView;
     private Button btnStartClubList;
     private MyClubListAdapter myClubListAdapter;
-
-    MyClubListContract.Presenter presenter;
+    private MyClubListContract.Presenter presenter;
 
 
     @Override

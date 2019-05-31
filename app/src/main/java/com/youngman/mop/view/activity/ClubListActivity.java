@@ -27,8 +27,7 @@ public class ClubListActivity extends AppCompatActivity implements ClubListContr
     private EditText etSearchClubList;
     private Button btnSearchClubList;
     private ClubListAdapter clubListAdapter;
-
-    ClubListContract.Presenter presenter;
+    private ClubListContract.Presenter presenter;
 
 
     @Override

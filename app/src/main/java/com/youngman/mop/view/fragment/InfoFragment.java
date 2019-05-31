@@ -38,8 +38,7 @@ public class InfoFragment extends Fragment implements InfoContract.View {
     private TextView tvClubRegion;
     private TextView tvClubHobby;
     private MemberListAdapter memberListAdapter;
-
-    InfoContract.Presenter presenter;
+    private InfoContract.Presenter presenter;
 
 
     public static InfoFragment createFragment(Long clubId) {

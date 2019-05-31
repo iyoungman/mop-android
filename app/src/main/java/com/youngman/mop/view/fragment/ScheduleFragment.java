@@ -12,8 +12,8 @@ import com.youngman.mop.R;
 
 public class ScheduleFragment extends Fragment {
 
-    public static InfoFragment createFragment() {
-        InfoFragment fragment = new InfoFragment();
+    public static ScheduleFragment createFragment() {
+        ScheduleFragment fragment = new ScheduleFragment();
         Bundle bundle = new Bundle();
 //        bundle.putLong("EXTRA_CLUB_ID", clubId);
         fragment.setArguments(bundle);

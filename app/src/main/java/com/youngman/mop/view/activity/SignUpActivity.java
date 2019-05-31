@@ -26,8 +26,7 @@ public class SignUpActivity extends Activity implements SignUpContract.View {
     private EditText etMobile;
     private EditText etHobby;
     private Button btnSignUp;
-
-    SignUpContract.Presenter presenter;
+    private SignUpContract.Presenter presenter;
 
 
     @Override
