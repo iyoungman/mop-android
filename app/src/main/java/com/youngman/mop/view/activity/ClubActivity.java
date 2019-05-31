@@ -1,6 +1,7 @@
 package com.youngman.mop.view.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -15,16 +16,14 @@ public class ClubActivity extends AppCompatActivity {
 
     private Context context;
     private ImageView ivTabInfo, ivTabMap, ivTabSchedule, ivTabBoard;
+    private Long clubId;
 
-    private InfoFragment infoFragment;
-    private MapFragment mapFragment;
-    private ScheduleFragment scheduleFragment;
-    private BoardFragment boardFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club);
+        clubId = getIntent().getLongExtra("EXTRA_CLUB_ID", 0);
         initView();
 
         ivTabInfo.performClick();
@@ -37,25 +36,28 @@ public class ClubActivity extends AppCompatActivity {
         ivTabSchedule = (ImageView) findViewById(R.id.iv_tab_schedule);
         ivTabBoard = (ImageView) findViewById(R.id.iv_tab_board);
 
-        infoFragment = new InfoFragment();
-        mapFragment = new MapFragment();
-        scheduleFragment = new ScheduleFragment();
-        boardFragment = new BoardFragment();
-
         ivTabInfo.setOnClickListener(view -> {
-            getSupportFragmentManager().beginTransaction().replace(R.id.ll_fragment_container, infoFragment).commit();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.ll_fragment_container, InfoFragment.createFragment(clubId))
+                    .commit();
         });
 
         ivTabMap.setOnClickListener(view -> {
-            getSupportFragmentManager().beginTransaction().replace(R.id.ll_fragment_container, mapFragment).commit();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.ll_fragment_container, MapFragment.createFragment())
+                    .commit();
         });
 
         ivTabSchedule.setOnClickListener(view -> {
-            getSupportFragmentManager().beginTransaction().replace(R.id.ll_fragment_container, scheduleFragment).commit();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.ll_fragment_container, ScheduleFragment.createFragment())
+                    .commit();
         });
 
         ivTabBoard.setOnClickListener(view -> {
-            getSupportFragmentManager().beginTransaction().replace(R.id.ll_fragment_container, boardFragment).commit();
+            getSupportFragmentManager().beginTransaction().
+                    replace(R.id.ll_fragment_container, BoardFragment.createFragment())
+                    .commit();
         });
     }
 

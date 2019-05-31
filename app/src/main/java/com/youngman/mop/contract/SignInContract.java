@@ -2,8 +2,6 @@ package com.youngman.mop.contract;
 
 import android.support.annotation.NonNull;
 
-import com.youngman.mop.model.dto.MyClubDto;
-
 /**
  * Created by YoungMan on 2019-04-29.
  */

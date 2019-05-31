@@ -13,6 +13,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NetRetrofit {
 
+    private final String LOCAL_BASE_URL = "http://192.168.0.110:8080/";
+    private final String DEV_BASE_URL = "http://192.168.0.104:8080/";
+
     private static final NetRetrofit ourInstance = new NetRetrofit();
     private NetRetrofitInterface netRetrofitInterface;
 
@@ -25,7 +28,7 @@ public class NetRetrofit {
             .build();
 
     private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.0.104:8080/")
+            .baseUrl(LOCAL_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build();

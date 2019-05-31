@@ -2,34 +2,35 @@ package com.youngman.mop.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.youngman.mop.adapter.contract.MyClubAdapterContract;
-import com.youngman.mop.contract.MyClubContract;
+import com.youngman.mop.adapter.contract.MyClubListAdapterContract;
+import com.youngman.mop.contract.MyClubListContract;
 import com.youngman.mop.listener.OnMyClubItemClickListener;
-import com.youngman.mop.model.domain.MyClubModel;
-import com.youngman.mop.model.dto.MyClubDto;
+import com.youngman.mop.model.domain.MyClubListModel;
+import com.youngman.mop.model.dto.MyClubListDto;
 
 /**
  * Created by YoungMan on 2019-05-01.
  */
 
-public class MyClubPresenter implements MyClubContract.Presenter, OnMyClubItemClickListener {
+public class MyClubListPresenter implements MyClubListContract.Presenter, OnMyClubItemClickListener {
 
-    private MyClubContract.View myClubView;
-    private MyClubModel myClubModel;
-    private MyClubAdapterContract.View adapterView;
-    private MyClubAdapterContract.Model adapterModel;
+    private MyClubListContract.View myClubView;
+    private MyClubListModel myClubListModel;
+    private MyClubListAdapterContract.View adapterView;
+    private MyClubListAdapterContract.Model adapterModel;
 
-    public MyClubPresenter(@NonNull MyClubContract.View myClubView) {
+
+    public MyClubListPresenter(@NonNull MyClubListContract.View myClubView) {
         this.myClubView = myClubView;
-        this.myClubModel = new MyClubModel();
+        this.myClubListModel = new MyClubListModel();
     }
 
     @Override
     public void callMyClubList(@NonNull String userId) {
-            myClubModel.callMyClubList(userId, new MyClubModel.ListApiListener() {
+            myClubListModel.callMyClubList(userId, new MyClubListModel.ListApiListener() {
                 @Override
-                public void onSuccess(MyClubDto myClubDto) {
-                    adapterModel.addItems(myClubDto.getClubDtos());
+                public void onSuccess(MyClubListDto myClubListDto) {
+                    adapterModel.addItems(myClubListDto.getClubDtos());
                     adapterView.notifyAdapter();
                 }
 
@@ -43,7 +44,7 @@ public class MyClubPresenter implements MyClubContract.Presenter, OnMyClubItemCl
     @Override
     public void onDeleteMyClubClick(@NonNull String email, @NonNull int position) {
         Long clubId = adapterModel.getItem(position).getClubId();
-        myClubModel.callDeleteMyClubModel(email, clubId, position, new MyClubModel.DeleteApiListener() {
+        myClubListModel.callDeleteMyClubModel(email, clubId, position, new MyClubListModel.DeleteApiListener() {
             @Override
             public void onSuccess() {
                 adapterModel.deleteItem(position);
@@ -63,13 +64,13 @@ public class MyClubPresenter implements MyClubContract.Presenter, OnMyClubItemCl
     }
 
     @Override
-    public void setMyClubAdapterView(@NonNull MyClubAdapterContract.View adapterView) {
+    public void setMyClubAdapterView(@NonNull MyClubListAdapterContract.View adapterView) {
         this.adapterView = adapterView;
         this.adapterView.setOnMyClubItemClickListener(this);
     }
 
     @Override
-    public void setMyClubAdapterModel(@NonNull MyClubAdapterContract.Model adapterModel) {
+    public void setMyClubAdapterModel(@NonNull MyClubListAdapterContract.Model adapterModel) {
         this.adapterModel = adapterModel;
     }
 }

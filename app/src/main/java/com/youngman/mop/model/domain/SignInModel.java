@@ -1,6 +1,7 @@
 package com.youngman.mop.model.domain;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.youngman.mop.network.NetRetrofit;
 
@@ -53,6 +54,7 @@ public class SignInModel {
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
+                Log.d("SignInModel  " , t.toString());
                 listener.onFail("통신에 실패하였습니다.");
             }
         });

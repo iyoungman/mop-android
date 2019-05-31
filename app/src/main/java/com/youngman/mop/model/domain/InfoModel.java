@@ -2,8 +2,7 @@ package com.youngman.mop.model.domain;
 
 import android.support.annotation.NonNull;
 
-import com.youngman.mop.model.dto.ClubDto;
-import com.youngman.mop.model.dto.ClubListDto;
+import com.google.gson.annotations.SerializedName;
 import com.youngman.mop.model.dto.InfoDto;
 import com.youngman.mop.network.NetRetrofit;
 
@@ -20,14 +19,17 @@ import retrofit2.Response;
 
 public class InfoModel {
 
+    @SerializedName("clubDto")
     private ClubModel clubModel;
+
+    @SerializedName("memberDtos")
     private List<MemberModel> memberModels = new ArrayList<>();
 
 
     public void callClubInfoByClubId(@NonNull Long clubId,
                                      @NonNull final ApiListener listener) {
 
-        Call<InfoModel> result = NetRetrofit.getInstance().getNetRetrofitInterface().callClubInfoByClubId(clubId);
+        Call<InfoModel> result = NetRetrofit.getInstance().getNetRetrofitInterface().callClubInfoById(clubId);
         result.enqueue(new Callback<InfoModel>() {
             @Override
             public void onResponse(Call<InfoModel> call, Response<InfoModel> response) {

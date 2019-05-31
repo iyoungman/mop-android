@@ -24,6 +24,7 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
 
     SignInContract.Presenter presenter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,7 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
     public void startMyClubActivity(@NonNull String email) {
         SignUtils.writeUserIdToPref(context, email);
 
-        Intent intent = new Intent(context, MyClubActivity.class);
+        Intent intent = new Intent(context, MyClubListActivity.class);
         startActivity(intent);
         finish();
     }

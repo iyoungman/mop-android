@@ -11,7 +11,7 @@ import java.util.List;
  * Created by YoungMan on 2019-05-01.
  */
 
-public interface MyClubAdapterContract {
+public interface MyClubListAdapterContract {
 
     interface View {
         void setOnMyClubItemClickListener(@NonNull OnMyClubItemClickListener onMyClubItemClickListener);

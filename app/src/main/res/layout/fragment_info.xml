@@ -30,7 +30,7 @@
                 android:layout_height="670dp"
                 android:gravity="center"
                 android:text="TEST"
-                android:textColor="@color/md_grey_500"
+                android:textColor="@color/md_black_1000"
                 android:textSize="16dp" />
 
             <TextView
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textColor="@color/md_grey_500"
+                android:textColor="@color/md_black_1000"
                 android:textSize="16dp" />
 
             <TextView
@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textColor="@color/md_grey_500"
+                android:textColor="@color/md_black_1000"
                 android:textSize="16dp" />
 
             <TextView
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textColor="@color/md_grey_500"
+                android:textColor="@color/md_black_1000"
                 android:textSize="16dp" />
 
             <TextView
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textColor="@color/md_grey_500"
+                android:textColor="@color/md_black_1000"
                 android:textSize="16dp" />
 
         </LinearLayout>
@@ -76,7 +76,7 @@
             android:id="@+id/rv_members"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layoutManager="GridLayoutManager"/>
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
     </LinearLayout>
 

@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.ClubSearchActivity"></activity>
+        <activity android:name=".view.activity.MemberInfoActivity"></activity>
+        <activity android:name=".view.activity.ClubSearchActivity" />
         <activity android:name=".view.fragment.InfoFragment" />
         <activity android:name=".view.fragment.MapFragment" />
         <activity android:name=".view.fragment.BoardFragment" />
@@ -31,7 +32,7 @@
         </activity>
         <activity android:name=".view.activity.ClubActivity" />
         <activity android:name=".view.activity.ClubListActivity" />
-        <activity android:name=".view.activity.MyClubActivity" />
+        <activity android:name=".view.activity.MyClubListActivity" />
         <activity android:name=".view.activity.SignUpActivity" />
     </application>
 

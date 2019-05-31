@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.youngman.mop.adapter.contract.MyClubAdapterContract;
-import com.youngman.mop.adapter.holder.MyClubViewHolder;
+import com.youngman.mop.adapter.contract.MyClubListAdapterContract;
+import com.youngman.mop.adapter.holder.MyClubListViewHolder;
 import com.youngman.mop.listener.OnMyClubItemClickListener;
 import com.youngman.mop.model.dto.ClubDto;
 
@@ -17,13 +17,13 @@ import java.util.List;
  * Created by YoungMan on 2019-05-01.
  */
 
-public class MyClubAdapter extends RecyclerView.Adapter<MyClubViewHolder> implements MyClubAdapterContract.View, MyClubAdapterContract.Model {
+public class MyClubListAdapter extends RecyclerView.Adapter<MyClubListViewHolder> implements MyClubListAdapterContract.View, MyClubListAdapterContract.Model {
 
     private Context context;
     private List<ClubDto> clubDtoList = new ArrayList<>();
     private OnMyClubItemClickListener onMyClubItemClickListener;
 
-    public MyClubAdapter(Context context) {
+    public MyClubListAdapter(Context context) {
         this.context = context;
     }
 
@@ -58,12 +58,12 @@ public class MyClubAdapter extends RecyclerView.Adapter<MyClubViewHolder> implem
     }
 
     @Override
-    public MyClubViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MyClubViewHolder(context, parent, onMyClubItemClickListener);
+    public MyClubListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new MyClubListViewHolder(context, parent, onMyClubItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(final MyClubViewHolder holder, int position) {
+    public void onBindViewHolder(final MyClubListViewHolder holder, int position) {
         if (holder == null) return;
         holder.onBind(clubDtoList.get(position), position);
     }

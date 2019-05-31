@@ -30,10 +30,11 @@ public class ClubListActivity extends AppCompatActivity implements ClubListContr
 
     ClubListContract.Presenter presenter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clublist);
+        setContentView(R.layout.activity_club_list);
         initView();
         presenter = new ClubListPresenter(this);
         presenter.setClubListAdapterView(clubListAdapter);
@@ -102,7 +103,7 @@ public class ClubListActivity extends AppCompatActivity implements ClubListContr
     }
 
     private void startClubSearchActivity() {
-//        Intent intent = new Intent(context, ClubSearchActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(context, ClubSearchActivity.class);
+        startActivity(intent);
     }
 }

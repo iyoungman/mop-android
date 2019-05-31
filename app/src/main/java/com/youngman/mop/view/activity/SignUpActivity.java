@@ -29,6 +29,7 @@ public class SignUpActivity extends Activity implements SignUpContract.View {
 
     SignUpContract.Presenter presenter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

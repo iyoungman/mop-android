@@ -62,8 +62,8 @@ public interface NetRetrofitInterface {
     Call<Void> callDeleteClub();
 
 
-    @GET
-    Call<InfoModel> callClubInfoByClubId(@Query("clubId") Long clubId);
+    @GET("mop/club/info")
+    Call<InfoModel> callClubInfoById(@Query("clubId") Long clubId);
 
     @POST("mop/schedule")
     Call<Void> callCreateSchedule();

@@ -3,7 +3,7 @@ package com.youngman.mop.model.domain;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.youngman.mop.model.dto.MyClubDto;
+import com.youngman.mop.model.dto.MyClubListDto;
 import com.youngman.mop.network.NetRetrofit;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import retrofit2.Response;
  * Created by YoungMan on 2019-05-01.
  */
 
-public class MyClubModel {
+public class MyClubListModel {
 
     private List<ClubModel> clubModels = new ArrayList<>();
 
@@ -37,7 +37,7 @@ public class MyClubModel {
             }
             @Override
             public void onFailure(Call<List<ClubModel>> call, Throwable t) {
-                Log.d("MyClubModel", t.toString());
+                Log.d("MyClubListModel", t.toString());
                 listener.onFail("통신에 실패하였습니다.");
             }
         });
@@ -74,12 +74,12 @@ public class MyClubModel {
         return deleteMyClubParams;
     }
 
-    private MyClubDto modelToDto() {
-        return MyClubDto.of(clubModels);
+    private MyClubListDto modelToDto() {
+        return MyClubListDto.of(clubModels);
     }
 
     public interface ListApiListener {
-        void onSuccess(MyClubDto myClubDto);
+        void onSuccess(MyClubListDto myClubListDto);
         void onFail(String message);
     }
 

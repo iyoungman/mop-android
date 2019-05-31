@@ -10,29 +10,30 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 
 import com.youngman.mop.R;
-import com.youngman.mop.adapter.MyClubAdapter;
-import com.youngman.mop.contract.MyClubContract;
-import com.youngman.mop.presenter.MyClubPresenter;
+import com.youngman.mop.adapter.MyClubListAdapter;
+import com.youngman.mop.contract.MyClubListContract;
+import com.youngman.mop.presenter.MyClubListPresenter;
 import com.youngman.mop.util.SignUtils;
 import com.youngman.mop.util.ToastUtils;
 
-public class MyClubActivity extends AppCompatActivity implements MyClubContract.View {
+public class MyClubListActivity extends AppCompatActivity implements MyClubListContract.View {
 
     private Context context;
     private RecyclerView recyclerView;
     private Button btnStartClubList;
-    private MyClubAdapter myClubAdapter;
+    private MyClubListAdapter myClubListAdapter;
 
-    MyClubContract.Presenter presenter;
+    MyClubListContract.Presenter presenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_myclub);
+        setContentView(R.layout.activity_myclub_list);
         initView();
-        presenter = new MyClubPresenter(this);
-        presenter.setMyClubAdapterView(myClubAdapter);
-        presenter.setMyClubAdapterModel(myClubAdapter);
+        presenter = new MyClubListPresenter(this);
+        presenter.setMyClubAdapterView(myClubListAdapter);
+        presenter.setMyClubAdapterModel(myClubListAdapter);
         presenter.callMyClubList(SignUtils.readUserIdFromPref(context));
     }
 
@@ -41,8 +42,8 @@ public class MyClubActivity extends AppCompatActivity implements MyClubContract.
         recyclerView = (RecyclerView) findViewById(R.id.rv_myclublist);
         btnStartClubList = (Button) findViewById(R.id.btn_start_clublist);
 
-        myClubAdapter = new MyClubAdapter(context);
-        recyclerView.setAdapter(myClubAdapter);
+        myClubListAdapter = new MyClubListAdapter(context);
+        recyclerView.setAdapter(myClubListAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
 
         btnStartClubList.setOnClickListener(view -> {

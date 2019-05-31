@@ -12,6 +12,14 @@ import com.youngman.mop.R;
 
 public class BoardFragment extends Fragment {
 
+    public static InfoFragment createFragment() {
+        InfoFragment fragment = new InfoFragment();
+        Bundle bundle = new Bundle();
+//        bundle.putLong("EXTRA_CLUB_ID", clubId);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

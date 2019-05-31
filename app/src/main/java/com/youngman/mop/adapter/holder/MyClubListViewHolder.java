@@ -3,7 +3,6 @@ package com.youngman.mop.adapter.holder;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,7 +18,7 @@ import com.youngman.mop.util.SignUtils;
  * Created by YoungMan on 2019-05-01.
  */
 
-public class MyClubViewHolder extends RecyclerView.ViewHolder {
+public class MyClubListViewHolder extends RecyclerView.ViewHolder {
 
     private Context context;
     private TextView tvMyClubName;
@@ -29,11 +28,11 @@ public class MyClubViewHolder extends RecyclerView.ViewHolder {
 
     private OnMyClubItemClickListener onMyClubItemClickListener;
 
-    public MyClubViewHolder(@NonNull Context context,
-                            @NonNull ViewGroup parent,
-                            @NonNull OnMyClubItemClickListener onMyClubItemClickListener) {
+    public MyClubListViewHolder(@NonNull Context context,
+                                @NonNull ViewGroup parent,
+                                @NonNull OnMyClubItemClickListener onMyClubItemClickListener) {
 
-        super(LayoutInflater.from(context).inflate(R.layout.item_myclub, parent, false));
+        super(LayoutInflater.from(context).inflate(R.layout.item_myclub_list, parent, false));
         this.context = context;
         this.tvMyClubName = itemView.findViewById(R.id.tv_myclub_name);
         this.btnMyClubDelete = itemView.findViewById(R.id.btn_myclub_delete);

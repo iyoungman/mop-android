@@ -28,7 +28,7 @@ public class MemberListViewHolder extends RecyclerView.ViewHolder {
                                 @NonNull ViewGroup parent,
                                 @NonNull OnMemberItemClickListener onMemberItemClickListener) {
 
-        super(LayoutInflater.from(context).inflate(R.layout.item_members, parent, false));
+        super(LayoutInflater.from(context).inflate(R.layout.item_member_list, parent, false));
         this.context = context;
 //        this.ivClubImg = itemView.findViewById(R.id.iv_club_img);
         this.tvMemberName = itemView.findViewById(R.id.tv_member_name);
