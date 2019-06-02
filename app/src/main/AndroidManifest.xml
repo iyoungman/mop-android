@@ -23,13 +23,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDKMUtW3JdEoBLMcZzG8zjtqGSEq0vJUzo" />
 
-        <activity android:name=".view.activity.MemberInfoActivity"></activity>
-        <activity android:name=".view.activity.ClubSearchActivity" />
+        <activity android:name=".view.memberinfo.MemberInfoActivity"></activity>
+        <activity android:name=".view.clubsearch.ClubSearchActivity" />
         <!--<activity android:name=".view.fragment.InfoFragment" />-->
         <!--<activity android:name=".view.fragment.MapFragment" />-->
         <!--<activity android:name=".view.fragment.BoardFragment" />-->
         <!--<activity android:name=".view.fragment.ScheduleFragment" />-->
-        <activity android:name=".view.activity.SignInActivity">
+        <activity android:name=".view.signin.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -37,10 +37,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.ClubActivity" />
-        <activity android:name=".view.activity.ClubListActivity" />
-        <activity android:name=".view.activity.MyClubListActivity" />
-        <activity android:name=".view.activity.SignUpActivity" />
+        <activity android:name=".view.ClubActivity" />
+        <activity android:name=".view.clublist.ClubListActivity" />
+        <activity android:name=".view.myclublist.MyClubListActivity" />
+        <activity android:name=".view.signup.SignUpActivity" />
     </application>
 
 </manifest>

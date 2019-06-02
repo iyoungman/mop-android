@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 import com.youngman.mop.model.dto.InfoDto;
-import com.youngman.mop.network.NetRetrofit;
+import com.youngman.mop.net.NetRetrofit;
 
 import java.util.ArrayList;
 import java.util.List;

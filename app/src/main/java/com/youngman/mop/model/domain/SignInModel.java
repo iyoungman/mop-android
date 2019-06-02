@@ -3,7 +3,7 @@ package com.youngman.mop.model.domain;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.youngman.mop.network.NetRetrofit;
+import com.youngman.mop.net.NetRetrofit;
 
 import java.util.HashMap;
 import java.util.Map;
