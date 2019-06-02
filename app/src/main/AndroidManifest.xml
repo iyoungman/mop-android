@@ -16,12 +16,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDKMUtW3JdEoBLMcZzG8zjtqGSEq0vJUzo" />
+
         <activity android:name=".view.activity.MemberInfoActivity"></activity>
         <activity android:name=".view.activity.ClubSearchActivity" />
-        <activity android:name=".view.fragment.InfoFragment" />
-        <activity android:name=".view.fragment.MapFragment" />
-        <activity android:name=".view.fragment.BoardFragment" />
-        <activity android:name=".view.fragment.ScheduleFragment" />
+        <!--<activity android:name=".view.fragment.InfoFragment" />-->
+        <!--<activity android:name=".view.fragment.MapFragment" />-->
+        <!--<activity android:name=".view.fragment.BoardFragment" />-->
+        <!--<activity android:name=".view.fragment.ScheduleFragment" />-->
         <activity android:name=".view.activity.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

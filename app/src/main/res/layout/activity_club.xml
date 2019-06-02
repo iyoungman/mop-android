@@ -26,8 +26,7 @@
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:layout_weight="0.2"
-                android:src="@drawable/ic_cast_dark" />
+                android:layout_weight="0.2"/>
 
             <TextView
                 android:id="@+id/titleTextView"
@@ -91,7 +90,7 @@
             android:layout_gravity="center"
             android:layout_weight="0.125"
             android:padding="5dp"
-            android:src="@drawable/common_google_signin_btn_icon_dark_disabled" />
+            android:src="@drawable/common_google_signin_btn_text_dark"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -106,7 +105,7 @@
             android:layout_gravity="center"
             android:layout_weight="0.125"
             android:padding="5dp"
-            android:src="@drawable/common_google_signin_btn_icon_dark_disabled" />
+            android:src="@drawable/common_google_signin_btn_text_dark" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -120,7 +119,7 @@
             android:layout_gravity="center"
             android:layout_weight="0.125"
             android:padding="5dp"
-            android:src="@drawable/cast_ic_notification_0" />
+            android:src="@drawable/common_google_signin_btn_text_dark" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -134,7 +133,7 @@
             android:layout_gravity="center"
             android:layout_weight="0.125"
             android:padding="5dp"
-            android:src="@drawable/ic_play_light" />
+            android:src="@drawable/common_google_signin_btn_text_dark" />
 
         <LinearLayout
             android:layout_width="0dp"
