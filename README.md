@@ -18,4 +18,4 @@
   + 게시판을 통해서 동호회 회원들 간의 자유로운 의사소통을 보장
 
 ## Design Pattern
-* MVP Pattern 
+* MVP Pattern 변형  
