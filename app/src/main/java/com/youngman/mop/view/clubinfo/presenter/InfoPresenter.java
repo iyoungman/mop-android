@@ -2,12 +2,11 @@ package com.youngman.mop.view.clubinfo.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.youngman.mop.view.clubinfo.adapter.MemberListAdapterContract;
 import com.youngman.mop.listener.OnMemberItemClickListener;
 import com.youngman.mop.model.domain.InfoModel;
 import com.youngman.mop.model.dto.InfoDto;
 import com.youngman.mop.model.dto.MemberDto;
-import com.youngman.mop.view.clubinfo.presenter.InfoContract;
+import com.youngman.mop.view.clubinfo.adapter.MemberListAdapterContract;
 
 /**
  * Created by YoungMan on 2019-05-28.

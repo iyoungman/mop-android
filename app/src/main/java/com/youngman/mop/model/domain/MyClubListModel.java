@@ -23,6 +23,7 @@ public class MyClubListModel {
 
     private List<ClubModel> clubModels = new ArrayList<>();
 
+
     public void callMyClubList(@NonNull String email, @NonNull final ListApiListener listener) {
         Call<List<ClubModel>> result = NetRetrofit.getInstance().getNetRetrofitInterface().callMyClubsByMemberEmail(email);
         result.enqueue(new Callback<List<ClubModel>>() {
@@ -66,8 +67,8 @@ public class MyClubListModel {
         });
     }
 
-    private Map makeParams(String email, Long clubId) {
-        Map deleteMyClubParams = new HashMap();
+    private Map<String, Object> makeParams(String email, Long clubId) {
+        Map<String, Object> deleteMyClubParams = new HashMap<>();
         deleteMyClubParams.put("email", email);
         deleteMyClubParams.put("clubId", clubId);
 

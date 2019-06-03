@@ -1,4 +1,4 @@
-package com.youngman.mop.view;
+package com.youngman.mop.view.club;
 
 import android.content.Context;
 import android.os.Bundle;

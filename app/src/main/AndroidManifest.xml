@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -17,18 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDKMUtW3JdEoBLMcZzG8zjtqGSEq0vJUzo" />
 
-        <activity android:name=".view.memberinfo.MemberInfoActivity"></activity>
-        <activity android:name=".view.clubsearch.ClubSearchActivity" />
-        <!--<activity android:name=".view.fragment.InfoFragment" />-->
-        <!--<activity android:name=".view.fragment.MapFragment" />-->
-        <!--<activity android:name=".view.fragment.BoardFragment" />-->
-        <!--<activity android:name=".view.fragment.ScheduleFragment" />-->
         <activity android:name=".view.signin.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -37,7 +34,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.ClubActivity" />
+        <activity android:name=".view.memberinfo.MemberInfoActivity" />
+        <activity android:name=".view.clubsearch.ClubSearchActivity" />
+        <activity android:name=".view.club.ClubActivity" />
         <activity android:name=".view.clublist.ClubListActivity" />
         <activity android:name=".view.myclublist.MyClubListActivity" />
         <activity android:name=".view.signup.SignUpActivity" />

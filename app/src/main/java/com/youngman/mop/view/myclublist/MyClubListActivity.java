@@ -15,7 +15,7 @@ import com.youngman.mop.view.myclublist.presenter.MyClubListContract;
 import com.youngman.mop.view.myclublist.presenter.MyClubListPresenter;
 import com.youngman.mop.util.SignUtils;
 import com.youngman.mop.util.ToastUtils;
-import com.youngman.mop.view.ClubActivity;
+import com.youngman.mop.view.club.ClubActivity;
 import com.youngman.mop.view.clublist.ClubListActivity;
 
 public class MyClubListActivity extends AppCompatActivity implements MyClubListContract.View {

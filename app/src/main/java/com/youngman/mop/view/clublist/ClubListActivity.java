@@ -20,7 +20,7 @@ import com.youngman.mop.view.clublist.presenter.ClubListPresenter;
 import com.youngman.mop.util.SignUtils;
 import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.clubsearch.ClubSearchActivity;
-import com.youngman.mop.view.ClubActivity;
+import com.youngman.mop.view.club.ClubActivity;
 
 public class ClubListActivity extends AppCompatActivity implements ClubListContract.View, OnLoadMoreListener {
 

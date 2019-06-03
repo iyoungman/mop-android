@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.youngman.mop.view.clubinfo.adapter.MemberListAdapterContract;
-import com.youngman.mop.view.clubinfo.adapter.MemberListViewHolder;
 import com.youngman.mop.listener.OnMemberItemClickListener;
 import com.youngman.mop.model.dto.MemberDto;
 
