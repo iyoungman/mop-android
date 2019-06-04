@@ -24,6 +24,7 @@ public class MapPresenter implements MapContract.Presenter{
 
     @Override
     public void setDefaultLocationOnMap(@NonNull GoogleMap googleMap) {
+//        location = new Location()
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(18));

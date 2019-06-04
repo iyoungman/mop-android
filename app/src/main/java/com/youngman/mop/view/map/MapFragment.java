@@ -2,6 +2,7 @@ package com.youngman.mop.view.map;
 
 import android.content.Context;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,18 +19,22 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.youngman.mop.R;
+import com.youngman.mop.util.GpsUtils;
 import com.youngman.mop.view.map.presenter.MapContract;
 import com.youngman.mop.view.map.presenter.MapPresenter;
+
+import static android.content.Context.LOCATION_SERVICE;
 
 public class MapFragment extends Fragment implements MapContract.View, OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private Context context;
     private MapView mapView;
-    private GoogleMap mGoogleMap;
+    private GoogleMap googleMap;
+    private LocationManager locationManager;
     private MapContract.Presenter presenter;
+    double latitude, longitude;
 
     public static MapFragment createFragment(Long clubId) {
         MapFragment fragment = new MapFragment();
@@ -57,13 +62,19 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         mapView = (MapView) view.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
-        mapView.getMapAsync(this);
+        locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+        GpsUtils.checkGpsOn(context, locationManager);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mGoogleMap = googleMap;
-        presenter.setDefaultLocationOnMap(googleMap);
+        this.googleMap = googleMap;
+        LatLng latLng = new LatLng(latitude, longitude);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+        googleMap.getUiSettings().setZoomGesturesEnabled(true);
+        googleMap.setMaxZoomPreference(20);
+        googleMap.setMinZoomPreference(10);
     }
 
     @Override
@@ -83,6 +94,9 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
     @Override
     public void onLocationChanged(Location location) {
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
 
+        mapView.getMapAsync(this);
     }
 }
