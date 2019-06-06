@@ -6,13 +6,13 @@ import com.youngman.mop.data.MyClubsResponse;
 import com.youngman.mop.data.source.myclubs.MyClubsRepository;
 import com.youngman.mop.data.source.myclubs.MyClubsSource;
 import com.youngman.mop.view.myclubs.adapter.MyClubsAdapterContract;
-import com.youngman.mop.listener.OnMyClubItemClickListener;
+import com.youngman.mop.listener.OnMyClubsItemClickListener;
 
 /**
  * Created by YoungMan on 2019-05-01.
  */
 
-public class MyClubsPresenter implements MyClubsContract.Presenter, OnMyClubItemClickListener {
+public class MyClubsPresenter implements MyClubsContract.Presenter, OnMyClubsItemClickListener {
 
     private MyClubsContract.View myClubView;
     private final MyClubsRepository myClubListRepository;
@@ -69,7 +69,7 @@ public class MyClubsPresenter implements MyClubsContract.Presenter, OnMyClubItem
     @Override
     public void setMyClubAdapterView(@NonNull MyClubsAdapterContract.View adapterView) {
         this.adapterView = adapterView;
-        this.adapterView.setOnMyClubItemClickListener(this);
+        this.adapterView.setOnMyClubsItemClickListener(this);
     }
 
     @Override

@@ -5,14 +5,14 @@ import android.support.annotation.NonNull;
 import com.youngman.mop.data.ClubsResponse;
 import com.youngman.mop.data.source.clubs.ClubsRepository;
 import com.youngman.mop.data.source.clubs.ClubsSource;
-import com.youngman.mop.listener.OnClubListItemClickListener;
+import com.youngman.mop.listener.OnClubsItemClickListener;
 import com.youngman.mop.view.clubs.adapter.ClubsAdapterContract;
 
 /**
  * Created by YoungMan on 2019-05-03.
  */
 
-public class ClubsPresenter implements ClubsContract.Presenter, OnClubListItemClickListener {
+public class ClubsPresenter implements ClubsContract.Presenter, OnClubsItemClickListener {
 
     private ClubsContract.View clubListView;
     private final ClubsRepository clubsRepository;

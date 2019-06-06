@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.youngman.mop.R;
 import com.youngman.mop.data.Club;
-import com.youngman.mop.listener.OnClubListItemClickListener;
+import com.youngman.mop.listener.OnClubsItemClickListener;
 
 /**
  * Created by YoungMan on 2019-05-03.
@@ -24,12 +24,12 @@ public class ClubsViewHolder extends RecyclerView.ViewHolder {
     private TextView tvClubRegion;
     private TextView tvClubHobby;
 
-    private OnClubListItemClickListener onClubListItemClickListener;
+    private OnClubsItemClickListener onClubsItemClickListener;
 
 
     public ClubsViewHolder(@NonNull Context context,
                            @NonNull ViewGroup parent,
-                           @NonNull OnClubListItemClickListener onClubListItemClickListener) {
+                           @NonNull OnClubsItemClickListener onClubsItemClickListener) {
 
         super(LayoutInflater.from(context).inflate(R.layout.item_clubs, parent, false));
         this.context = context;
@@ -37,7 +37,7 @@ public class ClubsViewHolder extends RecyclerView.ViewHolder {
         this.tvClubName = itemView.findViewById(R.id.tv_club_name);
         this.tvClubRegion = itemView.findViewById(R.id.tv_club_region);
         this.tvClubHobby = itemView.findViewById(R.id.tv_club_hobby);
-        this.onClubListItemClickListener = onClubListItemClickListener;
+        this.onClubsItemClickListener = onClubsItemClickListener;
     }
 
     public void onBind(@NonNull Club club, @NonNull final Integer position) {
@@ -48,7 +48,7 @@ public class ClubsViewHolder extends RecyclerView.ViewHolder {
         tvClubHobby.setText(club.getHobby());
 
         itemView.setOnClickListener(view -> {
-            onClubListItemClickListener.onStartClubClick(position);
+            onClubsItemClickListener.onStartClubClick(position);
         });
     }
 

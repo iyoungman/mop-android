@@ -41,8 +41,8 @@ public class MyClubsActivity extends AppCompatActivity implements MyClubsContrac
 
     private void initView() {
         context = getApplicationContext();
-        recyclerView = (RecyclerView) findViewById(R.id.rv_myclublist);
-        btnStartClubList = (Button) findViewById(R.id.btn_start_clublist);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_myclubs);
+        btnStartClubList = (Button) findViewById(R.id.btn_start_clubs);
 
         myClubsAdapter = new MyClubsAdapter(context);
         recyclerView.setAdapter(myClubsAdapter);

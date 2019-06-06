@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.youngman.mop.data.Club;
-import com.youngman.mop.listener.OnClubListItemClickListener;
+import com.youngman.mop.listener.OnClubsItemClickListener;
 import com.youngman.mop.listener.OnLoadMoreListener;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsViewHolder> implemen
 
     private Context context;
     private List<Club> clubs = new ArrayList<>();
-    private OnClubListItemClickListener onClubListItemClickListener;
+    private OnClubsItemClickListener onClubsItemClickListener;
     private OnLoadMoreListener onLoadMoreListener;
     private LinearLayoutManager linearLayoutManager;
 
@@ -34,8 +34,8 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsViewHolder> implemen
         this.onLoadMoreListener = onLoadMoreListener;
     }
 
-    public void setOnClubListItemClickListener(@NonNull OnClubListItemClickListener onClubListItemClickListener) {
-        this.onClubListItemClickListener = onClubListItemClickListener;
+    public void setOnClubsItemClickListener(@NonNull OnClubsItemClickListener onClubsItemClickListener) {
+        this.onClubsItemClickListener = onClubsItemClickListener;
     }
 
     public void setLinearLayoutManager(LinearLayoutManager linearLayoutManager) {
@@ -85,7 +85,7 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsViewHolder> implemen
 
     @Override
     public ClubsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ClubsViewHolder(context, parent, onClubListItemClickListener);
+        return new ClubsViewHolder(context, parent, onClubsItemClickListener);
     }
 
     @Override

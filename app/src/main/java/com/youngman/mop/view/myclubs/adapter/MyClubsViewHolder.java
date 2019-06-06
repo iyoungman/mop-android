@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.youngman.mop.R;
 import com.youngman.mop.data.Club;
-import com.youngman.mop.listener.OnMyClubItemClickListener;
+import com.youngman.mop.listener.OnMyClubsItemClickListener;
 import com.youngman.mop.util.SignUtils;
 
 /**
@@ -26,11 +26,11 @@ public class MyClubsViewHolder extends RecyclerView.ViewHolder {
     private ImageView ivMyClub;
     private TextView tvMyClubRecentSchedule;
 
-    private OnMyClubItemClickListener onMyClubItemClickListener;
+    private OnMyClubsItemClickListener onMyClubsItemClickListener;
 
     public MyClubsViewHolder(@NonNull Context context,
                              @NonNull ViewGroup parent,
-                             @NonNull OnMyClubItemClickListener onMyClubItemClickListener) {
+                             @NonNull OnMyClubsItemClickListener onMyClubsItemClickListener) {
 
         super(LayoutInflater.from(context).inflate(R.layout.item_myclubs, parent, false));
         this.context = context;
@@ -38,7 +38,7 @@ public class MyClubsViewHolder extends RecyclerView.ViewHolder {
         this.btnMyClubDelete = itemView.findViewById(R.id.btn_myclub_delete);
         this.ivMyClub = itemView.findViewById(R.id.iv_myclub);
         this.tvMyClubRecentSchedule = itemView.findViewById(R.id.tv_myclub_recent_schedule);
-        this.onMyClubItemClickListener = onMyClubItemClickListener;
+        this.onMyClubsItemClickListener = onMyClubsItemClickListener;
     }
 
     public void onBind(@NonNull Club club, @NonNull final Integer position) {
@@ -47,11 +47,11 @@ public class MyClubsViewHolder extends RecyclerView.ViewHolder {
         tvMyClubRecentSchedule.setText(club.getUpComingMeetingDate());
 
         btnMyClubDelete.setOnClickListener(view -> {
-            onMyClubItemClickListener.onDeleteMyClubClick(SignUtils.readUserIdFromPref(context), position);
+            onMyClubsItemClickListener.onDeleteMyClubClick(SignUtils.readUserIdFromPref(context), position);
         });
 
         ivMyClub.setOnClickListener(view -> {
-            onMyClubItemClickListener.onStartMyClubClick(position);
+            onMyClubsItemClickListener.onStartMyClubClick(position);
         });
 
     }

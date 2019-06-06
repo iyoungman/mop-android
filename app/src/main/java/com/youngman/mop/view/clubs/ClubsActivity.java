@@ -46,9 +46,9 @@ public class ClubsActivity extends AppCompatActivity implements ClubsContract.Vi
 
     private void initView() {
         context = getApplicationContext();
-        etSearchClubList = (EditText) findViewById(R.id.et_search_clublist);
-        btnSearchClubList = (Button) findViewById(R.id.btn_search_clublist);
-        recyclerView = (RecyclerView) findViewById(R.id.rv_clublist);
+        etSearchClubList = (EditText) findViewById(R.id.et_search_clubs);
+        btnSearchClubList = (Button) findViewById(R.id.btn_search_clubs);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_clubs);
         initMoreRecyclerView();
 
         etSearchClubList.setOnClickListener(view -> {

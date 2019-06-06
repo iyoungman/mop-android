@@ -22,7 +22,6 @@ import retrofit2.http.QueryMap;
  * Created by YoungMan on 2019-04-28.
  */
 
-@SuppressWarnings("SpellCheckingInspection")
 public interface NetRetrofitInterface {
 
     @POST("mop/member/signin")

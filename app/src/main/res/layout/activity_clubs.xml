@@ -6,19 +6,19 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/et_search_clublist"
+        android:id="@+id/et_search_clubs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="검색" />
 
     <Button
-        android:id="@+id/btn_search_clublist"
+        android:id="@+id/btn_search_clubs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="검색" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_clublist"
+        android:id="@+id/rv_clubs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
