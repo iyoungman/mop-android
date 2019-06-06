@@ -2,8 +2,9 @@ package com.youngman.mop.view.signin.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.youngman.mop.view.signin.presenter.SignInContract;
-import com.youngman.mop.model.domain.SignInModel;
+import com.youngman.mop.data.SignIn;
+import com.youngman.mop.data.source.signin.SignInRepository;
+import com.youngman.mop.data.source.signin.SignInSource;
 
 /**
  * Created by YoungMan on 2019-04-29.
@@ -12,18 +13,26 @@ import com.youngman.mop.model.domain.SignInModel;
 public class SignInPresenter implements SignInContract.Presenter {
 
     private SignInContract.View signInView;
-    private SignInModel signInModel;
+    private final SignInRepository signInRepository;
 
-    public SignInPresenter(SignInContract.View signInView) {
+
+    public SignInPresenter(SignInContract.View signInView,
+                           SignInRepository signInRepository) {
+
         this.signInView = signInView;
-        this.signInModel = new SignInModel();
+        this.signInRepository = signInRepository;
     }
 
     @Override
     public void callSignIn(@NonNull String email, @NonNull String pw) {
-        signInModel.setSignInData(email, pw);
-        if(signInModel.checkData()) {
-            signInModel.callSignIn(new SignInModel.ApiListener() {
+        SignIn signIn = SignIn.builder()
+                .email(email)
+                .pw(pw)
+                .build();
+
+        if (signIn.checkData()) {
+            signInRepository.callSignIn(signIn, new SignInSource.ApiListener() {
+
                 @Override
                 public void onSuccess(String email) {
                     signInView.startMyClubActivity(email);

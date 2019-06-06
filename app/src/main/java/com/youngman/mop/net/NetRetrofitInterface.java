@@ -1,8 +1,10 @@
 package com.youngman.mop.net;
 
-import com.youngman.mop.model.domain.ClubListModel;
-import com.youngman.mop.model.domain.ClubModel;
-import com.youngman.mop.model.domain.InfoModel;
+import com.youngman.mop.data.Club;
+import com.youngman.mop.data.ClubInfoResponse;
+import com.youngman.mop.data.ClubsResponse;
+import com.youngman.mop.data.SignIn;
+import com.youngman.mop.data.SignUp;
 
 import java.util.List;
 import java.util.Map;
@@ -24,10 +26,10 @@ import retrofit2.http.QueryMap;
 public interface NetRetrofitInterface {
 
     @POST("mop/member/signin")
-    Call<Boolean> callSingIn(@Body Map<String, String> signInParams);
+    Call<Boolean> callSingIn(@Body SignIn signIn);
 
     @POST("mop/member")
-    Call<Boolean> callSingUp(@Body Map<String, String> signUpParams);
+    Call<Boolean> callSingUp(@Body SignUp signUp);
 
     @PUT("mop/member")
     Call<Void> callUpdateMember();
@@ -40,7 +42,7 @@ public interface NetRetrofitInterface {
     Call<Void> callCreateMyClub();
 
     @GET("mop/myclub")
-    Call<List<ClubModel>> callMyClubsByMemberEmail(@Query("email") String email);
+    Call<List<Club>> callMyClubsByMemberEmail(@Query("email") String email);
 
     @DELETE("mop/myclub")
     Call<Void> callDeleteMyClub(@QueryMap Map deleteMyClubParams);
@@ -49,11 +51,11 @@ public interface NetRetrofitInterface {
     @POST("mop/club")
     Call<Void> callCreateClub();
 
-    @GET("mop/club/search")
-    Call<List<ClubModel>> callPagingClubsBySearch(@Query("searchClub") String searchClub);
+//    @GET("mop/club/search")
+//    Call<List<ClubModel>> callPagingClubsBySearch(@Query("searchClub") String searchClub);
 
     @GET("mop/club/member")
-    Call<ClubListModel> callPagingClubsByMember(@QueryMap Map<String, Object> pagingClubsByMemberParams);
+    Call<ClubsResponse> callPagingClubsByMember(@QueryMap Map<String, Object> pagingClubsByMemberParams);
 
     @PUT("mop/club")
     Call<Void> callUpdateClub();
@@ -63,7 +65,7 @@ public interface NetRetrofitInterface {
 
 
     @GET("mop/club/info")
-    Call<InfoModel> callClubInfoById(@Query("clubId") Long clubId);
+    Call<ClubInfoResponse> callClubInfoById(@Query("clubId") Long clubId);
 
     @POST("mop/schedule")
     Call<Void> callCreateSchedule();

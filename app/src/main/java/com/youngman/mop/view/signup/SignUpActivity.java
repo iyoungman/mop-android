@@ -8,10 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.youngman.mop.R;
-import com.youngman.mop.view.signup.presenter.SignUpContract;
-import com.youngman.mop.model.dto.SignUpDto;
-import com.youngman.mop.view.signup.presenter.SignUpPresenter;
+import com.youngman.mop.data.SignUp;
+import com.youngman.mop.data.source.signup.SignUpRepository;
 import com.youngman.mop.util.ToastUtils;
+import com.youngman.mop.view.signup.presenter.SignUpContract;
+import com.youngman.mop.view.signup.presenter.SignUpPresenter;
 
 /**
  * Created by YoungMan on 2019-04-28.
@@ -33,7 +34,7 @@ public class SignUpActivity extends Activity implements SignUpContract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        presenter = new SignUpPresenter(this);
+        presenter = new SignUpPresenter(this, SignUpRepository.getInstance());
         initView();
     }
 
@@ -46,7 +47,7 @@ public class SignUpActivity extends Activity implements SignUpContract.View {
         etHobby = (EditText) findViewById(R.id.et_hobby);
         btnSignUp = (Button) findViewById(R.id.btn_signup);
 
-        btnSignUp.setOnClickListener(view -> presenter.callSignUp(SignUpDto.builder()
+        btnSignUp.setOnClickListener(view -> presenter.callSignUp(SignUp.builder()
                 .email(etEmail.getText().toString())
                 .pw(etPw.getText().toString())
                 .name(etName.getText().toString())

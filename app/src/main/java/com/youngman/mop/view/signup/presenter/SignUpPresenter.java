@@ -2,8 +2,9 @@ package com.youngman.mop.view.signup.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.youngman.mop.model.domain.SignUpModel;
-import com.youngman.mop.model.dto.SignUpDto;
+import com.youngman.mop.data.SignUp;
+import com.youngman.mop.data.source.signup.SignUpRepository;
+import com.youngman.mop.data.source.signup.SignUpSource;
 
 /**
  * Created by YoungMan on 2019-04-28.
@@ -12,18 +13,22 @@ import com.youngman.mop.model.dto.SignUpDto;
 public class SignUpPresenter implements SignUpContract.Presenter {
 
     private SignUpContract.View signUpView;
-    private SignUpModel signUpModel;
+    private final SignUpRepository signUpRepository;
 
-    public SignUpPresenter(@NonNull SignUpContract.View signUpView) {
+
+    public SignUpPresenter(@NonNull SignUpContract.View signUpView,
+                           @NonNull SignUpRepository signUpRepository) {
+
         this.signUpView = signUpView;
-        this.signUpModel = new SignUpModel();
+        this.signUpRepository = signUpRepository;
     }
 
     @Override
-    public void callSignUp(@NonNull SignUpDto signUpDto) {
-        signUpModel.setSignUpData(signUpDto);
-        if (signUpModel.checkData()) {
-            signUpModel.callSignUp(new SignUpModel.ApiListener() {
+    public void callSignUp(@NonNull SignUp signUp) {
+
+        if (signUp.checkData()) {
+            signUpRepository.callSignUp(signUp, new SignUpSource.ApiListener() {
+
                 @Override
                 public void onSuccess() {
                     signUpView.startSignInActivity();

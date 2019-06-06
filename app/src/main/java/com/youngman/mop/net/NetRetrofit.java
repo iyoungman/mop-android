@@ -14,11 +14,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NetRetrofit {
 
-    private final String LOCAL_BASE_URL = "http://192.168.0.104:8092/";
+    private final String LOCAL_BASE_URL = "http://192.168.0.61:8092/";
     private final String DEV_BASE_URL = "http://54.180.67.243:8092/";
 
     private static final NetRetrofit ourInstance = new NetRetrofit();
     private NetRetrofitInterface netRetrofitInterface;
+
 
     public static NetRetrofit getInstance() {
         return ourInstance;
@@ -27,7 +28,7 @@ public class NetRetrofit {
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(LOCAL_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(createOkHttpClient())
+//            .client(createOkHttpClient())
             .build();
 
     public NetRetrofitInterface getNetRetrofitInterface() {

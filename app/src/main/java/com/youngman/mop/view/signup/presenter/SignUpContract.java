@@ -2,7 +2,7 @@ package com.youngman.mop.view.signup.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.youngman.mop.model.dto.SignUpDto;
+import com.youngman.mop.data.SignUp;
 
 /**
  * Created by YoungMan on 2019-04-28.
@@ -16,6 +16,6 @@ public interface SignUpContract {
     }
 
     interface Presenter {
-        void callSignUp(@NonNull SignUpDto signUpDto);
+        void callSignUp(@NonNull SignUp signUp);
     }
 }

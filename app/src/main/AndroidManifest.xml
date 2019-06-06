@@ -38,8 +38,8 @@
         <activity android:name=".view.memberinfo.MemberInfoActivity" />
         <activity android:name=".view.clubsearch.ClubSearchActivity" />
         <activity android:name=".view.club.ClubActivity" />
-        <activity android:name=".view.clublist.ClubListActivity" />
-        <activity android:name=".view.myclublist.MyClubListActivity" />
+        <activity android:name=".view.clubs.ClubsActivity" />
+        <activity android:name=".view.myclubs.MyClubsActivity" />
         <activity android:name=".view.signup.SignUpActivity" />
     </application>
 

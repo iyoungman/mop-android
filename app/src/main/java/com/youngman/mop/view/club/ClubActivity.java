@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.youngman.mop.R;
 import com.youngman.mop.view.board.BoardFragment;
-import com.youngman.mop.view.clubinfo.InfoFragment;
+import com.youngman.mop.view.clubinfo.ClubInfoFragment;
 import com.youngman.mop.view.map.MapFragment;
 import com.youngman.mop.view.schedule.ScheduleFragment;
 
@@ -37,7 +37,7 @@ public class ClubActivity extends AppCompatActivity {
 
         ivTabInfo.setOnClickListener(view -> {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.ll_fragment_container, InfoFragment.createFragment(clubId))
+                    .replace(R.id.ll_fragment_container, ClubInfoFragment.createFragment(clubId))
                     .commit();
         });
 

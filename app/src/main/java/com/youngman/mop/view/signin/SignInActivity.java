@@ -9,11 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.youngman.mop.R;
+import com.youngman.mop.data.source.signin.SignInRepository;
 import com.youngman.mop.view.signin.presenter.SignInContract;
 import com.youngman.mop.view.signin.presenter.SignInPresenter;
 import com.youngman.mop.util.SignUtils;
 import com.youngman.mop.util.ToastUtils;
-import com.youngman.mop.view.myclublist.MyClubListActivity;
+import com.youngman.mop.view.myclubs.MyClubsActivity;
 import com.youngman.mop.view.signup.SignUpActivity;
 
 public class SignInActivity extends AppCompatActivity implements SignInContract.View {
@@ -30,7 +31,7 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
-        presenter = new SignInPresenter(this);
+        presenter = new SignInPresenter(this, SignInRepository.getInstance());
         initView();
     }
 
@@ -57,7 +58,7 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
     public void startMyClubActivity(@NonNull String email) {
         SignUtils.writeUserIdToPref(context, email);
 
-        Intent intent = new Intent(context, MyClubListActivity.class);
+        Intent intent = new Intent(context, MyClubsActivity.class);
         startActivity(intent);
         finish();
     }

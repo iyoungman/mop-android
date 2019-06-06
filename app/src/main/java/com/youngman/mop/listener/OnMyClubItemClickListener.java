@@ -8,6 +8,6 @@ import lombok.NonNull;
 
 public interface OnMyClubItemClickListener {
     void onDeleteMyClubClick(String email, int position);
-//    void onAddMyClubClick(int position);
+    //    void onAddMyClubClick(int position);
     void onStartMyClubClick(@NonNull Integer position);
 }
