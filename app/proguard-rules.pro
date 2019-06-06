@@ -1,25 +1,22 @@
-package com.youngman.mop.view.signup.presenter;
+    
+# Add project specific ProGuard rules here.
+# You can control the set of applied configuration files using the
+# proguardFiles setting in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
 
-import android.support.annotation.NonNull;
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
 
-import com.youngman.mop.data.SignUp;
-import com.youngman.mop.data.source.signup.SignUpRepository;
-import com.youngman.mop.data.source.signup.SignUpSource;
-import com.youngman.mop.model.domain.SignUpModel;
-import com.youngman.mop.model.dto.SignUpDto;
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
 
-/**
- * Created by YoungMan on 2019-04-28.
- */
-
-public class SignUpPresenter implements SignUpContract.Presenter {
-
-    private SignUpContract.View signUpView;
-    private final SignUpRepository signUpRepository;
-
-
-    public SignUpPresenter(@NonNull SignUpContract.View signUpView,
-                           @NonNull SignUpRepository signUpRepository) {
-
-        this.signUpView = signUpView;
-        this.signUpRepos
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile

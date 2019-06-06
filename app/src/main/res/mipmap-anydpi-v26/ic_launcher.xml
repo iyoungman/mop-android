@@ -1,8 +1,5 @@
-package com.youngman.mop.view.signin.presenter;
-
-import android.support.annotation.NonNull;
-
-import com.youngman.mop.data.SignIn;
-import com.youngman.mop.data.source.signin.SignInRepository;
-import com.youngman.mop.view.signin.presenter.SignInContract;
-import com.youngman.mop
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/ic_launcher_background" />
+    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+</adaptive-icon>
