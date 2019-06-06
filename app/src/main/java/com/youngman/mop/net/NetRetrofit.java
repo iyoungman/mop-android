@@ -3,6 +3,7 @@ package com.youngman.mop.net;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -23,14 +24,10 @@ public class NetRetrofit {
         return ourInstance;
     }
 
-    private OkHttpClient client = new OkHttpClient.Builder()
-            .addInterceptor(new LoggingInterceptor())
-            .build();
-
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(LOCAL_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
+            .client(createOkHttpClient())
             .build();
 
     public NetRetrofitInterface getNetRetrofitInterface() {
@@ -38,5 +35,13 @@ public class NetRetrofit {
             netRetrofitInterface = retrofit.create(NetRetrofitInterface.class);
         }
         return netRetrofitInterface;
+    }
+
+    private static OkHttpClient createOkHttpClient() {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        builder.addInterceptor(interceptor);
+        return builder.build();
     }
 }
