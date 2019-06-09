@@ -8,9 +8,9 @@ import android.support.annotation.NonNull;
 
 public class ClubInfoRepository implements ClubInfoSource{
 
+    private static ClubInfoRepository clubInfoRepository;
     private ClubInfoRemoteDataSource clubInfoRemoteDataSource;
 
-    private static ClubInfoRepository clubInfoRepository;
 
     public static ClubInfoRepository getInstance() {
         if(clubInfoRepository == null) {

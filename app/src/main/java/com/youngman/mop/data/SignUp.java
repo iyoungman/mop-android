@@ -1,5 +1,7 @@
 package com.youngman.mop.data;
 
+import android.support.annotation.NonNull;
+
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -21,8 +23,8 @@ public class SignUp {
 
 
     @Builder
-    public SignUp(String email, String pw, String name,
-                  String mobile, String hobby) {
+    public SignUp(@NonNull String email, @NonNull String pw, @NonNull String name,
+                  @NonNull String mobile, @NonNull String hobby) {
 
         this.email = email;
         this.pw = pw;

@@ -10,9 +10,9 @@ import com.youngman.mop.data.SignIn;
 
 public class SignInRepository implements SignInSource {
 
+    private static SignInRepository signInRepository;
     private SignInRemoteDataSource signInRemoteDataSource;
 
-    private static SignInRepository signInRepository;
 
     public static SignInRepository getInstance() {
         if(signInRepository == null) {
