@@ -1,7 +1,5 @@
 package com.youngman.mop.view.clubinfo.adapter;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.Member;
 import com.youngman.mop.listener.OnMemberItemClickListener;
 

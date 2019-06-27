@@ -18,10 +18,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.youngman.mop.R;
 import com.youngman.mop.lib.realtimedb.MemberLocation;
-import com.youngman.mop.util.EmptyCheckUtils;
 import com.youngman.mop.util.SignUtils;
 import com.youngman.mop.util.ToastUtils;
-import com.youngman.mop.view.clubinfo.adapter.MembersAdapter;
+import com.youngman.mop.view.map.adapter.MemberLocationsAdapter;
 import com.youngman.mop.view.map.presenter.MapContract;
 import com.youngman.mop.view.map.presenter.MapPresenter;
 
@@ -35,13 +34,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private RecyclerView recyclerView;
     private SupportMapFragment mapFragment;
     private Button btnLocationRefresh;
-    private MembersAdapter membersAdapter;
+    private MemberLocationsAdapter memberLocationsAdapter;
     private MapContract.Presenter presenter;
 
     private Long clubId;
     private GoogleMap mGoogleMap;
     private SimpleLocation simpleLocation;
-    private MemberLocation myLocation;
 
 
     @Override
@@ -53,12 +51,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void init() {
         context = getApplicationContext();
-        recyclerView = (RecyclerView) findViewById(R.id.rv_map_members);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_member_locations);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         btnLocationRefresh = (Button) findViewById(R.id.btn_location_refresh);
 
-        membersAdapter = new MembersAdapter(context);
-        recyclerView.setAdapter(membersAdapter);
+        memberLocationsAdapter = new MemberLocationsAdapter(context);
+        recyclerView.setAdapter(memberLocationsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         clubId = getIntent().getLongExtra("EXTRA_CLUB_ID", 1);
@@ -66,10 +64,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         presenter = new MapPresenter(this);
-        presenter.setMembersAdapterView(membersAdapter);
-        presenter.setMembersAdapterModel(membersAdapter);
+        presenter.setMemberLocationsAdapterView(memberLocationsAdapter);
+        presenter.setMemberLocationsAdapterModel(memberLocationsAdapter);
 
-        checkLocationSettings();
+        checkLocationSetting();
 
         btnLocationRefresh.setOnClickListener(v -> {
             presenter.callMapRefresh(clubId, SignUtils.readUserIdFromPref(context),
@@ -78,7 +76,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
     }
 
-    private void checkLocationSettings() {
+    private void checkLocationSetting() {
         if (!simpleLocation.hasLocationEnabled()) {
             SimpleLocation.openSettings(context);
         }
@@ -101,28 +99,30 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void mapRefresh(List<MemberLocation> memberLocations) {
-        for (MemberLocation memberLocation : memberLocations) {
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions
-                    .position(memberLocation.getLatLng())
-                    .title(memberLocation.getEmail())
-                    .icon(decideBitmapDescriptor(memberLocation.getEmail()));
-
-            mGoogleMap.addMarker(markerOptions);
-
-            if(memberLocation.getEmail().equals(SignUtils.readUserIdFromPref(context))) {
-               myLocation = memberLocation;
-            }
-        }
-
+    public void mapRefresh(List<MemberLocation> otherLocations, MemberLocation myLocation) {
+        otherLocations.forEach(m -> mGoogleMap.addMarker(markLocation(m)));
+        mGoogleMap.addMarker(markLocation(myLocation));
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation.getLatLng(), 16));
+    }
+
+    private MarkerOptions markLocation(MemberLocation memberLocation) {
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(memberLocation.getLatLng());
+        markerOptions.title(memberLocation.getEmail());
+        markerOptions.icon(decideBitmapDescriptor(memberLocation.getEmail()));
+
+        return markerOptions;
     }
 
     private BitmapDescriptor decideBitmapDescriptor(String email) {
         return email.equals(SignUtils.readUserIdFromPref(context)) ?
                 BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED) :
                 BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
+    }
+
+    @Override
+    public void moveLocation(MemberLocation memberLocation) {
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(memberLocation.getLatLng(), 16));
     }
 
     @Override

@@ -17,10 +17,8 @@ import com.youngman.mop.listener.OnMemberItemClickListener;
 
 public class MembersViewHolder extends RecyclerView.ViewHolder {
 
-    private Context context;
     private TextView tvMemberName;
     private TextView tvMemberIntroduce;
-
     private OnMemberItemClickListener onMemberItemClickListener;
 
 
@@ -29,7 +27,6 @@ public class MembersViewHolder extends RecyclerView.ViewHolder {
                              OnMemberItemClickListener onMemberItemClickListener) {
 
         super(LayoutInflater.from(context).inflate(R.layout.item_members, parent, false));
-        this.context = context;
 //        this.ivClubImg = itemView.findViewById(R.id.iv_club_img);
         this.tvMemberName = itemView.findViewById(R.id.tv_member_name);
         this.tvMemberIntroduce = itemView.findViewById(R.id.tv_member_introduce);

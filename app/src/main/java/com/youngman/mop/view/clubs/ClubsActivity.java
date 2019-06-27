@@ -27,8 +27,8 @@ public class ClubsActivity extends AppCompatActivity implements ClubsContract.Vi
 
     private Context context;
     private RecyclerView recyclerView;
-    private EditText etSearchClubList;
-    private Button btnSearchClubList;
+    private EditText etSearchClubs;
+    private Button btnSearchClubs;
     private ClubsAdapter clubsAdapter;
     private ClubsContract.Presenter presenter;
 
@@ -46,18 +46,18 @@ public class ClubsActivity extends AppCompatActivity implements ClubsContract.Vi
 
     private void initView() {
         context = getApplicationContext();
-        etSearchClubList = (EditText) findViewById(R.id.et_search_clubs);
-        btnSearchClubList = (Button) findViewById(R.id.btn_search_clubs);
+        etSearchClubs = (EditText) findViewById(R.id.et_search_clubs);
+        btnSearchClubs = (Button) findViewById(R.id.btn_search_clubs);
         recyclerView = (RecyclerView) findViewById(R.id.rv_clubs);
         initMoreRecyclerView();
 
-        etSearchClubList.setOnClickListener(view -> {
+        etSearchClubs.setOnClickListener(view -> {
             startClubSearchActivity();
         });
 
-        /*btnSearchClubList.setOnClickListener(view -> {
+        /*btnSearchClubs.setOnClickListener(view -> {
             if (isNotEmpty())
-                presenter.callPagingClubsBySearch(etSearchClubList.getText().toString());
+                presenter.callPagingClubsBySearch(etSearchClubs.getText().toString());
         });*/
     }
 
@@ -72,7 +72,7 @@ public class ClubsActivity extends AppCompatActivity implements ClubsContract.Vi
     }
 
     /*private boolean isNotEmpty() {
-        if (EmptyCheckUtils.isEmpty(etSearchClubList.getText().toString())) {
+        if (EmptyCheckUtils.isEmpty(etSearchClubs.getText().toString())) {
             showErrorMessage("검색어를 입력해주세요");
             return false;
         }

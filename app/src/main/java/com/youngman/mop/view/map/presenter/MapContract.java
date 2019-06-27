@@ -1,10 +1,9 @@
 package com.youngman.mop.view.map.presenter;
 
-import android.support.annotation.NonNull;
-
 import com.google.android.gms.maps.model.LatLng;
 import com.youngman.mop.lib.realtimedb.MemberLocation;
 import com.youngman.mop.view.clubinfo.adapter.MembersAdapterContract;
+import com.youngman.mop.view.map.adapter.MemberLocationsAdapterContract;
 
 import java.util.List;
 
@@ -16,13 +15,14 @@ public interface MapContract {
 
     //방장 - 유저목록(단톡방) 생성, 단톡방 삭제, (멤버 추가)
     interface View {
-        void mapRefresh(List<MemberLocation> memberLocations);
-        void showErrorMessage(@NonNull String message);
+        void mapRefresh(List<MemberLocation> memberLocations, MemberLocation myLocation);
+        void moveLocation(MemberLocation memberLocation);
+        void showErrorMessage(String message);
     }
 
     interface Presenter {
         void callMapRefresh(Long clubId, String email, LatLng latLng);
-        void setMembersAdapterView(MembersAdapterContract.View adapterView);
-        void setMembersAdapterModel(MembersAdapterContract.Model adapterModel);
+        void setMemberLocationsAdapterView(MemberLocationsAdapterContract.View adapterView);
+        void setMemberLocationsAdapterModel(MemberLocationsAdapterContract.Model adapterModel);
     }
 }

@@ -7,7 +7,7 @@
 
     <!--가로 리사이클러뷰-->
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_map_members"
+        android:id="@+id/rv_member_locations"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"/>

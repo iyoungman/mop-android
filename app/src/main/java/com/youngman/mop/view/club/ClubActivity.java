@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import com.youngman.mop.R;
 import com.youngman.mop.view.board.BoardFragment;
 import com.youngman.mop.view.clubinfo.ClubInfoFragment;
-import com.youngman.mop.view.map_before.MapFragment;
 import com.youngman.mop.view.schedule.ScheduleFragment;
 
 public class ClubActivity extends AppCompatActivity {
@@ -41,11 +40,11 @@ public class ClubActivity extends AppCompatActivity {
                     .commit();
         });
 
-        ivTabMap.setOnClickListener(view -> {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.ll_fragment_container, MapFragment.createFragment(clubId))
-                    .commit();
-        });
+//        ivTabMap.setOnClickListener(view -> {
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.ll_fragment_container, MapFragment.createFragment(clubId))
+//                    .commit();
+//        });
 
         ivTabSchedule.setOnClickListener(view -> {
             getSupportFragmentManager().beginTransaction()
