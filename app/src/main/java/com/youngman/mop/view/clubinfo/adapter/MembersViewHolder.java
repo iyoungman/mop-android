@@ -24,9 +24,9 @@ public class MembersViewHolder extends RecyclerView.ViewHolder {
     private OnMemberItemClickListener onMemberItemClickListener;
 
 
-    public MembersViewHolder(@NonNull Context context,
-                             @NonNull ViewGroup parent,
-                             @NonNull OnMemberItemClickListener onMemberItemClickListener) {
+    public MembersViewHolder(Context context,
+                             ViewGroup parent,
+                             OnMemberItemClickListener onMemberItemClickListener) {
 
         super(LayoutInflater.from(context).inflate(R.layout.item_members, parent, false));
         this.context = context;
@@ -36,7 +36,7 @@ public class MembersViewHolder extends RecyclerView.ViewHolder {
         this.onMemberItemClickListener = onMemberItemClickListener;
     }
 
-    public void onBind(@NonNull Member member, @NonNull final Integer position) {
+    public void onBind(Member member, final Integer position) {
 
         tvMemberName.setText(member.getName());
         tvMemberIntroduce.setText(member.getIntroduce());

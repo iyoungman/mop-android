@@ -1,10 +1,10 @@
 package com.youngman.mop.data.source.clubinfo;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.ClubInfoResponse;
 import com.youngman.mop.net.NetRetrofit;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -13,13 +13,11 @@ import retrofit2.Response;
  * Created by YoungMan on 2019-06-06.
  */
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ClubInfoRemoteDataSource implements ClubInfoSource {
 
     private static ClubInfoRemoteDataSource INSTANCE;
 
-
-    private ClubInfoRemoteDataSource() {
-    }
 
     public static ClubInfoRemoteDataSource getInstance() {
         if (INSTANCE == null) {
@@ -30,8 +28,8 @@ public class ClubInfoRemoteDataSource implements ClubInfoSource {
     }
 
     @Override
-    public void callClubInfoByClubId(@NonNull Long clubId,
-                                     @NonNull final ApiListener listener) {
+    public void callClubInfoByClubId(Long clubId,
+                                     final ApiListener listener) {
 
         Call<ClubInfoResponse> result = NetRetrofit.getInstance().getNetRetrofitInterface().callClubInfoById(clubId);
         result.enqueue(new Callback<ClubInfoResponse>() {

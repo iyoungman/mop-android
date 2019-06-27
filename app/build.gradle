@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
@@ -48,6 +50,12 @@ dependencies {
     // Google Map API
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.github.delight-im:Android-SimpleLocation:v1.0.1'
+
+    // Google FireBase
+    implementation 'com.google.firebase:firebase-core:16.0.9'
+    implementation 'com.google.firebase:firebase-database:17.0.0'
+    implementation 'com.google.firebase:firebase-messaging:18.0.0'
 
     // TEST
     testImplementation 'junit:junit:4.12'
@@ -57,4 +65,9 @@ dependencies {
     // Lombok
     compileOnly "org.projectlombok:lombok:1.18.6"
     annotationProcessor "org.projectlombok:lombok:1.18.6"
+}
+
+apply plugin: 'com.google.gms.google-services'
+repositories {
+    mavenCentral()
 }

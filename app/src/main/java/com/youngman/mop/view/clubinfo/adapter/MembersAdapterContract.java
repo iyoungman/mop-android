@@ -19,8 +19,8 @@ public interface MembersAdapterContract {
     }
 
     interface Model {
-        void addItems(@NonNull List<Member> members);
-        void deleteItem(@NonNull Integer position);
-        Member getItem(@NonNull Integer position);
+        void addItems(List<Member> members);
+        void deleteItem(int position);
+        Member getItem(int position);
     }
 }

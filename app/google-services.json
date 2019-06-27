@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "355229688488",
+    "firebase_url": "https://crypto-triode-242307.firebaseio.com",
+    "project_id": "crypto-triode-242307",
+    "storage_bucket": "crypto-triode-242307.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:355229688488:android:22daa834bf2cdfbf",
+        "android_client_info": {
+          "package_name": "com.youngman.mop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "355229688488-7jje58il0si32n0n3kn9b6n43miua5pi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDi_ycheT345zvf5AQ4oD2jkPG6nAdMMEw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "355229688488-7jje58il0si32n0n3kn9b6n43miua5pi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

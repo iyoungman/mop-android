@@ -32,14 +32,10 @@ public class MyClubsActivity extends AppCompatActivity implements MyClubsContrac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myclubs);
-        initView();
-        presenter = new MyClubsPresenter(this, MyClubsRepository.getInstance());
-        presenter.setMyClubAdapterView(myClubsAdapter);
-        presenter.setMyClubAdapterModel(myClubsAdapter);
-        presenter.callMyClubList(SignUtils.readUserIdFromPref(context));
+        init();
     }
 
-    private void initView() {
+    private void init() {
         context = getApplicationContext();
         recyclerView = (RecyclerView) findViewById(R.id.rv_myclubs);
         btnStartClubList = (Button) findViewById(R.id.btn_start_clubs);
@@ -47,6 +43,11 @@ public class MyClubsActivity extends AppCompatActivity implements MyClubsContrac
         myClubsAdapter = new MyClubsAdapter(context);
         recyclerView.setAdapter(myClubsAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+
+        presenter = new MyClubsPresenter(this, MyClubsRepository.getInstance());
+        presenter.setMyClubAdapterView(myClubsAdapter);
+        presenter.setMyClubAdapterModel(myClubsAdapter);
+        presenter.callMyClubList(SignUtils.readUserIdFromPref(context));
 
         btnStartClubList.setOnClickListener(view -> {
             startClubListActivity();

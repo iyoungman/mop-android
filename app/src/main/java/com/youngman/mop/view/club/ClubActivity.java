@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import com.youngman.mop.R;
 import com.youngman.mop.view.board.BoardFragment;
 import com.youngman.mop.view.clubinfo.ClubInfoFragment;
-import com.youngman.mop.view.map.MapFragment;
+import com.youngman.mop.view.map_before.MapFragment;
 import com.youngman.mop.view.schedule.ScheduleFragment;
 
 public class ClubActivity extends AppCompatActivity {

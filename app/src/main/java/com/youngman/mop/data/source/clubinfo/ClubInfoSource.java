@@ -15,7 +15,7 @@ public interface ClubInfoSource {
         void onFail(String message);
     }
 
-    void callClubInfoByClubId(@NonNull Long clubId,
-                              @NonNull final ApiListener listener);
+    void callClubInfoByClubId(Long clubId,
+                              final ApiListener listener);
 
 }

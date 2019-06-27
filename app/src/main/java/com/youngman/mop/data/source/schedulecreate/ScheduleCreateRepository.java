@@ -10,8 +10,8 @@ import com.youngman.mop.data.Schedule;
 
 public class ScheduleCreateRepository implements ScheduleCreateSource {
 
-    private ScheduleCreateRemoteDataSource scheduleCreateRemoteDataSource;
     private static ScheduleCreateRepository scheduleCreateRepository;
+    private ScheduleCreateRemoteDataSource scheduleCreateRemoteDataSource;
 
 
     public static ScheduleCreateRepository getInstance() {

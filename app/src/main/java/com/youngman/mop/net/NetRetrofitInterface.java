@@ -3,6 +3,7 @@ package com.youngman.mop.net;
 import com.youngman.mop.data.Club;
 import com.youngman.mop.data.ClubInfoResponse;
 import com.youngman.mop.data.ClubsResponse;
+import com.youngman.mop.data.Schedule;
 import com.youngman.mop.data.SignIn;
 import com.youngman.mop.data.SignUp;
 
@@ -67,5 +68,5 @@ public interface NetRetrofitInterface {
     Call<ClubInfoResponse> callClubInfoById(@Query("clubId") Long clubId);
 
     @POST("mop/schedule")
-    Call<Void> callCreateSchedule();
+    Call<Void> callCreateSchedule(@Body Schedule schedule);
 }

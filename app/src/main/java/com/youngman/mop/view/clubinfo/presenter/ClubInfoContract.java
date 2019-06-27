@@ -13,14 +13,14 @@ import com.youngman.mop.view.clubinfo.adapter.MembersAdapterContract;
 public interface ClubInfoContract {
 
     interface View {
-        void setClubInfo(@NonNull Club club);
-        void startMemberInfoActivity(@NonNull Member member);
-        void showErrorMessage(@NonNull String message);
+        void setClubInfo(Club club);
+        void startMemberInfoActivity(Member member);
+        void showErrorMessage(String message);
     }
 
     interface Presenter {
-        void callClubInfoByClubId(@NonNull Long clubId);
-        void setMemberListAdapterView(@NonNull MembersAdapterContract.View adapterView);
-        void setMemberListAdapterModel(@NonNull MembersAdapterContract.Model adapterModel);
+        void callClubInfoByClubId(Long clubId);
+        void setMembersAdapterView(MembersAdapterContract.View adapterView);
+        void setMembersAdapterModel(MembersAdapterContract.Model adapterModel);
     }
 }

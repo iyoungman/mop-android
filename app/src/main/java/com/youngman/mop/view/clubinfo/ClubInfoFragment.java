@@ -52,8 +52,8 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
         View view = (ViewGroup) inflater.inflate(R.layout.fragment_club_info, container, false);
         initView(view);
         presenter = new ClubInfoPresenter(this, ClubInfoRepository.getInstance());
-        presenter.setMemberListAdapterView(membersAdapter);
-        presenter.setMemberListAdapterModel(membersAdapter);
+        presenter.setMembersAdapterView(membersAdapter);
+        presenter.setMembersAdapterModel(membersAdapter);
         presenter.callClubInfoByClubId(getArguments().getLong("EXTRA_CLUB_ID"));
 
         return view;
@@ -84,13 +84,13 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
     }
 
     @Override
-    public void startMemberInfoActivity(@NonNull Member member) {
+    public void startMemberInfoActivity(Member member) {
         Intent intent = new Intent(context, MemberInfoActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void showErrorMessage(@NonNull String message) {
+    public void showErrorMessage(String message) {
         ToastUtils.showToast(context, message);
     }
 }

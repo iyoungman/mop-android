@@ -1,7 +1,6 @@
 package com.youngman.mop.view.clubinfo.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -27,22 +26,22 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersViewHolder> impl
 
 
     @Override
-    public void setOnMemberItemClickListener(@NonNull OnMemberItemClickListener onMemberItemClickListener) {
+    public void setOnMemberItemClickListener(OnMemberItemClickListener onMemberItemClickListener) {
         this.onMemberItemClickListener = onMemberItemClickListener;
     }
 
     @Override
-    public void addItems(@NonNull List<Member> members) {
+    public void addItems(List<Member> members) {
         this.members = members;
     }
 
     @Override
-    public void deleteItem(@NonNull Integer position) {
+    public void deleteItem(int position) {
         members.remove(position);
     }
 
     @Override
-    public Member getItem(@NonNull Integer position) {
+    public Member getItem(int position) {
         return members.get(position);
     }
 

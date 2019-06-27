@@ -5,5 +5,5 @@ package com.youngman.mop.listener;
  */
 
 public interface OnMemberItemClickListener {
-    void onStartMemberClick(Integer position);
+    void onStartMemberClick(int position);
 }

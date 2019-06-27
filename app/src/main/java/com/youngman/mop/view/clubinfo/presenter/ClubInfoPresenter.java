@@ -22,15 +22,15 @@ public class ClubInfoPresenter implements ClubInfoContract.Presenter, OnMemberIt
     private MembersAdapterContract.Model adapterModel;
 
 
-    public ClubInfoPresenter(@NonNull ClubInfoContract.View infoView,
-                             @NonNull ClubInfoRepository clubInfoRepository) {
+    public ClubInfoPresenter(ClubInfoContract.View infoView,
+                             ClubInfoRepository clubInfoRepository) {
 
         this.infoView = infoView;
         this.clubInfoRepository = clubInfoRepository;
     }
 
     @Override
-    public void callClubInfoByClubId(@NonNull Long clubId) {
+    public void callClubInfoByClubId(Long clubId) {
         clubInfoRepository.callClubInfoByClubId(clubId, new ClubInfoSource.ApiListener() {
             @Override
             public void onSuccess(ClubInfoResponse clubInfoResponse) {
@@ -47,19 +47,19 @@ public class ClubInfoPresenter implements ClubInfoContract.Presenter, OnMemberIt
     }
 
     @Override
-    public void onStartMemberClick(@NonNull Integer position) {
+    public void onStartMemberClick(int position) {
         Member member = adapterModel.getItem(position);
         infoView.startMemberInfoActivity(member);
     }
 
     @Override
-    public void setMemberListAdapterView(@NonNull MembersAdapterContract.View adapterView) {
+    public void setMembersAdapterView(MembersAdapterContract.View adapterView) {
         this.adapterView = adapterView;
         this.adapterView.setOnMemberItemClickListener(this);
     }
 
     @Override
-    public void setMemberListAdapterModel(@NonNull MembersAdapterContract.Model adapterModel) {
+    public void setMembersAdapterModel(MembersAdapterContract.Model adapterModel) {
         this.adapterModel = adapterModel;
     }
 }

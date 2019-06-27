@@ -18,6 +18,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".view.schedulecreate.ScheduleCreateActivity"></activity>
+        <activity android:name=".view.map.MapActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -27,13 +36,20 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDKMUtW3JdEoBLMcZzG8zjtqGSEq0vJUzo" />
 
+        <!--<meta-data-->
+            <!--android:name="com.google.firebase.messaging.default_notification_channel_id"-->
+            <!--android:value="@string/default_notification_channel_id"/>-->
+
         <activity android:name=".view.signin.SignInActivity">
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
         </activity>
         <activity android:name=".view.memberinfo.MemberInfoActivity" />
         <activity android:name=".view.clubsearch.ClubSearchActivity" />
@@ -41,6 +57,14 @@
         <activity android:name=".view.clubs.ClubsActivity" />
         <activity android:name=".view.myclubs.MyClubsActivity" />
         <activity android:name=".view.signup.SignUpActivity" />
+
+        <service
+            android:name=".lib.fcm.PushNotificationService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>
