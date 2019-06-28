@@ -1,7 +1,5 @@
 package com.youngman.mop.view.signin.presenter;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.SignIn;
 import com.youngman.mop.data.source.signin.SignInRepository;
 import com.youngman.mop.data.source.signin.SignInSource;
@@ -24,13 +22,13 @@ public class SignInPresenter implements SignInContract.Presenter {
     }
 
     @Override
-    public void callSignIn(@NonNull String email, @NonNull String pw) {
+    public void callSignIn(String email, String pw) {
         SignIn signIn = SignIn.builder()
                 .email(email)
                 .pw(pw)
                 .build();
 
-        if (signIn.checkData()) {
+        if (signIn.isAllNonNull()) {
             signInRepository.callSignIn(signIn, new SignInSource.ApiListener() {
 
                 @Override

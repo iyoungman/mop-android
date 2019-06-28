@@ -1,7 +1,5 @@
 package com.youngman.mop.data.source.schedulecreate;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.Schedule;
 
 /**
@@ -27,7 +25,7 @@ public class ScheduleCreateRepository implements ScheduleCreateSource {
     }
 
     @Override
-    public void callCreateSchedule(@NonNull Schedule schedule, @NonNull ApiListener listener) {
+    public void callCreateSchedule(Schedule schedule, ApiListener listener) {
         scheduleCreateRemoteDataSource.callCreateSchedule(schedule, listener);
     }
 

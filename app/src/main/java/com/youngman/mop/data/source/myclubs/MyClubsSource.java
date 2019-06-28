@@ -1,7 +1,5 @@
 package com.youngman.mop.data.source.myclubs;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.MyClubsResponse;
 
 /**
@@ -20,10 +18,11 @@ public interface MyClubsSource {
         void onFail(String message);
     }
 
-    void callMyClubList(@NonNull String email, @NonNull final ListApiListener listener);
+    void callMyClubList(String email, ListApiListener listener);
 
-    void callDeleteMyClubModel(@NonNull String email, @NonNull Long clubId,
-                               @NonNull int position, @NonNull final DeleteApiListener listener);
-
+    void callDeleteMyClubModel(String email,
+                               Long clubId,
+                               int position,
+                               DeleteApiListener listener);
 
 }

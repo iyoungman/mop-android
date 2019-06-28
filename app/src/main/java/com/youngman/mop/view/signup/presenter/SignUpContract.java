@@ -1,7 +1,5 @@
 package com.youngman.mop.view.signup.presenter;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.SignUp;
 
 /**
@@ -11,11 +9,11 @@ import com.youngman.mop.data.SignUp;
 public interface SignUpContract {
 
     interface View {
-        void showErrorMessage(@NonNull String message);
+        void showErrorMessage(String message);
         void startSignInActivity();
     }
 
     interface Presenter {
-        void callSignUp(@NonNull SignUp signUp);
+        void callSignUp(SignUp signUp);
     }
 }

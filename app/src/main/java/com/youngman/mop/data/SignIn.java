@@ -1,7 +1,5 @@
 package com.youngman.mop.data;
 
-import android.support.annotation.NonNull;
-
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -20,7 +18,7 @@ public class SignIn {
 
 
     @Builder
-    public SignIn(@NonNull String email, @NonNull String pw) {
+    public SignIn(String email, String pw) {
         this.email = email;
         this.pw = pw;
     }
@@ -28,7 +26,7 @@ public class SignIn {
     /**
      * email, pw 가 빈 문자열인지 검사
      */
-    public boolean checkData() {
+    public boolean isAllNonNull() {
         long count =  Stream.of(email, pw)
                 .filter(data -> !data.isEmpty())
                 .count();

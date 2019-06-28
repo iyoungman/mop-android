@@ -1,7 +1,5 @@
 package com.youngman.mop.data.source.signin;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.SignIn;
 
 /**
@@ -27,7 +25,7 @@ public class SignInRepository implements SignInSource {
     }
 
     @Override
-    public void callSignIn(@NonNull SignIn signIn, @NonNull ApiListener listener) {
+    public void callSignIn(SignIn signIn, ApiListener listener) {
         signInRemoteDataSource.callSignIn(signIn, listener);
     }
 }

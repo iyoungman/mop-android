@@ -1,7 +1,5 @@
 package com.youngman.mop.data.source.myclubs;
 
-import android.support.annotation.NonNull;
-
 /**
  * Created by YoungMan on 2019-06-06.
  */
@@ -13,7 +11,7 @@ public class MyClubsRepository implements MyClubsSource {
 
 
     public static MyClubsRepository getInstance() {
-        if(myClubListRepository == null) {
+        if (myClubListRepository == null) {
             myClubListRepository = new MyClubsRepository();
         }
 
@@ -25,13 +23,15 @@ public class MyClubsRepository implements MyClubsSource {
     }
 
     @Override
-    public void callMyClubList(@NonNull String email, @NonNull ListApiListener listener) {
+    public void callMyClubList(String email, ListApiListener listener) {
         myClubsRemoteDataSource.callMyClubList(email, listener);
     }
 
     @Override
-    public void callDeleteMyClubModel(@NonNull String email, @NonNull Long clubId,
-                                      @NonNull int position, @NonNull DeleteApiListener listener) {
+    public void callDeleteMyClubModel(String email,
+                                      Long clubId,
+                                      int position,
+                                      DeleteApiListener listener) {
 
         myClubsRemoteDataSource.callDeleteMyClubModel(email, clubId, position, listener);
     }

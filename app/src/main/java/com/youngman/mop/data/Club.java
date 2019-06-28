@@ -20,9 +20,13 @@ public class Club {
     private String upComingMeetingDate;
 
     @Builder
-    public Club(@NonNull Long clubId, @NonNull String name, @NonNull String introduce,
-                @NonNull String createDate, @NonNull String region, @NonNull String hobby,
-                @NonNull String upComingMeetingDate) {
+    public Club(Long clubId,
+                String name,
+                String introduce,
+                String createDate,
+                String region,
+                String hobby,
+                String upComingMeetingDate) {
 
         this.clubId = clubId;
         this.name = name;

@@ -1,10 +1,10 @@
 package com.youngman.mop.data.source.signup;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.SignUp;
 import com.youngman.mop.net.NetRetrofit;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -13,13 +13,11 @@ import retrofit2.Response;
  * Created by YoungMan on 2019-06-06.
  */
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SignUpRemoteDataSource implements SignUpSource {
 
     private static SignUpRemoteDataSource INSTANCE;
 
-
-    private SignUpRemoteDataSource() {
-    }
 
     public static SignUpRemoteDataSource getInstance() {
         if (INSTANCE == null) {
@@ -29,7 +27,7 @@ public class SignUpRemoteDataSource implements SignUpSource {
         return INSTANCE;
     }
 
-    public void callSignUp(@NonNull SignUp signUp, @NonNull final ApiListener listener) {
+    public void callSignUp(SignUp signUp, ApiListener listener) {
 
         Call<Boolean> result = NetRetrofit.getInstance().getNetRetrofitInterface().callSingUp(signUp);
         result.enqueue(new Callback<Boolean>() {

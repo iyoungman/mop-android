@@ -1,7 +1,6 @@
 package com.youngman.mop.util;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 /**
@@ -10,7 +9,7 @@ import android.widget.Toast;
 
 public class ToastUtils {
 
-  public static void showToast(@NonNull Context context, @NonNull String title) {
+  public static void showToast(Context context, String title) {
     Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
   }
 }

@@ -1,16 +1,14 @@
 package com.youngman.mop.view.schedulecreate;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.youngman.mop.R;
 import com.youngman.mop.data.Schedule;
 import com.youngman.mop.data.source.schedulecreate.ScheduleCreateRepository;
-import com.youngman.mop.data.source.signup.SignUpRepository;
 import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.schedulecreate.presenter.ScheduleCreateContract;
 import com.youngman.mop.view.schedulecreate.presenter.ScheduleCreatePresenter;
@@ -30,17 +28,18 @@ public class ScheduleCreateActivity extends AppCompatActivity implements Schedul
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_create);
-        presenter = new ScheduleCreatePresenter(this, ScheduleCreateRepository.getInstance());
-        initView();
+        init();
     }
 
-    private void initView() {
+    private void init() {
         context = getApplicationContext();
         etName = (EditText) findViewById(R.id.et_name);
         etContent = (EditText) findViewById(R.id.et_content);
         etRegion = (EditText) findViewById(R.id.et_region);
         etMeetingTime = (EditText) findViewById(R.id.et_meeting_time);
         btnCreateSchedule = (Button) findViewById(R.id.btn_create_schedule);
+
+        presenter = new ScheduleCreatePresenter(this, ScheduleCreateRepository.getInstance());
 
         btnCreateSchedule.setOnClickListener(view -> presenter.callCreateSchedule(Schedule.builder()
                 .name(etName.getText().toString())
@@ -53,7 +52,7 @@ public class ScheduleCreateActivity extends AppCompatActivity implements Schedul
     }
 
     @Override
-    public void showErrorMessage(@NonNull String message) {
+    public void showErrorMessage(String message) {
         ToastUtils.showToast(context, message);
     }
 

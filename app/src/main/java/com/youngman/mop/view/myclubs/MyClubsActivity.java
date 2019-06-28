@@ -2,22 +2,21 @@ package com.youngman.mop.view.myclubs;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 
 import com.youngman.mop.R;
 import com.youngman.mop.data.source.myclubs.MyClubsRepository;
-import com.youngman.mop.view.myclubs.adapter.MyClubsAdapter;
-import com.youngman.mop.view.myclubs.presenter.MyClubsContract;
-import com.youngman.mop.view.myclubs.presenter.MyClubsPresenter;
 import com.youngman.mop.util.SignUtils;
 import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.club.ClubActivity;
 import com.youngman.mop.view.clubs.ClubsActivity;
+import com.youngman.mop.view.myclubs.adapter.MyClubsAdapter;
+import com.youngman.mop.view.myclubs.presenter.MyClubsContract;
+import com.youngman.mop.view.myclubs.presenter.MyClubsPresenter;
 
 public class MyClubsActivity extends AppCompatActivity implements MyClubsContract.View {
 
@@ -55,7 +54,7 @@ public class MyClubsActivity extends AppCompatActivity implements MyClubsContrac
     }
 
     @Override
-    public void showErrorMessage(@NonNull String message) {
+    public void showErrorMessage(String message) {
         ToastUtils.showToast(context, message);
     }
 
@@ -65,7 +64,7 @@ public class MyClubsActivity extends AppCompatActivity implements MyClubsContrac
     }
 
     @Override
-    public void startClubActivity(@NonNull Long clubId) {
+    public void startClubActivity(Long clubId) {
         Intent intent = new Intent(context, ClubActivity.class);
         intent.putExtra("EXTRA_CLUB_ID", clubId);
         startActivity(intent);

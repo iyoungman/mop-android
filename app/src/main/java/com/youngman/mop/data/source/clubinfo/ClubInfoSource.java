@@ -1,7 +1,5 @@
 package com.youngman.mop.data.source.clubinfo;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.ClubInfoResponse;
 
 /**
@@ -15,7 +13,6 @@ public interface ClubInfoSource {
         void onFail(String message);
     }
 
-    void callClubInfoByClubId(Long clubId,
-                              final ApiListener listener);
+    void callClubInfoByClubId(Long clubId, ApiListener listener);
 
 }

@@ -33,8 +33,7 @@ public class MembersViewHolder extends RecyclerView.ViewHolder {
         this.onMemberItemClickListener = onMemberItemClickListener;
     }
 
-    public void onBind(Member member, final Integer position) {
-
+    public void onBind(Member member, int position) {
         tvMemberName.setText(member.getName());
         tvMemberIntroduce.setText(member.getIntroduce());
 

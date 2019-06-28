@@ -12,7 +12,7 @@ import lombok.Getter;
 @Getter
 public class MyClubsResponse {
 
-    List<Club> myClubs = new ArrayList<>();
+    private List<Club> myClubs = new ArrayList<>();
 
 
     public MyClubsResponse(List<Club> myClubs) {

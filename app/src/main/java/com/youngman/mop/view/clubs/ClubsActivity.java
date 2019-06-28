@@ -37,19 +37,27 @@ public class ClubsActivity extends AppCompatActivity implements ClubsContract.Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clubs);
-        initView();
-        presenter = new ClubsPresenter(this, ClubsRepository.getInstance());
-        presenter.setClubListAdapterView(clubsAdapter);
-        presenter.setClubListAdapterModel(clubsAdapter);
-        presenter.callClubListByUserInfo(SignUtils.readUserIdFromPref(context), 1);
+        init();
     }
 
-    private void initView() {
+    private void init() {
         context = getApplicationContext();
         etSearchClubs = (EditText) findViewById(R.id.et_search_clubs);
         btnSearchClubs = (Button) findViewById(R.id.btn_search_clubs);
         recyclerView = (RecyclerView) findViewById(R.id.rv_clubs);
-        initMoreRecyclerView();
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        clubsAdapter = new ClubsAdapter(context, this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(context, linearLayoutManager.getOrientation()));
+        clubsAdapter.setLinearLayoutManager(linearLayoutManager);
+        clubsAdapter.setRecyclerView(recyclerView);
+        recyclerView.setAdapter(clubsAdapter);
+
+        presenter = new ClubsPresenter(this, ClubsRepository.getInstance());
+        presenter.setClubListAdapterView(clubsAdapter);
+        presenter.setClubListAdapterModel(clubsAdapter);
+        presenter.callClubListByUserInfo(SignUtils.readUserIdFromPref(context), 1);
 
         etSearchClubs.setOnClickListener(view -> {
             startClubSearchActivity();
@@ -59,16 +67,6 @@ public class ClubsActivity extends AppCompatActivity implements ClubsContract.Vi
             if (isNotEmpty())
                 presenter.callPagingClubsBySearch(etSearchClubs.getText().toString());
         });*/
-    }
-
-    private void initMoreRecyclerView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-        clubsAdapter = new ClubsAdapter(context, this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(context, linearLayoutManager.getOrientation()));
-        clubsAdapter.setLinearLayoutManager(linearLayoutManager);
-        clubsAdapter.setRecyclerView(recyclerView);
-        recyclerView.setAdapter(clubsAdapter);
     }
 
     /*private boolean isNotEmpty() {

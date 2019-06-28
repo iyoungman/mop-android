@@ -1,7 +1,5 @@
 package com.youngman.mop.data;
 
-import android.support.annotation.NonNull;
-
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -24,8 +22,12 @@ public class Schedule {
 
 
     @Builder
-    public Schedule(@NonNull String name, @NonNull String content, @NonNull String region,
-                    @NonNull String writer, @NonNull String meetingTime, @NonNull Long clubId) {
+    public Schedule(String name,
+                    String content,
+                    String region,
+                    String writer,
+                    String meetingTime,
+                    Long clubId) {
 
         this.name = name;
         this.content = content;
@@ -35,7 +37,7 @@ public class Schedule {
         this.clubId = clubId;
     }
 
-    public boolean checkData() {
+    public boolean isAllNonNull() {
         long count =  Stream.of(name, content, region, writer, meetingTime, String.valueOf(clubId))
                 .filter(data -> !data.isEmpty())
                 .count();

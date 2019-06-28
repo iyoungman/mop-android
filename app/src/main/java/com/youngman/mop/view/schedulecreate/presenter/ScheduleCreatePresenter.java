@@ -1,7 +1,5 @@
 package com.youngman.mop.view.schedulecreate.presenter;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.Schedule;
 import com.youngman.mop.data.source.schedulecreate.ScheduleCreateRepository;
 import com.youngman.mop.data.source.schedulecreate.ScheduleCreateSource;
@@ -16,17 +14,16 @@ public class ScheduleCreatePresenter implements ScheduleCreateContract.Presenter
     private final ScheduleCreateRepository scheduleCreateRepository;
 
 
-    public ScheduleCreatePresenter(@NonNull ScheduleCreateContract.View scheduleCreateView,
-                                   @NonNull ScheduleCreateRepository scheduleCreateRepository) {
+    public ScheduleCreatePresenter(ScheduleCreateContract.View scheduleCreateView,
+                                   ScheduleCreateRepository scheduleCreateRepository) {
 
         this.scheduleCreateView = scheduleCreateView;
         this.scheduleCreateRepository = scheduleCreateRepository;
     }
 
     @Override
-    public void callCreateSchedule(@NonNull Schedule schedule) {
-
-        if (schedule.checkData()) {
+    public void callCreateSchedule(Schedule schedule) {
+        if (schedule.isAllNonNull()) {
             scheduleCreateRepository.callCreateSchedule(schedule, new ScheduleCreateSource.ApiListener() {
 
                 @Override

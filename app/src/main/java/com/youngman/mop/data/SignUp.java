@@ -1,7 +1,5 @@
 package com.youngman.mop.data;
 
-import android.support.annotation.NonNull;
-
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -23,8 +21,11 @@ public class SignUp {
 
 
     @Builder
-    public SignUp(@NonNull String email, @NonNull String pw, @NonNull String name,
-                  @NonNull String mobile, @NonNull String hobby) {
+    public SignUp(String email,
+                  String pw,
+                  String name,
+                  String mobile,
+                  String hobby) {
 
         this.email = email;
         this.pw = pw;
@@ -33,7 +34,7 @@ public class SignUp {
         this.hobby = hobby;
     }
 
-    public boolean checkData() {
+    public boolean isAllNonNull() {
         long count =  Stream.of(email, pw, name, mobile, hobby)
                 .filter(data -> !data.isEmpty())
                 .count();

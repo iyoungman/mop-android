@@ -64,12 +64,12 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsViewHolder> implemen
     }
 
     @Override
-    public void addItems(@NonNull List<Club> clubs) {
+    public void addItems(List<Club> clubs) {
         this.clubs.addAll(clubs);
     }
 
     @Override
-    public Club getItem(@NonNull Integer position) {
+    public Club getItem(int position) {
         return clubs.get(position);
     }
 
@@ -89,18 +89,18 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsViewHolder> implemen
     }
 
     @Override
-    public void onBindViewHolder(final ClubsViewHolder holder, int position) {
+    public void onBindViewHolder(ClubsViewHolder holder, int position) {
         if (holder == null) return;
         holder.onBind(clubs.get(position), position);
     }
 
     @Override
-    public void setMoreLoading(@NonNull Boolean isMoreLoading) {
+    public void setMoreLoading(boolean isMoreLoading) {
         this.isMoreLoading = isMoreLoading;
     }
 
     @Override
-    public void setIsLast(@NonNull Boolean isLast) {
+    public void setIsLast(boolean isLast) {
         this.isLast = isLast;
     }
 }

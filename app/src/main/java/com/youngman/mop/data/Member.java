@@ -1,7 +1,5 @@
 package com.youngman.mop.data;
 
-import android.support.annotation.NonNull;
-
 import lombok.Builder;
 import lombok.Getter;
 
@@ -20,8 +18,11 @@ public class Member {
 
 
     @Builder
-    public Member(@NonNull String email, @NonNull String name, @NonNull String mobile,
-                  @NonNull String hobby, @NonNull String introduce) {
+    public Member(String email,
+                  String name,
+                  String mobile,
+                  String hobby,
+                  String introduce) {
 
         this.email = email;
         this.name = name;

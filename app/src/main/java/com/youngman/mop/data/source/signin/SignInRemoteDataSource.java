@@ -1,11 +1,12 @@
 package com.youngman.mop.data.source.signin;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.youngman.mop.data.SignIn;
 import com.youngman.mop.net.NetRetrofit;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,13 +15,11 @@ import retrofit2.Response;
  * Created by YoungMan on 2019-06-06.
  */
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SignInRemoteDataSource implements SignInSource {
 
     private static SignInRemoteDataSource INSTANCE;
 
-
-    private SignInRemoteDataSource() {
-    }
 
     public static SignInRemoteDataSource getInstance() {
         if (INSTANCE == null) {
@@ -30,8 +29,7 @@ public class SignInRemoteDataSource implements SignInSource {
         return INSTANCE;
     }
 
-    public void callSignIn(@NonNull SignIn signIn, @NonNull final ApiListener listener) {
-
+    public void callSignIn(SignIn signIn, ApiListener listener) {
         Call<Boolean> result = NetRetrofit.getInstance().getNetRetrofitInterface().callSingIn(signIn);
         result.enqueue(new Callback<Boolean>() {
             @Override
@@ -50,6 +48,5 @@ public class SignInRemoteDataSource implements SignInSource {
             }
         });
     }
-
 
 }

@@ -3,7 +3,6 @@ package com.youngman.mop.view.signup;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -34,11 +33,10 @@ public class SignUpActivity extends Activity implements SignUpContract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        presenter = new SignUpPresenter(this, SignUpRepository.getInstance());
-        initView();
+        init();
     }
 
-    private void initView() {
+    private void init() {
         context = getApplicationContext();
         etEmail = (EditText) findViewById(R.id.et_email);
         etPw = (EditText) findViewById(R.id.et_pw);
@@ -46,6 +44,8 @@ public class SignUpActivity extends Activity implements SignUpContract.View {
         etMobile = (EditText) findViewById(R.id.et_mobile);
         etHobby = (EditText) findViewById(R.id.et_hobby);
         btnSignUp = (Button) findViewById(R.id.btn_signup);
+
+        presenter = new SignUpPresenter(this, SignUpRepository.getInstance());
 
         btnSignUp.setOnClickListener(view -> presenter.callSignUp(SignUp.builder()
                 .email(etEmail.getText().toString())
@@ -58,7 +58,7 @@ public class SignUpActivity extends Activity implements SignUpContract.View {
     }
 
     @Override
-    public void showErrorMessage(@NonNull String message) {
+    public void showErrorMessage(String message) {
         ToastUtils.showToast(context, message);
     }
 

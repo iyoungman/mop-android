@@ -13,7 +13,7 @@ import com.youngman.mop.view.schedule.ScheduleFragment;
 public class ClubActivity extends AppCompatActivity {
 
     private Context context;
-    private ImageView ivTabInfo, ivTabMap, ivTabSchedule, ivTabBoard;
+    private ImageView ivTabInfo, ivTabSchedule, ivTabBoard;
     private Long clubId;
 
 
@@ -22,15 +22,14 @@ public class ClubActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club);
         clubId = getIntent().getLongExtra("EXTRA_CLUB_ID", 0);
-        initView();
+        init();
 
         ivTabInfo.performClick();
     }
 
-    private void initView() {
+    private void init() {
         context = getApplicationContext();
         ivTabInfo = (ImageView) findViewById(R.id.iv_tab_info);
-        ivTabMap = (ImageView) findViewById(R.id.iv_tab_map);
         ivTabSchedule = (ImageView) findViewById(R.id.iv_tab_schedule);
         ivTabBoard = (ImageView) findViewById(R.id.iv_tab_board);
 
@@ -39,12 +38,6 @@ public class ClubActivity extends AppCompatActivity {
                     .replace(R.id.ll_fragment_container, ClubInfoFragment.createFragment(clubId))
                     .commit();
         });
-
-//        ivTabMap.setOnClickListener(view -> {
-//            getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id.ll_fragment_container, MapFragment.createFragment(clubId))
-//                    .commit();
-//        });
 
         ivTabSchedule.setOnClickListener(view -> {
             getSupportFragmentManager().beginTransaction()

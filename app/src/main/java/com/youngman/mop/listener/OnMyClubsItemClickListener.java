@@ -1,7 +1,5 @@
 package com.youngman.mop.listener;
 
-import lombok.NonNull;
-
 /**
  * Created by YoungMan on 2019-05-02.
  */
@@ -9,5 +7,5 @@ import lombok.NonNull;
 public interface OnMyClubsItemClickListener {
     void onDeleteMyClubClick(String email, int position);
     //    void onAddMyClubClick(int position);
-    void onStartMyClubClick(@NonNull Integer position);
+    void onStartMyClubClick(int position);
 }

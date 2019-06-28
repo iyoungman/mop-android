@@ -1,6 +1,5 @@
 package com.youngman.mop.data.source.myclubs;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.youngman.mop.data.Club;
@@ -11,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,13 +20,11 @@ import retrofit2.Response;
  * Created by YoungMan on 2019-06-06.
  */
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MyClubsRemoteDataSource implements MyClubsSource {
 
     private static MyClubsRemoteDataSource INSTANCE;
 
-
-    private MyClubsRemoteDataSource() {
-    }
 
     public static MyClubsRemoteDataSource getInstance() {
         if (INSTANCE == null) {
@@ -38,7 +37,7 @@ public class MyClubsRemoteDataSource implements MyClubsSource {
     /**
      * 마이 동호회 리스트 조회
      */
-    public void callMyClubList(@NonNull String email, @NonNull final ListApiListener listener) {
+    public void callMyClubList(String email, final ListApiListener listener) {
         Call<List<Club>> result = NetRetrofit.getInstance().getNetRetrofitInterface().callMyClubsByMemberEmail(email);
         result.enqueue(new Callback<List<Club>>() {
             @Override
@@ -61,8 +60,10 @@ public class MyClubsRemoteDataSource implements MyClubsSource {
     /**
      * 마이 동호회 삭제
      */
-    public void callDeleteMyClubModel(@NonNull String email, @NonNull Long clubId,
-                                      @NonNull int position, @NonNull final DeleteApiListener listener) {
+    public void callDeleteMyClubModel(String email,
+                                      Long clubId,
+                                      int position,
+                                      DeleteApiListener listener) {
 
         Call<Void> result = NetRetrofit.getInstance().getNetRetrofitInterface().callDeleteMyClub(makeParams(email, clubId));
         result.enqueue(new Callback<Void>() {

@@ -1,7 +1,5 @@
 package com.youngman.mop.view.myclubs.presenter;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.view.myclubs.adapter.MyClubsAdapterContract;
 
 /**
@@ -11,13 +9,13 @@ import com.youngman.mop.view.myclubs.adapter.MyClubsAdapterContract;
 public interface MyClubsContract {
 
     interface View {
-        void showErrorMessage(@NonNull String message);
-        void startClubActivity(@NonNull Long clubId);
+        void showErrorMessage(String message);
+        void startClubActivity(Long clubId);
     }
 
     interface Presenter {
-        void callMyClubList(@NonNull String userId);
-        void setMyClubAdapterView(@NonNull MyClubsAdapterContract.View adapterView);
-        void setMyClubAdapterModel(@NonNull MyClubsAdapterContract.Model adapterModel);
+        void callMyClubList(String userId);
+        void setMyClubAdapterView(MyClubsAdapterContract.View adapterView);
+        void setMyClubAdapterModel(MyClubsAdapterContract.Model adapterModel);
     }
 }

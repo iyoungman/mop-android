@@ -27,9 +27,9 @@ public class ClubsViewHolder extends RecyclerView.ViewHolder {
     private OnClubsItemClickListener onClubsItemClickListener;
 
 
-    public ClubsViewHolder(@NonNull Context context,
-                           @NonNull ViewGroup parent,
-                           @NonNull OnClubsItemClickListener onClubsItemClickListener) {
+    public ClubsViewHolder(Context context,
+                           ViewGroup parent,
+                           OnClubsItemClickListener onClubsItemClickListener) {
 
         super(LayoutInflater.from(context).inflate(R.layout.item_clubs, parent, false));
         this.context = context;
@@ -40,12 +40,10 @@ public class ClubsViewHolder extends RecyclerView.ViewHolder {
         this.onClubsItemClickListener = onClubsItemClickListener;
     }
 
-    public void onBind(@NonNull Club club, @NonNull final Integer position) {
-
-//        ivClub
+    public void onBind(Club club, int position) {
         tvClubName.setText(club.getName());
         tvClubRegion.setText(club.getRegion());
-        tvClubHobby.setText(club.getHobby());
+        tvClubHobby.setText(club.getHobby());//        ivClub
 
         itemView.setOnClickListener(view -> {
             onClubsItemClickListener.onStartClubClick(position);

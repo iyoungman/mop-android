@@ -1,7 +1,5 @@
 package com.youngman.mop.data.source.signup;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.SignUp;
 
 /**
@@ -15,5 +13,5 @@ public interface SignUpSource {
         void onFail(String message);
     }
 
-    void callSignUp(@NonNull SignUp signUp, @NonNull final ApiListener listener);
+    void callSignUp(SignUp signUp, ApiListener listener);
 }

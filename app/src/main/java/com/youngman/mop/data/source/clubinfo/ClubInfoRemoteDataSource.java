@@ -28,9 +28,7 @@ public class ClubInfoRemoteDataSource implements ClubInfoSource {
     }
 
     @Override
-    public void callClubInfoByClubId(Long clubId,
-                                     final ApiListener listener) {
-
+    public void callClubInfoByClubId(Long clubId, ApiListener listener) {
         Call<ClubInfoResponse> result = NetRetrofit.getInstance().getNetRetrofitInterface().callClubInfoById(clubId);
         result.enqueue(new Callback<ClubInfoResponse>() {
             @Override

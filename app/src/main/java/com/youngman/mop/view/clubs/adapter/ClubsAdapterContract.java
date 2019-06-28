@@ -1,7 +1,5 @@
 package com.youngman.mop.view.clubs.adapter;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.Club;
 
 import java.util.List;
@@ -17,9 +15,9 @@ public interface ClubsAdapterContract {
     }
 
     interface Model {
-        Club getItem(@NonNull Integer position);
-        void addItems(@NonNull List<Club> clubs);
-        void setIsLast(@NonNull Boolean isLast);
-        void setMoreLoading(@NonNull Boolean isMoreLoading);
+        Club getItem(int position);
+        void addItems(List<Club> clubs);
+        void setIsLast(boolean isLast);
+        void setMoreLoading(boolean isMoreLoading);
     }
 }

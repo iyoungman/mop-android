@@ -1,7 +1,5 @@
 package com.youngman.mop.data.source.schedulecreate;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.Schedule;
 
 /**
@@ -15,5 +13,5 @@ public interface ScheduleCreateSource {
         void onFail(String message);
     }
 
-    void callCreateSchedule(@NonNull Schedule schedule, @NonNull final ApiListener listener);
+    void callCreateSchedule(Schedule schedule, ApiListener listener);
 }

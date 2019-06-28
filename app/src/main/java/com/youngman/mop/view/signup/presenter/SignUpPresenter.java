@@ -1,7 +1,5 @@
 package com.youngman.mop.view.signup.presenter;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.SignUp;
 import com.youngman.mop.data.source.signup.SignUpRepository;
 import com.youngman.mop.data.source.signup.SignUpSource;
@@ -16,17 +14,17 @@ public class SignUpPresenter implements SignUpContract.Presenter {
     private final SignUpRepository signUpRepository;
 
 
-    public SignUpPresenter(@NonNull SignUpContract.View signUpView,
-                           @NonNull SignUpRepository signUpRepository) {
+    public SignUpPresenter(SignUpContract.View signUpView,
+                           SignUpRepository signUpRepository) {
 
         this.signUpView = signUpView;
         this.signUpRepository = signUpRepository;
     }
 
     @Override
-    public void callSignUp(@NonNull SignUp signUp) {
+    public void callSignUp(SignUp signUp) {
 
-        if (signUp.checkData()) {
+        if (signUp.isAllNonNull()) {
             signUpRepository.callSignUp(signUp, new SignUpSource.ApiListener() {
 
                 @Override

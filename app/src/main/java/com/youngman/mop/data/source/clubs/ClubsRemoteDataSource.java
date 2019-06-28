@@ -8,6 +8,8 @@ import com.youngman.mop.net.NetRetrofit;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,13 +18,11 @@ import retrofit2.Response;
  * Created by YoungMan on 2019-06-06.
  */
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ClubsRemoteDataSource implements ClubsSource {
 
     private static ClubsRemoteDataSource INSTANCE;
 
-
-    private ClubsRemoteDataSource() {
-    }
 
     public static ClubsRemoteDataSource getInstance() {
         if (INSTANCE == null) {
@@ -33,9 +33,9 @@ public class ClubsRemoteDataSource implements ClubsSource {
     }
 
     @Override
-    public void callClubListByUserInfo(@NonNull String email,
-                                       @NonNull Integer pageNo,
-                                       @NonNull final ListApiListener listener) {
+    public void callClubListByUserInfo(String email,
+                                       int pageNo,
+                                       ListApiListener listener) {
 
         Call<ClubsResponse> result = NetRetrofit.getInstance().getNetRetrofitInterface().callPagingClubsByMember(makeParams(email, pageNo));
         result.enqueue(new Callback<ClubsResponse>() {

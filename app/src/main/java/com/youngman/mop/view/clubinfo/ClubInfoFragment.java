@@ -3,7 +3,6 @@ package com.youngman.mop.view.clubinfo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,16 +49,12 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = (ViewGroup) inflater.inflate(R.layout.fragment_club_info, container, false);
-        initView(view);
-        presenter = new ClubInfoPresenter(this, ClubInfoRepository.getInstance());
-        presenter.setMembersAdapterView(membersAdapter);
-        presenter.setMembersAdapterModel(membersAdapter);
-        presenter.callClubInfoByClubId(getArguments().getLong("EXTRA_CLUB_ID"));
+        init(view);
 
         return view;
     }
 
-    private void initView(View view) {
+    private void init(View view) {
         context = view.getContext();
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_members);
         ivClubImg = (ImageView) view.findViewById(R.id.iv_club_img);
@@ -72,6 +67,11 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
         membersAdapter = new MembersAdapter(context);
         recyclerView.setAdapter(membersAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+        presenter = new ClubInfoPresenter(this, ClubInfoRepository.getInstance());
+        presenter.setMembersAdapterView(membersAdapter);
+        presenter.setMembersAdapterModel(membersAdapter);
+        presenter.callClubInfoByClubId(getArguments().getLong("EXTRA_CLUB_ID"));
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.youngman.mop.data.source.signup;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.SignUp;
 
 /**
@@ -27,7 +25,7 @@ public class SignUpRepository implements SignUpSource {
     }
 
     @Override
-    public void callSignUp(@NonNull SignUp signUp, @NonNull ApiListener listener) {
+    public void callSignUp(SignUp signUp, ApiListener listener) {
         signUpRemoteDataSource.callSignUp(signUp, listener);
     }
 }
