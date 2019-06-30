@@ -1,7 +1,7 @@
 package com.youngman.mop.data.source.clubinfo;
 
 import com.youngman.mop.data.ClubInfoResponse;
-import com.youngman.mop.net.NetRetrofit;
+import com.youngman.mop.net.RetrofitClient;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -29,7 +29,7 @@ public class ClubInfoRemoteDataSource implements ClubInfoSource {
 
     @Override
     public void callClubInfoByClubId(Long clubId, ApiListener listener) {
-        Call<ClubInfoResponse> result = NetRetrofit.getInstance().getNetRetrofitInterface().callClubInfoById(clubId);
+        Call<ClubInfoResponse> result = RetrofitClient.getInstance().getRetrofitApiService().callClubInfoById(clubId);
         result.enqueue(new Callback<ClubInfoResponse>() {
             @Override
             public void onResponse(Call<ClubInfoResponse> call, Response<ClubInfoResponse> response) {

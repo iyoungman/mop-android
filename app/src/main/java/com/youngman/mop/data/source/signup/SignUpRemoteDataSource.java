@@ -1,7 +1,7 @@
 package com.youngman.mop.data.source.signup;
 
 import com.youngman.mop.data.SignUp;
-import com.youngman.mop.net.NetRetrofit;
+import com.youngman.mop.net.RetrofitClient;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -29,7 +29,7 @@ public class SignUpRemoteDataSource implements SignUpSource {
 
     public void callSignUp(SignUp signUp, ApiListener listener) {
 
-        Call<Boolean> result = NetRetrofit.getInstance().getNetRetrofitInterface().callSingUp(signUp);
+        Call<Boolean> result = RetrofitClient.getInstance().getRetrofitApiService().callSingUp(signUp);
         result.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {

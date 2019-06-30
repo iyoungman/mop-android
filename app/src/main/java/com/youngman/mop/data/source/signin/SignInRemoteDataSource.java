@@ -3,7 +3,7 @@ package com.youngman.mop.data.source.signin;
 import android.util.Log;
 
 import com.youngman.mop.data.SignIn;
-import com.youngman.mop.net.NetRetrofit;
+import com.youngman.mop.net.RetrofitClient;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -30,7 +30,7 @@ public class SignInRemoteDataSource implements SignInSource {
     }
 
     public void callSignIn(SignIn signIn, ApiListener listener) {
-        Call<Boolean> result = NetRetrofit.getInstance().getNetRetrofitInterface().callSingIn(signIn);
+        Call<Boolean> result = RetrofitClient.getInstance().getRetrofitApiService().callSingIn(signIn);
         result.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {

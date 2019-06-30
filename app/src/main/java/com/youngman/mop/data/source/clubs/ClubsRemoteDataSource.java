@@ -1,9 +1,7 @@
 package com.youngman.mop.data.source.clubs;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.ClubsResponse;
-import com.youngman.mop.net.NetRetrofit;
+import com.youngman.mop.net.RetrofitClient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +35,7 @@ public class ClubsRemoteDataSource implements ClubsSource {
                                        int pageNo,
                                        ListApiListener listener) {
 
-        Call<ClubsResponse> result = NetRetrofit.getInstance().getNetRetrofitInterface().callPagingClubsByMember(makeParams(email, pageNo));
+        Call<ClubsResponse> result = RetrofitClient.getInstance().getRetrofitApiService().callPagingClubsByMember(makeParams(email, pageNo));
         result.enqueue(new Callback<ClubsResponse>() {
             @Override
             public void onResponse(Call<ClubsResponse> call, Response<ClubsResponse> response) {

@@ -1,12 +1,14 @@
 package com.youngman.mop.view.map;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,6 +18,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.youngman.mop.R;
 import com.youngman.mop.lib.realtimedb.MemberLocation;
 import com.youngman.mop.util.SignUtils;
@@ -33,13 +36,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private Context context;
     private RecyclerView recyclerView;
     private SupportMapFragment mapFragment;
-    private Button btnLocationRefresh;
+    private LinearLayout llMapRefresh;
+    private LinearLayout llMapRoute;
+    private LinearLayout llMapAddMember;
+    private LinearLayout llMapOut;
+    private SlidingUpPanelLayout slidingUpPanelLayout;
+    private TextView tvMapOtherName;
     private MemberLocationsAdapter memberLocationsAdapter;
     private MapContract.Presenter presenter;
 
     private Long clubId;
     private GoogleMap mGoogleMap;
     private SimpleLocation simpleLocation;
+    private boolean isPossibleAnimateCamera = true;
 
 
     @Override
@@ -53,7 +62,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         context = getApplicationContext();
         recyclerView = (RecyclerView) findViewById(R.id.rv_member_locations);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        btnLocationRefresh = (Button) findViewById(R.id.btn_location_refresh);
+        llMapRefresh = (LinearLayout) findViewById(R.id.ll_menu_refresh);
+        llMapRoute = (LinearLayout) findViewById(R.id.ll_menu_route);
+        llMapAddMember = (LinearLayout) findViewById(R.id.ll_menu_add_member);
+        llMapOut = (LinearLayout) findViewById(R.id.ll_menu_out);
+        slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_up_panel_layout);
+        tvMapOtherName = (TextView) findViewById(R.id.tv_map_other_name);
 
         memberLocationsAdapter = new MemberLocationsAdapter(context);
         recyclerView.setAdapter(memberLocationsAdapter);
@@ -69,10 +83,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         checkLocationSetting();
 
-        btnLocationRefresh.setOnClickListener(v -> {
+        llMapRefresh.setOnClickListener(v -> {
             presenter.callMapRefresh(clubId, SignUtils.readUserIdFromPref(context),
                     new LatLng(simpleLocation.getLatitude(), simpleLocation.getLongitude())
             );
+        });
+
+        llMapRoute.setOnClickListener(v -> {
+
+        });
+
+        llMapAddMember.setOnClickListener(v -> {
+
+        });
+
+        llMapOut.setOnClickListener(v -> {
+            showMapOutDialog();
+        });
+
+        slidingUpPanelLayout.setFadeOnClickListener(v -> {
+            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            isPossibleAnimateCamera = true;
         });
     }
 
@@ -94,7 +125,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void setSimpleLocationListener() {
         simpleLocation.setListener(() -> {
-            btnLocationRefresh.performClick();
+            llMapRefresh.performClick();
         });
     }
 
@@ -102,7 +133,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void mapRefresh(List<MemberLocation> otherLocations, MemberLocation myLocation) {
         otherLocations.forEach(m -> mGoogleMap.addMarker(markLocation(m)));
         mGoogleMap.addMarker(markLocation(myLocation));
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation.getLatLng(), 16));
+        if(isPossibleAnimateCamera) {
+            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation.getLatLng(), 16));
+        }
     }
 
     private MarkerOptions markLocation(MemberLocation memberLocation) {
@@ -122,7 +155,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void moveLocation(MemberLocation memberLocation) {
+        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+        tvMapOtherName.setText(memberLocation.getEmail());
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(memberLocation.getLatLng(), 16));
+        isPossibleAnimateCamera = false;
+    }
+
+    private void showMapOutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("지도 단체방을 나가시겠습니까?");
+        builder.setPositiveButton("예", (d, w) -> {
+            presenter.callMapOut(clubId, SignUtils.readUserIdFromPref(context));
+        });
+        builder.setNegativeButton("아니오", (d, w) -> {
+            ToastUtils.showToast(context, "취소 되었습니다");
+        });
+        builder.show();
+    }
+
+    @Override
+    public void finishMapActivity() {
+        finish();
     }
 
     @Override

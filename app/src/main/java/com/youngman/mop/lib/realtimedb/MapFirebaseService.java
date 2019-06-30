@@ -3,6 +3,8 @@ package com.youngman.mop.lib.realtimedb;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +37,7 @@ public class MapFirebaseService {
      * 1. 자신의 위치 저장
      * 2. 동호회 멤버 위치목록 조회
      */
-    public void callMapRefresh(Long clubId, String email, LatLng latLng, ApiListener apiListener) {
+    public void callMapRefresh(Long clubId, String email, LatLng latLng, RefreshApiListener refreshApiListener) {
         DatabaseReference clubReference = databaseReference.child(clubId.toString());
         DatabaseReference memberReference = clubReference.child(email);
         if(isAllZero(latLng.latitude, latLng.longitude)) {
@@ -59,14 +61,14 @@ public class MapFirebaseService {
                     otherLocations.add(new MemberLocation(snapshot.getKey(), new LatLng(latitude, longitude)));
                 }
 
-                apiListener.onSuccess(otherLocations, myLocation);
+                refreshApiListener.onSuccess(otherLocations, myLocation);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 LogUtils.logDebug(databaseError.getMessage());
                 LogUtils.logDebug(databaseError.getDetails());
-                apiListener.onFail("통신에 실패하였습니다.");
+                refreshApiListener.onFail("통신에 실패하였습니다.");
             }
         });
     }
@@ -77,6 +79,25 @@ public class MapFirebaseService {
                 .count();
         Predicate<Long> isAllZero = cnt -> cnt == 2;
         return isAllZero.test(count);
+    }
+
+    /**
+     * 지도 단체방 나가기
+     */
+    public void callMapOut(Long clubId, String email, DeleteApiListener deleteApiListener) {
+        DatabaseReference clubReference = databaseReference.child(clubId.toString());
+        DatabaseReference memberReference = clubReference.child(email);
+        memberReference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                deleteApiListener.onSuccess();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                deleteApiListener.onFail(e.getMessage());
+            }
+        });
     }
 
     //동호회 인원들 위치 목록 가져오기
@@ -176,8 +197,13 @@ public class MapFirebaseService {
 ////        club.setValue(map);
 //    }
 
-    public interface ApiListener {
+    public interface RefreshApiListener {
         void onSuccess(List<MemberLocation> otherLocations, MemberLocation myLocation);
+        void onFail(String message);
+    }
+
+    public interface DeleteApiListener {
+        void onSuccess();
         void onFail(String message);
     }
 }

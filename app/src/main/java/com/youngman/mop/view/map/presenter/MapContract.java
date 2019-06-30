@@ -17,11 +17,13 @@ public interface MapContract {
     interface View {
         void mapRefresh(List<MemberLocation> memberLocations, MemberLocation myLocation);
         void moveLocation(MemberLocation memberLocation);
+        void finishMapActivity();
         void showErrorMessage(String message);
     }
 
     interface Presenter {
         void callMapRefresh(Long clubId, String email, LatLng latLng);
+        void callMapOut(Long clubId, String email);
         void setMemberLocationsAdapterView(MemberLocationsAdapterContract.View adapterView);
         void setMemberLocationsAdapterModel(MemberLocationsAdapterContract.Model adapterModel);
     }

@@ -12,37 +12,34 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class NetRetrofit {
+public class RetrofitClient {
 
     private final String LOCAL_BASE_URL = "http://192.168.0.87:8092/";
     private final String DEV_BASE_URL = "http://54.180.67.243:8092/";
 
-    private static final NetRetrofit ourInstance = new NetRetrofit();
-    private NetRetrofitInterface netRetrofitInterface;
+    private static final RetrofitClient INSTANCE = new RetrofitClient();
+    private RetrofitApiService retrofitApiService;
 
 
-    public static NetRetrofit getInstance() {
-        return ourInstance;
+    public static RetrofitClient getInstance() {
+        return INSTANCE;
     }
 
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(LOCAL_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-//            .client(createOkHttpClient())
             .build();
 
-    public NetRetrofitInterface getNetRetrofitInterface() {
-        if (netRetrofitInterface == null) {
-            netRetrofitInterface = retrofit.create(NetRetrofitInterface.class);
+    public RetrofitApiService getRetrofitApiService() {
+        if (retrofitApiService == null) {
+            retrofitApiService = retrofit.create(RetrofitApiService.class);
         }
-        return netRetrofitInterface;
+        return retrofitApiService;
     }
 
-    private static OkHttpClient createOkHttpClient() {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+    private OkHttpClient createOkHttpClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        builder.addInterceptor(interceptor);
-        return builder.build();
+        return new OkHttpClient.Builder().addInterceptor(interceptor).build();
     }
 }

@@ -57,6 +57,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:17.0.0'
     implementation 'com.google.firebase:firebase-messaging:18.0.0'
 
+    //Sliding Up Panel
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
+
     // TEST
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

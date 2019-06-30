@@ -1,7 +1,7 @@
 package com.youngman.mop.data.source.schedulecreate;
 
 import com.youngman.mop.data.Schedule;
-import com.youngman.mop.net.NetRetrofit;
+import com.youngman.mop.net.RetrofitClient;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -31,7 +31,7 @@ public class ScheduleCreateRemoteDataSource {
      * 일정 저장
      */
     public void callCreateSchedule(Schedule schedule, ScheduleCreateSource.ApiListener listener) {
-        Call<Void> result = NetRetrofit.getInstance().getNetRetrofitInterface().callCreateSchedule(schedule);
+        Call<Void> result = RetrofitClient.getInstance().getRetrofitApiService().callCreateSchedule(schedule);
         result.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

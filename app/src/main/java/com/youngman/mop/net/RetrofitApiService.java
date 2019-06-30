@@ -23,7 +23,7 @@ import retrofit2.http.QueryMap;
  * Created by YoungMan on 2019-04-28.
  */
 
-public interface NetRetrofitInterface {
+public interface RetrofitApiService {
 
     @POST("mop/member/signin")
     Call<Boolean> callSingIn(@Body SignIn signIn);

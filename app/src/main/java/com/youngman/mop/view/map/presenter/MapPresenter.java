@@ -1,7 +1,6 @@
 package com.youngman.mop.view.map.presenter;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.youngman.mop.data.Member;
 import com.youngman.mop.lib.realtimedb.MapFirebaseService;
 import com.youngman.mop.lib.realtimedb.MemberLocation;
 import com.youngman.mop.listener.OnMemberItemClickListener;
@@ -29,20 +28,34 @@ public class MapPresenter implements MapContract.Presenter, OnMemberItemClickLis
 
     @Override
     public void callMapRefresh(Long clubId, String email, LatLng latLng) {
-        mapFirebaseService.callMapRefresh(clubId, email, latLng, new MapFirebaseService.ApiListener() {
+        mapFirebaseService.callMapRefresh(clubId, email, latLng, new MapFirebaseService.RefreshApiListener() {
             @Override
             public void onSuccess(List<MemberLocation> otherLocations, MemberLocation myLocation) {
-                if (isFirst) {
-                    adapterModel.addItems(otherLocations);
-                    adapterView.notifyAdapter();
-                    isFirst = false;
-                }
+                adapterModel.addItems(otherLocations);
+                adapterView.notifyAdapter();
+                isFirst = false;
+
                 mapView.mapRefresh(otherLocations, myLocation);
             }
 
             @Override
             public void onFail(String message) {
                 mapView.showErrorMessage("지도를 갱신하는데 실패하였습니다.");
+            }
+        });
+    }
+
+    @Override
+    public void callMapOut(Long clubId, String email) {
+        mapFirebaseService.callMapOut(clubId, email, new MapFirebaseService.DeleteApiListener() {
+            @Override
+            public void onSuccess() {
+                mapView.finishMapActivity();
+            }
+
+            @Override
+            public void onFail(String message) {
+                mapView.showErrorMessage("지도 단체방을 나가는데 실패하였습니다.");
             }
         });
     }
