@@ -6,6 +6,7 @@ import com.youngman.mop.lib.realtimedb.MemberLocation;
 import com.youngman.mop.listener.OnMemberItemClickListener;
 import com.youngman.mop.view.map.adapter.MemberLocationsAdapterContract;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +34,6 @@ public class MapPresenter implements MapContract.Presenter, OnMemberItemClickLis
             public void onSuccess(List<MemberLocation> otherLocations, MemberLocation myLocation) {
                 adapterModel.addItems(otherLocations);
                 adapterView.notifyAdapter();
-                isFirst = false;
 
                 mapView.mapRefresh(otherLocations, myLocation);
             }
@@ -63,7 +63,7 @@ public class MapPresenter implements MapContract.Presenter, OnMemberItemClickLis
     @Override
     public void onStartMemberClick(int position) {
         MemberLocation otherLocation = adapterModel.getItem(position);
-        mapView.moveLocation(otherLocation);
+        mapView.moveOtherLocation(otherLocation);
     }
 
     public void setMemberLocationsAdapterView(MemberLocationsAdapterContract.View adapterView) {

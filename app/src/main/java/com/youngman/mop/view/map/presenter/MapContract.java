@@ -16,7 +16,7 @@ public interface MapContract {
     //방장 - 유저목록(단톡방) 생성, 단톡방 삭제, (멤버 추가)
     interface View {
         void mapRefresh(List<MemberLocation> memberLocations, MemberLocation myLocation);
-        void moveLocation(MemberLocation memberLocation);
+        void moveOtherLocation(MemberLocation memberLocation);
         void finishMapActivity();
         void showErrorMessage(String message);
     }

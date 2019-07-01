@@ -39,7 +39,7 @@ dependencies {
     implementation 'com.android.support:support-annotations:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
-    // Retrofit API
+    // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
 
@@ -47,10 +47,15 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.14.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.14.0'
 
-    // Google Map API
+    // Google Map
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
+
+    // Location
     implementation 'com.github.delight-im:Android-SimpleLocation:v1.0.1'
+
+    // Map Direction
+    implementation 'com.github.jd-alexander:library:1.1.0'
 
     // Google FireBase
     implementation 'com.google.firebase:firebase-core:16.0.9'
