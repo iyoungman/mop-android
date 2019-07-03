@@ -15,7 +15,7 @@ import lombok.Getter;
 public class ClubsResponse {
 
     @SerializedName("myClubResponseDtos")
-    List<Club> clubs = new ArrayList<>();
+    private List<Club> clubs = new ArrayList<>();
 
     @SerializedName("last")
     private boolean isLast;
