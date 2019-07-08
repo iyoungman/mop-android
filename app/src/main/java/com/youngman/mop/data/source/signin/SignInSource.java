@@ -1,6 +1,7 @@
 package com.youngman.mop.data.source.signin;
 
 import com.youngman.mop.data.SignIn;
+import com.youngman.mop.data.SignInResponse;
 
 /**
  * Created by YoungMan on 2019-06-06.
@@ -9,7 +10,7 @@ import com.youngman.mop.data.SignIn;
 public interface SignInSource {
 
     interface ApiListener {
-        void onSuccess(String email);
+        void onSuccess(SignInResponse signInResponse);
         void onFail(String message);
     }
 

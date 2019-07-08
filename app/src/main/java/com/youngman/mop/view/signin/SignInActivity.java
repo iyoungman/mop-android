@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.youngman.mop.R;
+import com.youngman.mop.data.SignInResponse;
 import com.youngman.mop.data.source.signin.SignInRepository;
 import com.youngman.mop.util.SignUtils;
 import com.youngman.mop.util.ToastUtils;
@@ -55,8 +56,8 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
     }
 
     @Override
-    public void startMyClubActivity(String email) {
-        SignUtils.writeUserIdToPref(context, email);
+    public void startMyClubActivity(SignInResponse signInResponse) {
+        SignUtils.writeMemberInfoToPref(context, signInResponse);
 
         Intent intent = new Intent(context, MyClubsActivity.class);
         startActivity(intent);

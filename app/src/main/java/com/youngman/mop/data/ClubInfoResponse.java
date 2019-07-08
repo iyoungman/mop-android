@@ -15,10 +15,10 @@ import lombok.Getter;
 @Getter
 public class ClubInfoResponse {
 
-    @SerializedName("clubDto")
+    @SerializedName("clubInfo")
     private Club club;
 
-    @SerializedName("memberDtos")
+    @SerializedName("memberInfos")
     private List<Member> members = new ArrayList<>();
 
 

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="300dp"
+    android:layout_height="350dp"
     android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="20dp"
+        android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:weightSum="1">
@@ -17,29 +17,54 @@
             android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="스케줄이름"
-            android:gravity="center" />
+            android:gravity="center"
+            android:hint="스케줄이름" />
 
         <EditText
             android:id="@+id/et_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="스케줄내용"
-            android:gravity="center" />
+            android:gravity="center"
+            android:hint="스케줄내용" />
 
         <EditText
             android:id="@+id/et_region"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="지역"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:hint="지역" />
 
         <EditText
-            android:id="@+id/et_meeting_time"
+            android:id="@+id/et_meeting_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="모임시간"
-            android:gravity="center"/>
+            android:enabled="false"
+            android:gravity="center"
+            android:hint="모임날짜" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <EditText
+                android:id="@+id/et_meeting_hour"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:hint="시간" />
+
+            <EditText
+                android:id="@+id/et_meeting_minute"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:hint="분" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_create_schedule"

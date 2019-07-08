@@ -7,140 +7,111 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <!--툴바의 TextView 가운데 정렬-->
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/md_light_blue_600"
-        app:contentInsetStart="0dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <ImageView
-                android:id="@+id/img_back"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_weight="0.2"/>
-
-            <TextView
-                android:id="@+id/titleTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="20dp" />
-
-        </LinearLayout>
-
-    </android.support.v7.widget.Toolbar>
-
-    <!-- <View
-         android:layout_width="match_parent"
-         android:layout_height="0dp"
-         android:layout_above="@+id/viewpager_main"
-         android:layout_weight="0.003"
-         android:background="@drawable/tab_shadow" />-->
-
-    <!--커스텀한 뷰페이저-->
-
--->
-
     <LinearLayout
         android:id="@+id/ll_fragment_container"
         android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:layout_weight="0.895"
+        android:layout_weight="0.9"
         android:orientation="vertical"/>
 
-   <!-- &lt;!&ndash;구분선&ndash;&gt;
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_above="@+id/tab_main"
-        android:layout_weight="0.005"
-        android:background="@drawable/tab_shadow" />
--->
-    <!--하단 메뉴바-->
     <LinearLayout
-        android:id="@+id/tab_club"
+        android:id="@+id/ll_club_menu"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.10"
-        android:background="@color/md_purple_400"
+        android:layout_weight="0.1"
+        android:background="@color/md_cyan_200"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:weightSum="1">
 
         <LinearLayout
+            android:id="@+id/ll_menu_info"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            tools:ignore="NestedWeights" />
+            android:layout_height="match_parent"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
-        <ImageView
-            android:id="@+id/iv_tab_info"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_weight="0.125"
-            android:padding="5dp"
-            android:src="@drawable/common_google_signin_btn_text_dark"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.4"
+                android:src="@drawable/img_club_info" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            tools:ignore="NestedWeights" />
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_tab_map"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_weight="0.125"
-            android:padding="5dp"
-            android:src="@drawable/common_google_signin_btn_text_dark" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/md_grey_200" />
 
         <LinearLayout
+            android:id="@+id/ll_menu_schedule"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1" />
+            android:layout_height="match_parent"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
-        <ImageView
-            android:id="@+id/iv_tab_schedule"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_weight="0.125"
-            android:padding="5dp"
-            android:src="@drawable/common_google_signin_btn_text_dark" />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.4"
+                android:src="@drawable/img_club_schedule" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1" />
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_tab_board"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_weight="0.125"
-            android:padding="5dp"
-            android:src="@drawable/common_google_signin_btn_text_dark" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/md_grey_200" />
 
         <LinearLayout
+            android:id="@+id/ll_menu_board"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1" />
+            android:layout_height="match_parent"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.4"
+                android:src="@drawable/img_club_board" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/md_grey_200" />
+
+        <LinearLayout
+            android:id="@+id/ll_menu_map"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.4"
+                android:src="@drawable/img_club_map" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
 </LinearLayout>
+

@@ -2,7 +2,6 @@ package com.youngman.mop.data;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 
 /**
  * Created by YoungMan on 2019-06-06.

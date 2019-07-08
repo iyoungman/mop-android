@@ -3,6 +3,7 @@ package com.youngman.mop.data.source.signin;
 import android.util.Log;
 
 import com.youngman.mop.data.SignIn;
+import com.youngman.mop.data.SignInResponse;
 import com.youngman.mop.net.RetrofitClient;
 
 import lombok.AccessLevel;
@@ -30,19 +31,19 @@ public class SignInRemoteDataSource implements SignInSource {
     }
 
     public void callSignIn(SignIn signIn, ApiListener listener) {
-        Call<Boolean> result = RetrofitClient.getInstance().getRetrofitApiService().callSingIn(signIn);
-        result.enqueue(new Callback<Boolean>() {
+        Call<SignInResponse> result = RetrofitClient.getInstance().getRetrofitApiService().callSingIn(signIn);
+        result.enqueue(new Callback<SignInResponse>() {
             @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+            public void onResponse(Call<SignInResponse> call, Response<SignInResponse> response) {
                 if(response.isSuccessful() && response.body() != null) {
-                    listener.onSuccess(signIn.getEmail());
+                    listener.onSuccess(response.body());
                     return;
                 }
                 listener.onFail("로그인에 실패하였습니다.");
             }
 
             @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
+            public void onFailure(Call<SignInResponse> call, Throwable t) {
                 Log.d("SignInModel  " , t.toString());
                 listener.onFail("통신에 실패하였습니다.");
             }

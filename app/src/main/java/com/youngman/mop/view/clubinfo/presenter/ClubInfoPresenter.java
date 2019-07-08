@@ -1,7 +1,5 @@
 package com.youngman.mop.view.clubinfo.presenter;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.ClubInfoResponse;
 import com.youngman.mop.data.Member;
 import com.youngman.mop.data.source.clubinfo.ClubInfoRepository;
@@ -22,9 +20,7 @@ public class ClubInfoPresenter implements ClubInfoContract.Presenter, OnMemberIt
     private MembersAdapterContract.Model adapterModel;
 
 
-    public ClubInfoPresenter(ClubInfoContract.View infoView,
-                             ClubInfoRepository clubInfoRepository) {
-
+    public ClubInfoPresenter(ClubInfoContract.View infoView, ClubInfoRepository clubInfoRepository) {
         this.infoView = infoView;
         this.clubInfoRepository = clubInfoRepository;
     }

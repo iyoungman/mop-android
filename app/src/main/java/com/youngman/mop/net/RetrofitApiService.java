@@ -5,6 +5,7 @@ import com.youngman.mop.data.ClubInfoResponse;
 import com.youngman.mop.data.ClubsResponse;
 import com.youngman.mop.data.Schedule;
 import com.youngman.mop.data.SignIn;
+import com.youngman.mop.data.SignInResponse;
 import com.youngman.mop.data.SignUp;
 
 import java.util.List;
@@ -26,7 +27,7 @@ import retrofit2.http.QueryMap;
 public interface RetrofitApiService {
 
     @POST("mop/member/signin")
-    Call<Boolean> callSingIn(@Body SignIn signIn);
+    Call<SignInResponse> callSingIn(@Body SignIn signIn);
 
     @POST("mop/member")
     Call<Boolean> callSingUp(@Body SignUp signUp);
@@ -38,6 +39,7 @@ public interface RetrofitApiService {
     Call<Void> callDeleteMember(@Query("email") String email);
 
 
+
     @POST("mop/myclub")
     Call<Void> callCreateMyClub();
 
@@ -45,7 +47,8 @@ public interface RetrofitApiService {
     Call<List<Club>> callMyClubsByMemberEmail(@Query("email") String email);
 
     @DELETE("mop/myclub")
-    Call<Void> callDeleteMyClub(@QueryMap Map deleteMyClubParams);
+    Call<Void> callDeleteMyClub(@QueryMap Map<String, Object> params);
+
 
 
     @POST("mop/club")
@@ -55,7 +58,7 @@ public interface RetrofitApiService {
 //    Call<List<ClubModel>> callPagingClubsBySearch(@Query("searchClub") String searchClub);
 
     @GET("mop/club/member")
-    Call<ClubsResponse> callPagingClubsByMember(@QueryMap Map<String, Object> pagingClubsByMemberParams);
+    Call<ClubsResponse> callPagingClubsByMember(@QueryMap Map<String, Object> params);
 
     @PUT("mop/club")
     Call<Void> callUpdateClub();
@@ -63,10 +66,14 @@ public interface RetrofitApiService {
     @DELETE("mop/club")
     Call<Void> callDeleteClub();
 
-
     @GET("mop/club/info")
     Call<ClubInfoResponse> callClubInfoById(@Query("clubId") Long clubId);
 
+
+
     @POST("mop/schedule")
     Call<Void> callCreateSchedule(@Body Schedule schedule);
+
+    @GET("mop/schedule/monthly")
+    Call<Map<String, Schedule>> callSchedulesByClubIdAndMonth(@QueryMap Map<String, Object> params);
 }

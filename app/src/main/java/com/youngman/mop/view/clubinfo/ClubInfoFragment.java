@@ -77,10 +77,10 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
     @Override
     public void setClubInfo(Club club) {
         tvClubName.setText(club.getName());
-//        tvClubIntroduce.setText(clubDto.getIntroduce());
+        tvClubIntroduce.setText(club.getIntroduce());
         tvClubCreateDate.setText(club.getCreateDate());
         tvClubRegion.setText(club.getRegion());
-//        tvClubHobby.setText(clubDto.getHobby());
+        tvClubHobby.setText(club.getHobby());
     }
 
     @Override

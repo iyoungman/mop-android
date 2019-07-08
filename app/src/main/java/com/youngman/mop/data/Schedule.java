@@ -13,6 +13,7 @@ import lombok.Getter;
 @Getter
 public class Schedule {
 
+    private Long id;
     private String name;
     private String content;
     private String region;
@@ -22,13 +23,15 @@ public class Schedule {
 
 
     @Builder
-    public Schedule(String name,
+    public Schedule(Long id,
+                    String name,
                     String content,
                     String region,
                     String writer,
                     String meetingTime,
                     Long clubId) {
 
+        this.id = id;
         this.name = name;
         this.content = content;
         this.region = region;

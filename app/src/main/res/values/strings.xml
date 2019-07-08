@@ -2,4 +2,7 @@
     <string name="app_name">mop</string>
     <string name="default_notification_channel_id">Channel ID</string>
     <string name="default_notification_channel_name" translatable="true">Test</string>
+
+    <!--Google Direction Server API Key-->
+    <string name="google_direction_server_api_key">AIzaSyCDsInt5rgucqLOlLeg8lpkofIyVwgIJDE</string>
 </resources>

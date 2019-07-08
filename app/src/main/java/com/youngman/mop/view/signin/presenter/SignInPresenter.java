@@ -1,6 +1,7 @@
 package com.youngman.mop.view.signin.presenter;
 
 import com.youngman.mop.data.SignIn;
+import com.youngman.mop.data.SignInResponse;
 import com.youngman.mop.data.source.signin.SignInRepository;
 import com.youngman.mop.data.source.signin.SignInSource;
 
@@ -30,10 +31,9 @@ public class SignInPresenter implements SignInContract.Presenter {
 
         if (signIn.isAllNonNull()) {
             signInRepository.callSignIn(signIn, new SignInSource.ApiListener() {
-
                 @Override
-                public void onSuccess(String email) {
-                    signInView.startMyClubActivity(email);
+                public void onSuccess(SignInResponse signInResponse) {
+                    signInView.startMyClubActivity(signInResponse);
                 }
 
                 @Override
