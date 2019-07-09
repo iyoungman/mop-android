@@ -1,27 +1,28 @@
-package com.youngman.mop.view.clubs.adapter;
+package com.youngman.mop.view.board.adpater;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.youngman.mop.data.Club;
+import com.youngman.mop.data.Board;
+import com.youngman.mop.listener.OnBasicItemClickListener;
 import com.youngman.mop.listener.OnClubsItemClickListener;
 import com.youngman.mop.listener.OnLoadMoreListener;
+import com.youngman.mop.view.clubs.adapter.ClubsViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by YoungMan on 2019-05-03.
+ * Created by YoungMan on 2019-07-09.
  */
 
-public class ClubsAdapter extends RecyclerView.Adapter<ClubsViewHolder> implements ClubsAdapterContract.View, ClubsAdapterContract.Model {
+public class BoardAdapter extends RecyclerView.Adapter<BoardViewHolder> implements BoardAdapterContract.View, BoardAdapterContract.Model {
 
     private Context context;
-    private List<Club> clubs = new ArrayList<>();
-    private OnClubsItemClickListener onClubsItemClickListener;
+    private List<Board> boards = new ArrayList<>();
+    private OnBasicItemClickListener onBasicItemClickListener;
     private OnLoadMoreListener onLoadMoreListener;
     private LinearLayoutManager linearLayoutManager;
 
@@ -29,13 +30,13 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsViewHolder> implemen
     private boolean isLast = false;
 
 
-    public ClubsAdapter(Context context, OnLoadMoreListener onLoadMoreListener) {
+    public BoardAdapter(Context context, OnLoadMoreListener onLoadMoreListener) {
         this.context = context;
         this.onLoadMoreListener = onLoadMoreListener;
     }
 
-    public void setOnClubsItemClickListener(OnClubsItemClickListener onClubsItemClickListener) {
-        this.onClubsItemClickListener = onClubsItemClickListener;
+    public void setOnBasicItemClickListener(OnClubsItemClickListener onClubsItemClickListener) {
+        this.onBasicItemClickListener = onBasicItemClickListener;
     }
 
     public void setLinearLayoutManager(LinearLayoutManager linearLayoutManager) {
@@ -64,18 +65,18 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsViewHolder> implemen
     }
 
     @Override
-    public void addItems(List<Club> clubs) {
-        this.clubs.addAll(clubs);
+    public void addItems(List<Board> boards) {
+        this.boards.addAll(boards);
     }
 
     @Override
-    public Club getItem(int position) {
-        return clubs.get(position);
+    public Board getItem(int position) {
+        return boards.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return clubs != null ? clubs.size() : 0;
+        return boards != null ? boards.size() : 0;
     }
 
     @Override
@@ -84,14 +85,14 @@ public class ClubsAdapter extends RecyclerView.Adapter<ClubsViewHolder> implemen
     }
 
     @Override
-    public ClubsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ClubsViewHolder(context, parent, onClubsItemClickListener);
+    public BoardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new BoardViewHolder(context, parent, onBasicItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(ClubsViewHolder holder, int position) {
+    public void onBindViewHolder(BoardViewHolder holder, int position) {
         if (holder == null) return;
-        holder.onBind(clubs.get(position), position);
+        holder.onBind(boards.get(position), position);
     }
 
     @Override

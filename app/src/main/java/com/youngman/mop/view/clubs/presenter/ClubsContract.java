@@ -11,14 +11,13 @@ import com.youngman.mop.view.clubs.adapter.ClubsAdapterContract;
 public interface ClubsContract {
 
     interface View {
-        void showErrorMessage(@NonNull String message);
-        void startClubActivity(@NonNull Long clubId);
+        void showErrorMessage(String message);
+        void startClubActivity(Long clubId);
     }
 
     interface Presenter {
-        void setClubListAdapterView(@NonNull ClubsAdapterContract.View adapterView);
-        void setClubListAdapterModel(@NonNull ClubsAdapterContract.Model adapterModel);
-        void callClubListByUserInfo(@NonNull String email, @NonNull Integer pageNum);
-//        void callPagingClubsBySearch(@NonNull String searchClub);
+        void setClubsAdapterView(ClubsAdapterContract.View adapterView);
+        void setClubsAdapterModel(ClubsAdapterContract.Model adapterModel);
+        void callClubsByUserInfo(String email, int pageNum);
     }
 }

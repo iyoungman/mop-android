@@ -55,7 +55,7 @@ public class ClubActivity extends AppCompatActivity {
 
         llMenuBoard.setOnClickListener(view -> {
             getSupportFragmentManager().beginTransaction().
-                    replace(R.id.ll_fragment_container, BoardFragment.createFragment())
+                    replace(R.id.ll_fragment_container, BoardFragment.createFragment(clubId))
                     .commit();
         });
 

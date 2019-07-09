@@ -1,6 +1,6 @@
 package com.youngman.mop.data.source.clubs;
 
-import com.youngman.mop.data.ClubsResponse;
+import com.youngman.mop.data.ClubPagingResponse;
 
 /**
  * Created by YoungMan on 2019-06-06.
@@ -9,12 +9,12 @@ import com.youngman.mop.data.ClubsResponse;
 public interface ClubsSource {
 
     interface ListApiListener {
-        void onSuccess(ClubsResponse clubsResponse);
+        void onSuccess(ClubPagingResponse clubPagingResponse);
         void onFail(String message);
     }
 
-    void callClubListByUserInfo(String email,
-                                int pageNo,
-                                ListApiListener listener);
+    void callClubsByUserInfo(String email,
+                             int pageNo,
+                             ListApiListener listener);
 
 }

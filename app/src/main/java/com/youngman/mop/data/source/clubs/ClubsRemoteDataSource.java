@@ -1,6 +1,6 @@
 package com.youngman.mop.data.source.clubs;
 
-import com.youngman.mop.data.ClubsResponse;
+import com.youngman.mop.data.ClubPagingResponse;
 import com.youngman.mop.net.RetrofitClient;
 
 import java.util.HashMap;
@@ -31,34 +31,34 @@ public class ClubsRemoteDataSource implements ClubsSource {
     }
 
     @Override
-    public void callClubListByUserInfo(String email,
-                                       int pageNo,
-                                       ListApiListener listener) {
+    public void callClubsByUserInfo(String email,
+                                    int pageNo,
+                                    ListApiListener listener) {
 
-        Call<ClubsResponse> result = RetrofitClient.getInstance().getRetrofitApiService().callPagingClubsByMember(makeParams(email, pageNo));
-        result.enqueue(new Callback<ClubsResponse>() {
+        Call<ClubPagingResponse> result = RetrofitClient.getInstance().getRetrofitApiService().callPagingClubsByMember(makeParams(email, pageNo));
+        result.enqueue(new Callback<ClubPagingResponse>() {
             @Override
-            public void onResponse(Call<ClubsResponse> call, Response<ClubsResponse> response) {
+            public void onResponse(Call<ClubPagingResponse> call, Response<ClubPagingResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    ClubsResponse clubsResponse = response.body();
-                    listener.onSuccess(clubsResponse);
+                    ClubPagingResponse clubPagingResponse = response.body();
+                    listener.onSuccess(clubPagingResponse);
                     return;
                 }
                 listener.onFail("목록을 받아오는데 실패하였습니다.");
             }
 
             @Override
-            public void onFailure(Call<ClubsResponse> call, Throwable t) {
+            public void onFailure(Call<ClubPagingResponse> call, Throwable t) {
                 listener.onFail("통신에 실패하였습니다.");
             }
         });
     }
 
-    private Map<String, Object> makeParams(String email, Integer pageNo) {
-        Map<String, Object> pagingClubsByMemberParams = new HashMap<>();
-        pagingClubsByMemberParams.put("email", email);
-        pagingClubsByMemberParams.put("pageNo", pageNo);
+    private Map<String, Object> makeParams(String email, int pageNo) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("email", email);
+        params.put("pageNo", pageNo);
 
-        return pagingClubsByMemberParams;
+        return params;
     }
 }

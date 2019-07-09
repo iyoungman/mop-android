@@ -23,10 +23,10 @@ public class ClubsRepository implements ClubsSource {
     }
 
     @Override
-    public void callClubListByUserInfo(String email,
-                                       int pageNo,
-                                       ListApiListener listener) {
+    public void callClubsByUserInfo(String email,
+                                    int pageNo,
+                                    ListApiListener listener) {
 
-        clubsRemoteDataSource.callClubListByUserInfo(email, pageNo, listener);
+        clubsRemoteDataSource.callClubsByUserInfo(email, pageNo, listener);
     }
 }

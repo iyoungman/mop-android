@@ -23,7 +23,6 @@ public class ClubsViewHolder extends RecyclerView.ViewHolder {
     private TextView tvClubName;
     private TextView tvClubRegion;
     private TextView tvClubHobby;
-
     private OnClubsItemClickListener onClubsItemClickListener;
 
 

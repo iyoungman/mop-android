@@ -12,16 +12,16 @@ import lombok.Getter;
  */
 
 @Getter
-public class ClubsResponse {
+public class ClubPagingResponse {
 
-    @SerializedName("myClubResponseDtos")
+    @SerializedName("myClubResponses")
     private List<Club> clubs = new ArrayList<>();
 
     @SerializedName("last")
     private boolean isLast;
 
 
-    public ClubsResponse(List<Club> clubs, boolean isLast) {
+    public ClubPagingResponse(List<Club> clubs, boolean isLast) {
         this.clubs = clubs;
         this.isLast = isLast;
     }

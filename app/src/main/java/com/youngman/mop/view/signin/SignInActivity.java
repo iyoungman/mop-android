@@ -43,11 +43,11 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
 
         presenter = new SignInPresenter(this, SignInRepository.getInstance());
 
-        btnSignIn.setOnClickListener(view -> presenter.callSignIn(etEmail.getText().toString(),
+        btnSignIn.setOnClickListener(v -> presenter.callSignIn(etEmail.getText().toString(),
                 etPw.getText().toString()
         ));
 
-        btnStartSignUp.setOnClickListener(view -> startSignUpActivity());
+        btnStartSignUp.setOnClickListener(v -> startSignUpActivity());
     }
 
     @Override

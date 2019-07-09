@@ -58,8 +58,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private GoogleMap mGoogleMap;
     private SimpleLocation simpleLocation;
     private boolean isPossibleRefreshMap = true;
-    private List<LatLng> myRoutes = new ArrayList<>();
     private boolean isDrawPolylines = true;
+    private List<LatLng> myRoutes = new ArrayList<>();
 
 
     @Override

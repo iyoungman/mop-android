@@ -55,32 +55,19 @@ public class ClubsActivity extends AppCompatActivity implements ClubsContract.Vi
         recyclerView.setAdapter(clubsAdapter);
 
         presenter = new ClubsPresenter(this, ClubsRepository.getInstance());
-        presenter.setClubListAdapterView(clubsAdapter);
-        presenter.setClubListAdapterModel(clubsAdapter);
-        presenter.callClubListByUserInfo(SignUtils.readUserIdFromPref(context), 1);
+        presenter.setClubsAdapterView(clubsAdapter);
+        presenter.setClubsAdapterModel(clubsAdapter);
+        presenter.callClubsByUserInfo(SignUtils.readUserIdFromPref(context), 1);
 
         etSearchClubs.setOnClickListener(view -> {
             startClubSearchActivity();
         });
-
-        /*btnSearchClubs.setOnClickListener(view -> {
-            if (isNotEmpty())
-                presenter.callPagingClubsBySearch(etSearchClubs.getText().toString());
-        });*/
     }
-
-    /*private boolean isNotEmpty() {
-        if (EmptyCheckUtils.isEmpty(etSearchClubs.getText().toString())) {
-            showErrorMessage("검색어를 입력해주세요");
-            return false;
-        }
-        return true;
-    }*/
 
     @Override
     public void onLoadMore() {
         new Handler().postDelayed(() -> {
-            presenter.callClubListByUserInfo(SignUtils.readUserIdFromPref(context), calculatePageNo());
+            presenter.callClubsByUserInfo(SignUtils.readUserIdFromPref(context), calculatePageNo());
         }, 500);
     }
 
@@ -91,12 +78,12 @@ public class ClubsActivity extends AppCompatActivity implements ClubsContract.Vi
     }
 
     @Override
-    public void showErrorMessage(@NonNull String message) {
+    public void showErrorMessage(String message) {
         ToastUtils.showToast(context, message);
     }
 
     @Override
-    public void startClubActivity(@NonNull Long clubId) {
+    public void startClubActivity(Long clubId) {
         Intent intent = new Intent(context, ClubActivity.class);
         intent.putExtra("EXTRA_CLUB_ID", clubId);
         startActivity(intent);
