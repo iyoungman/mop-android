@@ -7,9 +7,7 @@ import android.view.ViewGroup;
 
 import com.youngman.mop.data.Board;
 import com.youngman.mop.listener.OnBasicItemClickListener;
-import com.youngman.mop.listener.OnClubsItemClickListener;
 import com.youngman.mop.listener.OnLoadMoreListener;
-import com.youngman.mop.view.clubs.adapter.ClubsViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +33,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardViewHolder> implemen
         this.onLoadMoreListener = onLoadMoreListener;
     }
 
-    public void setOnBasicItemClickListener(OnClubsItemClickListener onClubsItemClickListener) {
+    public void setOnBasicItemClickListener(OnBasicItemClickListener onBasicItemClickListener) {
         this.onBasicItemClickListener = onBasicItemClickListener;
     }
 

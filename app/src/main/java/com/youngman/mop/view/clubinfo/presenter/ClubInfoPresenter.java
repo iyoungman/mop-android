@@ -4,14 +4,14 @@ import com.youngman.mop.data.ClubInfoResponse;
 import com.youngman.mop.data.Member;
 import com.youngman.mop.data.source.clubinfo.ClubInfoRepository;
 import com.youngman.mop.data.source.clubinfo.ClubInfoSource;
-import com.youngman.mop.listener.OnMemberItemClickListener;
+import com.youngman.mop.listener.OnBasicItemClickListener;
 import com.youngman.mop.view.clubinfo.adapter.MembersAdapterContract;
 
 /**
  * Created by YoungMan on 2019-05-28.
  */
 
-public class ClubInfoPresenter implements ClubInfoContract.Presenter, OnMemberItemClickListener {
+public class ClubInfoPresenter implements ClubInfoContract.Presenter, OnBasicItemClickListener {
 
     private ClubInfoContract.View infoView;
     private final ClubInfoRepository clubInfoRepository;
@@ -43,7 +43,7 @@ public class ClubInfoPresenter implements ClubInfoContract.Presenter, OnMemberIt
     }
 
     @Override
-    public void onStartMemberClick(int position) {
+    public void onStartItemClick(int position) {
         Member member = adapterModel.getItem(position);
         infoView.startMemberInfoActivity(member);
     }
@@ -51,7 +51,7 @@ public class ClubInfoPresenter implements ClubInfoContract.Presenter, OnMemberIt
     @Override
     public void setMembersAdapterView(MembersAdapterContract.View adapterView) {
         this.adapterView = adapterView;
-        this.adapterView.setOnMemberItemClickListener(this);
+        this.adapterView.setOnBasicItemClickListener(this);
     }
 
     @Override

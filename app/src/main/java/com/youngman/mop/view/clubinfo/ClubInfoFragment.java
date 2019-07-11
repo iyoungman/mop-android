@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,7 +29,6 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
     private Context context;
     private RecyclerView recyclerView;
     private ImageView ivClubImg;
-    private TextView tvClubName;
     private TextView tvClubIntroduce;
     private TextView tvClubCreateDate;
     private TextView tvClubRegion;
@@ -58,15 +58,16 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
         context = view.getContext();
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_members);
         ivClubImg = (ImageView) view.findViewById(R.id.iv_club_img);
-        tvClubName = (TextView) view.findViewById(R.id.tv_club_name);
         tvClubIntroduce = (TextView) view.findViewById(R.id.tv_club_introduce);
         tvClubCreateDate = (TextView) view.findViewById(R.id.tv_club_create_date);
         tvClubRegion = (TextView) view.findViewById(R.id.tv_club_region);
         tvClubHobby = (TextView) view.findViewById(R.id.tv_club_hobby);
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         membersAdapter = new MembersAdapter(context);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(context, linearLayoutManager.getOrientation()));
         recyclerView.setAdapter(membersAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         presenter = new ClubInfoPresenter(this, ClubInfoRepository.getInstance());
         presenter.setMembersAdapterView(membersAdapter);
@@ -76,7 +77,6 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
 
     @Override
     public void setClubInfo(Club club) {
-        tvClubName.setText(club.getName());
         tvClubIntroduce.setText(club.getIntroduce());
         tvClubCreateDate.setText(club.getCreateDate());
         tvClubRegion.setText(club.getRegion());

@@ -7,9 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.youngman.mop.R;
-import com.youngman.mop.data.Member;
 import com.youngman.mop.lib.realtimedb.MemberLocation;
-import com.youngman.mop.listener.OnMemberItemClickListener;
+import com.youngman.mop.listener.OnBasicItemClickListener;
 
 /**
  * Created by YoungMan on 2019-06-28.
@@ -18,23 +17,23 @@ import com.youngman.mop.listener.OnMemberItemClickListener;
 public class MemberLocationsViewHolder extends RecyclerView.ViewHolder {
 
     private TextView tvMapMemberName;
-    private OnMemberItemClickListener onMemberItemClickListener;
+    private OnBasicItemClickListener onBasicItemClickListener;
 
 
     public MemberLocationsViewHolder(Context context,
                                      ViewGroup parent,
-                                     OnMemberItemClickListener onMemberItemClickListener) {
+                                     OnBasicItemClickListener onBasicItemClickListener) {
 
         super(LayoutInflater.from(context).inflate(R.layout.item_member_locations, parent, false));
         this.tvMapMemberName = itemView.findViewById(R.id.tv_map_member_name);
-        this.onMemberItemClickListener = onMemberItemClickListener;
+        this.onBasicItemClickListener = onBasicItemClickListener;
     }
 
     public void onBind(MemberLocation memberLocation, int position) {
         tvMapMemberName.setText(memberLocation.getEmail());
 
         itemView.setOnClickListener(view -> {
-            onMemberItemClickListener.onStartMemberClick(position);
+            onBasicItemClickListener.onStartItemClick(position);
         });
     }
 }

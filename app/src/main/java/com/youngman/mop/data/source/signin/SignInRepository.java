@@ -25,7 +25,12 @@ public class SignInRepository implements SignInSource {
     }
 
     @Override
-    public void callSignIn(SignIn signIn, ApiListener listener) {
+    public void callSignIn(SignIn signIn, SignInApiListener listener) {
         signInRemoteDataSource.callSignIn(signIn, listener);
+    }
+
+    @Override
+    public void callIsValidToken(String token, TokenApiListener listener) {
+        signInRemoteDataSource.callIsValidToken(token, listener);
     }
 }

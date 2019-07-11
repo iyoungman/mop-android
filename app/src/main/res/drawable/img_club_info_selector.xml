@@ -1,0 +1,6 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 클릭 했을 경우 -->
+    <item android:state_selected="true" android:drawable="@drawable/img_club_info_selected"/>
+    <!-- 클릭하지 않은 경우 -->
+    <item android:state_pressed="false" android:drawable="@drawable/img_club_info"/>
+</selector>

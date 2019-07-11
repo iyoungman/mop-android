@@ -7,11 +7,31 @@
     android:orientation="vertical"
     android:weightSum="1">
 
+    <!--툴바의 TextView 가운데 정렬-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tb_club"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:background="@color/md_cyan_200"
+        app:contentInsetStart="0dp">
+
+        <TextView
+            android:id="@+id/tv_club_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="동호회"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+    </android.support.v7.widget.Toolbar>
+
     <LinearLayout
         android:id="@+id/ll_fragment_container"
         android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:layout_weight="0.9"
+        android:layout_weight="0.8"
         android:orientation="vertical"/>
 
     <LinearLayout
@@ -34,6 +54,7 @@
             android:weightSum="1">
 
             <ImageView
+                android:id="@+id/iv_menu_info"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -57,6 +78,7 @@
             android:weightSum="1">
 
             <ImageView
+                android:id="@+id/iv_menu_schedule"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -80,6 +102,7 @@
             android:weightSum="1">
 
             <ImageView
+                android:id="@+id/iv_menu_board"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"

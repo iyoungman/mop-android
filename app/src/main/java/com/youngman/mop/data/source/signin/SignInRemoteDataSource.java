@@ -30,7 +30,7 @@ public class SignInRemoteDataSource implements SignInSource {
         return INSTANCE;
     }
 
-    public void callSignIn(SignIn signIn, ApiListener listener) {
+    public void callSignIn(SignIn signIn, SignInApiListener listener) {
         Call<SignInResponse> result = RetrofitClient.getInstance().getRetrofitApiService().callSingIn(signIn);
         result.enqueue(new Callback<SignInResponse>() {
             @Override
@@ -44,10 +44,28 @@ public class SignInRemoteDataSource implements SignInSource {
 
             @Override
             public void onFailure(Call<SignInResponse> call, Throwable t) {
-                Log.d("SignInModel  " , t.toString());
                 listener.onFail("통신에 실패하였습니다.");
             }
         });
     }
 
+    @Override
+    public void callIsValidToken(String token, TokenApiListener listener) {
+        Call<Boolean> result = RetrofitClient.getInstance().getRetrofitApiService().callIsValidToken(token);
+        result.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.isSuccessful() && response.body()) {
+                    listener.onSuccess();
+                    return;
+                }
+                listener.onFail("올바르지 않은 토큰입니다.");
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                listener.onFail("통신에 실패하였습니다.");
+            }
+        });
+    }
 }

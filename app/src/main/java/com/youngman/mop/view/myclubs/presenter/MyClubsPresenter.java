@@ -60,7 +60,8 @@ public class MyClubsPresenter implements MyClubsContract.Presenter, OnMyClubsIte
     @Override
     public void onStartMyClubClick(int position) {
         Long clubId = adapterModel.getItem(position).getClubId();
-        myClubView.startClubActivity(clubId);
+        String clubName = adapterModel.getItem(position).getName();
+        myClubView.startClubActivity(clubId, clubName);
     }
 
     @Override

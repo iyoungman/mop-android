@@ -3,14 +3,14 @@ package com.youngman.mop.view.clubs.presenter;
 import com.youngman.mop.data.ClubPagingResponse;
 import com.youngman.mop.data.source.clubs.ClubsRepository;
 import com.youngman.mop.data.source.clubs.ClubsSource;
-import com.youngman.mop.listener.OnClubsItemClickListener;
+import com.youngman.mop.listener.OnBasicItemClickListener;
 import com.youngman.mop.view.clubs.adapter.ClubsAdapterContract;
 
 /**
  * Created by YoungMan on 2019-05-03.
  */
 
-public class ClubsPresenter implements ClubsContract.Presenter, OnClubsItemClickListener {
+public class ClubsPresenter implements ClubsContract.Presenter, OnBasicItemClickListener {
 
     private ClubsContract.View clubsView;
     private final ClubsRepository clubsRepository;
@@ -43,7 +43,7 @@ public class ClubsPresenter implements ClubsContract.Presenter, OnClubsItemClick
     }
 
     @Override
-    public void onStartClubClick(int position) {
+    public void onStartItemClick(int position) {
         Long clubId = adapterModel.getItem(position).getClubId();
         clubsView.startClubActivity(clubId);
     }

@@ -9,10 +9,16 @@ import com.youngman.mop.data.SignInResponse;
 
 public interface SignInSource {
 
-    interface ApiListener {
+    interface SignInApiListener {
         void onSuccess(SignInResponse signInResponse);
         void onFail(String message);
     }
 
-    void callSignIn(SignIn signIn, ApiListener listener);
+    interface TokenApiListener {
+        void onSuccess();
+        void onFail(String message);
+    }
+
+    void callSignIn(SignIn signIn, SignInApiListener listener);
+    void callIsValidToken(String token, TokenApiListener listener);
 }

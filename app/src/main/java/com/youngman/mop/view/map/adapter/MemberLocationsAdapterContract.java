@@ -1,7 +1,7 @@
 package com.youngman.mop.view.map.adapter;
 
 import com.youngman.mop.lib.realtimedb.MemberLocation;
-import com.youngman.mop.listener.OnMemberItemClickListener;
+import com.youngman.mop.listener.OnBasicItemClickListener;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public interface MemberLocationsAdapterContract {
 
     interface View {
-        void setOnMemberItemClickListener(OnMemberItemClickListener onMemberItemClickListener);
+        void setOnBasicItemClickListener(OnBasicItemClickListener onBasicItemClickListener);
         void notifyAdapter();
     }
 

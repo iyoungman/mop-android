@@ -49,7 +49,7 @@ public class MyClubsActivity extends AppCompatActivity implements MyClubsContrac
         presenter.callMyClubList(SignUtils.readUserIdFromPref(context));
 
         btnStartClubList.setOnClickListener(view -> {
-            startClubListActivity();
+            startClubsActivity();
         });
     }
 
@@ -58,15 +58,16 @@ public class MyClubsActivity extends AppCompatActivity implements MyClubsContrac
         ToastUtils.showToast(context, message);
     }
 
-    public void startClubListActivity() {
+    public void startClubsActivity() {
         Intent intent = new Intent(context, ClubsActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void startClubActivity(Long clubId) {
+    public void startClubActivity(Long clubId, String clubName) {
         Intent intent = new Intent(context, ClubActivity.class);
         intent.putExtra("EXTRA_CLUB_ID", clubId);
+        intent.putExtra("EXTRA_CLUB_NAME", clubName);
         startActivity(intent);
     }
 }

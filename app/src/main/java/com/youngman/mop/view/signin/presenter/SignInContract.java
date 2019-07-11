@@ -11,9 +11,11 @@ public interface SignInContract {
     interface View {
         void showErrorMessage(String message);
         void startMyClubActivity(SignInResponse signInResponse);
+        void startMyClubActivityByToken();
     }
 
     interface Presenter {
         void callSignIn(String email, String pw);
+        void callIsValidToken(String token);
     }
 }

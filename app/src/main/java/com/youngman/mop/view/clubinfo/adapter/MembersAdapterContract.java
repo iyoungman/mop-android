@@ -1,7 +1,7 @@
 package com.youngman.mop.view.clubinfo.adapter;
 
 import com.youngman.mop.data.Member;
-import com.youngman.mop.listener.OnMemberItemClickListener;
+import com.youngman.mop.listener.OnBasicItemClickListener;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public interface MembersAdapterContract {
 
     interface View {
-        void setOnMemberItemClickListener(OnMemberItemClickListener onMemberItemClickListener);
+        void setOnBasicItemClickListener(OnBasicItemClickListener onBasicItemClickListener);
         void notifyAdapter();
     }
 

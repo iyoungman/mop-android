@@ -10,7 +10,7 @@ public interface MyClubsContract {
 
     interface View {
         void showErrorMessage(String message);
-        void startClubActivity(Long clubId);
+        void startClubActivity(Long clubId, String clubName);
     }
 
     interface Presenter {

@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.youngman.mop.data.Member;
-import com.youngman.mop.listener.OnMemberItemClickListener;
+import com.youngman.mop.listener.OnBasicItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersViewHolder> impl
 
     private Context context;
     private List<Member> members = new ArrayList<>();
-    private OnMemberItemClickListener onMemberItemClickListener;
+    private OnBasicItemClickListener onBasicItemClickListener;
 
     public MembersAdapter(Context context) {
         this.context = context;
@@ -26,8 +26,8 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersViewHolder> impl
 
 
     @Override
-    public void setOnMemberItemClickListener(OnMemberItemClickListener onMemberItemClickListener) {
-        this.onMemberItemClickListener = onMemberItemClickListener;
+    public void setOnBasicItemClickListener(OnBasicItemClickListener onBasicItemClickListener) {
+        this.onBasicItemClickListener = onBasicItemClickListener;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersViewHolder> impl
 
     @Override
     public MembersViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MembersViewHolder(context, parent, onMemberItemClickListener);
+        return new MembersViewHolder(context, parent, onBasicItemClickListener);
     }
 
     @Override

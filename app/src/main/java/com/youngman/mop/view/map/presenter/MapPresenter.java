@@ -3,17 +3,16 @@ package com.youngman.mop.view.map.presenter;
 import com.google.android.gms.maps.model.LatLng;
 import com.youngman.mop.lib.realtimedb.MapFirebaseService;
 import com.youngman.mop.lib.realtimedb.MemberLocation;
-import com.youngman.mop.listener.OnMemberItemClickListener;
+import com.youngman.mop.listener.OnBasicItemClickListener;
 import com.youngman.mop.view.map.adapter.MemberLocationsAdapterContract;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by YoungMan on 2019-06-07.
  */
 
-public class MapPresenter implements MapContract.Presenter, OnMemberItemClickListener {
+public class MapPresenter implements MapContract.Presenter, OnBasicItemClickListener {
 
     private MapContract.View mapView;
     private MapFirebaseService mapFirebaseService;
@@ -61,14 +60,14 @@ public class MapPresenter implements MapContract.Presenter, OnMemberItemClickLis
     }
 
     @Override
-    public void onStartMemberClick(int position) {
+    public void onStartItemClick(int position) {
         MemberLocation otherLocation = adapterModel.getItem(position);
         mapView.moveOtherLocation(otherLocation);
     }
 
     public void setMemberLocationsAdapterView(MemberLocationsAdapterContract.View adapterView) {
         this.adapterView = adapterView;
-        this.adapterView.setOnMemberItemClickListener(this);
+        this.adapterView.setOnBasicItemClickListener(this);
     }
 
     public void setMemberLocationsAdapterModel(MemberLocationsAdapterContract.Model adapterModel) {
