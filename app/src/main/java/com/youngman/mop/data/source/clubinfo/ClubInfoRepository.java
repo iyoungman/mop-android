@@ -23,7 +23,7 @@ public class ClubInfoRepository implements ClubInfoSource{
     }
 
     @Override
-    public void callClubInfoByClubId(Long clubId, ApiListener listener) {
+    public void callClubInfoByClubId(Long clubId, InfoApiListener listener) {
         clubInfoRemoteDataSource.callClubInfoByClubId(clubId, listener);
     }
 }

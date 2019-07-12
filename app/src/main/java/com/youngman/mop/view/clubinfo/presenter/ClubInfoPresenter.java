@@ -7,6 +7,8 @@ import com.youngman.mop.data.source.clubinfo.ClubInfoSource;
 import com.youngman.mop.listener.OnBasicItemClickListener;
 import com.youngman.mop.view.clubinfo.adapter.MembersAdapterContract;
 
+import java.io.File;
+
 /**
  * Created by YoungMan on 2019-05-28.
  */
@@ -27,7 +29,7 @@ public class ClubInfoPresenter implements ClubInfoContract.Presenter, OnBasicIte
 
     @Override
     public void callClubInfoByClubId(Long clubId) {
-        clubInfoRepository.callClubInfoByClubId(clubId, new ClubInfoSource.ApiListener() {
+        clubInfoRepository.callClubInfoByClubId(clubId, new ClubInfoSource.InfoApiListener() {
             @Override
             public void onSuccess(ClubInfoResponse clubInfoResponse) {
                 infoView.setClubInfo(clubInfoResponse.getClub());
@@ -40,6 +42,11 @@ public class ClubInfoPresenter implements ClubInfoContract.Presenter, OnBasicIte
                 infoView.showErrorMessage(message);
             }
         });
+    }
+
+    @Override
+    public void callUploadClubImage(File imageFile) {
+
     }
 
     @Override

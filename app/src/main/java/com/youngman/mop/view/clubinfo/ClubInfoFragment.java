@@ -2,7 +2,12 @@ package com.youngman.mop.view.clubinfo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -14,15 +19,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.otto.Subscribe;
 import com.youngman.mop.R;
 import com.youngman.mop.data.Club;
 import com.youngman.mop.data.Member;
 import com.youngman.mop.data.source.clubinfo.ClubInfoRepository;
+import com.youngman.mop.lib.otto.ActivityResultEvent;
+import com.youngman.mop.lib.otto.BusProvider;
+import com.youngman.mop.util.CameraUtils;
 import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.clubinfo.adapter.MembersAdapter;
 import com.youngman.mop.view.clubinfo.presenter.ClubInfoContract;
 import com.youngman.mop.view.clubinfo.presenter.ClubInfoPresenter;
 import com.youngman.mop.view.memberinfo.MemberInfoActivity;
+
+import java.io.File;
 
 public class ClubInfoFragment extends Fragment implements ClubInfoContract.View {
 
@@ -73,6 +84,10 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
         presenter.setMembersAdapterView(membersAdapter);
         presenter.setMembersAdapterModel(membersAdapter);
         presenter.callClubInfoByClubId(getArguments().getLong("EXTRA_CLUB_ID"));
+
+        ivClubImg.setOnLongClickListener(v -> startToAlbum());
+
+        BusProvider.getInstance().register(this);
     }
 
     @Override
@@ -81,6 +96,29 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
         tvClubCreateDate.setText(club.getCreateDate());
         tvClubRegion.setText(club.getRegion());
         tvClubHobby.setText(club.getHobby());
+    }
+
+    private boolean startToAlbum() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+        getActivity().startActivityForResult(intent, 2222);
+        return true;
+    }
+
+    @Subscribe
+    public void onActivityResult(ActivityResultEvent activityResultEvent) {
+        onActivityResult(activityResultEvent.getRequestCode(), activityResultEvent.getResultCode(), activityResultEvent.getData());
+        if (activityResultEvent.getRequestCode() == 2222) {
+            Uri imageUri = activityResultEvent.getData().getData();
+            File imageFile = CameraUtils.getImageFromAlbum(context.getContentResolver(), imageUri);
+            presenter.
+
+//            BitmapFactory.Options options = new BitmapFactory.Options();
+//            Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath(), options);
+//
+//            ivClubImg.setImageDrawable(null);
+//            ivClubImg.setImageBitmap(bitmap);
+        }
     }
 
     @Override
