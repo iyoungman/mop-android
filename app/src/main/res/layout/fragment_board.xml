@@ -5,6 +5,82 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!--게시글 설명-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:background="@color/md_grey_200"
+        android:weightSum="1">
+
+        <!--공지 or 게시판 여부-->
+        <TextView
+            android:id="@+id/tv_board_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.1"
+            android:gravity="center|right"
+            android:text="타입"
+            android:textColor="@color/md_black_1000"
+            android:textSize="16dp"/>
+
+        <!--공백-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.025" />
+
+        <!--게시판 제목-->
+        <TextView
+            android:id="@+id/tv_board_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.375"
+            android:gravity="center"
+            android:text="제목"
+            android:textColor="@color/md_black_1000"
+            android:textSize="15dp" />
+
+        <!--공백-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.025" />
+
+        <!--게시판 저자-->
+        <TextView
+            android:id="@+id/tv_board_writer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:text="저자"
+            android:textColor="@color/md_black_1000"
+            android:textSize="16dp" />
+
+        <!--공백-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.025" />
+
+        <!--게시판 작성 날짜-->
+        <TextView
+            android:id="@+id/tv_board_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:text="날짜"
+            android:textColor="@color/md_black_1000"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_boards"
         android:layout_width="match_parent"

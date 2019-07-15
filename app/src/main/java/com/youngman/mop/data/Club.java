@@ -16,6 +16,7 @@ public class Club {
     private String createDate;
     private String region;
     private String hobby;
+    private String imageUri;
     private String upComingMeetingDate;
 
     @Builder
@@ -25,6 +26,7 @@ public class Club {
                 String createDate,
                 String region,
                 String hobby,
+                String imageUri,
                 String upComingMeetingDate) {
 
         this.clubId = clubId;
@@ -33,6 +35,7 @@ public class Club {
         this.createDate = createDate;
         this.region = region;
         this.hobby = hobby;
+        this.imageUri = imageUri;
         this.upComingMeetingDate = upComingMeetingDate;
     }
 }

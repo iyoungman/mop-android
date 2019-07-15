@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_gravity="center"
-                android:background="@drawable/img_sample" />
+                android:src="@color/md_grey_400"/>
 
             <!--동호회 정보-->
             <LinearLayout

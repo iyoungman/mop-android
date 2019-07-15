@@ -33,6 +33,7 @@ public class ClubInfoPresenter implements ClubInfoContract.Presenter, OnBasicIte
             @Override
             public void onSuccess(ClubInfoResponse clubInfoResponse) {
                 infoView.setClubInfo(clubInfoResponse.getClub());
+                infoView.setClubImage(clubInfoResponse.getClub().getImageUri());
                 adapterModel.addItems(clubInfoResponse.getMembers());
                 adapterView.notifyAdapter();
             }
@@ -45,8 +46,18 @@ public class ClubInfoPresenter implements ClubInfoContract.Presenter, OnBasicIte
     }
 
     @Override
-    public void callUploadClubImage(File imageFile) {
+    public void callUploadClubImage(Long clubId, File imageFile) {
+        clubInfoRepository.callUploadClubImage(clubId, imageFile, new ClubInfoSource.UploadApiListener() {
+            @Override
+            public void onSuccess(String imageUri) {
+                infoView.setClubImage(imageUri);
+            }
 
+            @Override
+            public void onFail(String message) {
+                infoView.showErrorMessage(message);
+            }
+        });
     }
 
     @Override

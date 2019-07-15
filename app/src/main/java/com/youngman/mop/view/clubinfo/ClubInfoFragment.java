@@ -19,6 +19,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.request.RequestOptions;
 import com.squareup.otto.Subscribe;
 import com.youngman.mop.R;
 import com.youngman.mop.data.Club;
@@ -47,6 +51,9 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
     private MembersAdapter membersAdapter;
     private ClubInfoContract.Presenter presenter;
 
+    private Long clubId;
+    private RequestManager requestManager;
+
 
     public static ClubInfoFragment createFragment(Long clubId) {
         ClubInfoFragment fragment = new ClubInfoFragment();
@@ -73,6 +80,9 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
         tvClubCreateDate = (TextView) view.findViewById(R.id.tv_club_create_date);
         tvClubRegion = (TextView) view.findViewById(R.id.tv_club_region);
         tvClubHobby = (TextView) view.findViewById(R.id.tv_club_hobby);
+
+        clubId = getArguments().getLong("EXTRA_CLUB_ID");
+        requestManager = Glide.with(context);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         membersAdapter = new MembersAdapter(context);
@@ -111,14 +121,17 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
         if (activityResultEvent.getRequestCode() == 2222) {
             Uri imageUri = activityResultEvent.getData().getData();
             File imageFile = CameraUtils.getImageFromAlbum(context.getContentResolver(), imageUri);
-            presenter.
-
-//            BitmapFactory.Options options = new BitmapFactory.Options();
-//            Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath(), options);
-//
-//            ivClubImg.setImageDrawable(null);
-//            ivClubImg.setImageBitmap(bitmap);
+            presenter.callUploadClubImage(clubId, imageFile);
         }
+    }
+
+    @Override
+    public void setClubImage(String imageUri) {
+        RequestBuilder requestBuilder = requestManager.load(imageUri);
+        RequestOptions requestOptions = new RequestOptions();
+        requestBuilder.apply(requestOptions);
+        ivClubImg.setImageResource(0);
+        requestBuilder.into(ivClubImg);
     }
 
     @Override

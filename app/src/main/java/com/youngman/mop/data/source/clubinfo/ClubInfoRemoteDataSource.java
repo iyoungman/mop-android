@@ -2,8 +2,11 @@ package com.youngman.mop.data.source.clubinfo;
 
 import com.youngman.mop.data.ClubInfoResponse;
 import com.youngman.mop.net.RetrofitClient;
+import com.youngman.mop.util.LogUtils;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -54,25 +57,40 @@ public class ClubInfoRemoteDataSource implements ClubInfoSource {
     }
 
     @Override
-    public void callUploadClubImage(File imageFile, UploadApiListener listener) {
+    public void callUploadClubImage(Long clubId, File imageFile, UploadApiListener listener) {
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
-        MultipartBody.Part uploadFile = MultipartBody.Part.createFormData("file", imageFile.getName(), requestFile);
-        Call<String> result = RetrofitClient.getInstance().getRetrofitApiService().callUploadClubImage(uploadFile);
-        result.enqueue(new Callback<String>() {
+        MultipartBody.Part uploadFile = MultipartBody.Part.createFormData("image", imageFile.getName(), requestFile);
+        Call<Map<String, String>> result = RetrofitClient.getInstance().getRetrofitApiService().callUploadClubImage(clubId, uploadFile);
+        result.enqueue(new Callback<Map<String, String>>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
                 if (response.isSuccessful()) {
-                    listener.onSuccess(response.body());
+                    String imageUri = response.body().get("imageUri");
+                    listener.onSuccess(imageUri);
                     return;
                 }
                 listener.onFail("동호회 이미지 저장에 실패하였습니다");
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Map<String, String>> call, Throwable t) {
                 listener.onFail("통신에 실패하였습니다.");
             }
         });
     }
+
+//    private Map<String, RequestBody> ew(Long clubId, MultipartBody.Part imageFile) {
+//        Map<String, RequestBody> map = new HashMap<>();
+//        map.put("clubId", toRequestBody(clubId));
+//
+//        RequestBody fileBody = RequestBody.create(MediaType.parse("image/png"), imageFile);
+//        map.put("image\"; filename=\"pp.png\"", fileBody);
+//        return map;
+//    }
+//
+//    public static RequestBody toRequestBody (Long value) {
+//        RequestBody body = RequestBody.create(MediaType.parse("text/plain"), value.toString());
+//        return body ;
+//    }
 
 }

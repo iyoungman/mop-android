@@ -6,7 +6,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <!--항상 보여지는 항목들-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -20,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.1"
-            android:gravity="center"
+            android:gravity="center|right"
             android:textColor="@color/md_black_1000"
             android:textSize="16dp"/>
 

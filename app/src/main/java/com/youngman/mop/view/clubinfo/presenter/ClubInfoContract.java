@@ -14,13 +14,14 @@ public interface ClubInfoContract {
 
     interface View {
         void setClubInfo(Club club);
+        void setClubImage(String imageUri);
         void startMemberInfoActivity(Member member);
         void showErrorMessage(String message);
     }
 
     interface Presenter {
         void callClubInfoByClubId(Long clubId);
-        void callUploadClubImage(File imageFile);
+        void callUploadClubImage(Long clubId, File imageFile);
         void setMembersAdapterView(MembersAdapterContract.View adapterView);
         void setMembersAdapterModel(MembersAdapterContract.Model adapterModel);
     }

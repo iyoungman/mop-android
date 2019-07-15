@@ -1,5 +1,7 @@
 package com.youngman.mop.data.source.clubinfo;
 
+import java.io.File;
+
 /**
  * Created by YoungMan on 2019-06-06.
  */
@@ -25,5 +27,10 @@ public class ClubInfoRepository implements ClubInfoSource{
     @Override
     public void callClubInfoByClubId(Long clubId, InfoApiListener listener) {
         clubInfoRemoteDataSource.callClubInfoByClubId(clubId, listener);
+    }
+
+    @Override
+    public void callUploadClubImage(Long clubId, File imageFile, UploadApiListener listener) {
+        clubInfoRemoteDataSource.callUploadClubImage(clubId, imageFile, listener);
     }
 }

@@ -16,10 +16,10 @@ public interface ClubInfoSource {
     }
 
     interface UploadApiListener {
-        void onSuccess(String imageUrl);
+        void onSuccess(String imageUri);
         void onFail(String message);
     }
 
     void callClubInfoByClubId(Long clubId, InfoApiListener listener);
-    void callUploadClubImage(File imageFile, UploadApiListener listener);
+    void callUploadClubImage(Long clubId, File imageFile, UploadApiListener listener);
 }

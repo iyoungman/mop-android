@@ -1,5 +1,8 @@
 package com.youngman.mop.net;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import okhttp3.OkHttpClient;
@@ -14,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RetrofitClient {
 
-    private final String LOCAL_BASE_URL = "http://192.168.0.3:8092/";
+    private final String LOCAL_BASE_URL = "http://172.30.1.50:8092/";
     private final String DEV_BASE_URL = "http://13.125.46.192:8092/";
 
     private static final RetrofitClient INSTANCE = new RetrofitClient();
@@ -25,13 +28,17 @@ public class RetrofitClient {
         return INSTANCE;
     }
 
+    Gson gson = new GsonBuilder()
+            .setLenient()
+            .create();
+
     private OkHttpClient client = new OkHttpClient.Builder()
             .addInterceptor(new LoggingInterceptor())
             .build();
 
     private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(DEV_BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(LOCAL_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build();
 
