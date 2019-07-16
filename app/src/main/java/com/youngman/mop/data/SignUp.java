@@ -38,6 +38,7 @@ public class SignUp {
         long count =  Stream.of(email, pw, name, mobile, hobby)
                 .filter(data -> !data.isEmpty())
                 .count();
+
         Predicate<Long> isAllNonNull = cnt -> cnt == 5;
         return isAllNonNull.test(count);
     }

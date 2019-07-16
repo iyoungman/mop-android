@@ -14,5 +14,9 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="AppTheme.EditText">
+        <item name="colorControlNormal">@color/md_blue_grey_200</item>
+    </style>
+
 </resources>
 

@@ -38,6 +38,6 @@ public class Board {
     }
 
     public String getStrBoardType() {
-        return (this.boardType.equals(BoardType.NOTICE)) ? "공지" : "자유";
+        return (boardType.equals(BoardType.NOTICE)) ? "공지" : "자유";
     }
 }

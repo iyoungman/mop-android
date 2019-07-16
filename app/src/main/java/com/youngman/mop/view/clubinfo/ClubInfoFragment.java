@@ -137,7 +137,8 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
     @Override
     public void startMemberInfoActivity(Member member) {
         Intent intent = new Intent(context, MemberInfoActivity.class);
-        startActivity(intent);
+        intent.putExtra("EXTRA_MEMBER", member);
+        getActivity().startActivity(intent);
     }
 
     @Override

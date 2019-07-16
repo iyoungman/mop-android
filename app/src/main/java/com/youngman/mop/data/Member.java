@@ -1,5 +1,7 @@
 package com.youngman.mop.data;
 
+import java.io.Serializable;
+
 import lombok.Builder;
 import lombok.Getter;
 
@@ -8,7 +10,7 @@ import lombok.Getter;
  */
 
 @Getter
-public class Member {
+public class Member implements Serializable {
 
     private String email;
     private String name;

@@ -1,80 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
-    android:layout_height="350dp"
-    android:orientation="horizontal">
+    android:layout_width="280dp"
+    android:layout_height="300dp"
+    android:background="@color/md_white_1000"
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:background="@color/md_cyan_200" />
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.14"
+        android:gravity="center"
+        android:hint="스케줄이름"
+        android:theme="@style/AppTheme.EditText"/>
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.14"
+        android:gravity="center"
+        android:hint="스케줄내용"
+        android:theme="@style/AppTheme.EditText"/>
+
+    <EditText
+        android:id="@+id/et_region"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.14"
+        android:gravity="center"
+        android:hint="지역"
+        android:theme="@style/AppTheme.EditText"/>
+
+    <EditText
+        android:id="@+id/et_meeting_date"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.14"
+        android:enabled="false"
+        android:gravity="center"
+        android:hint="모임날짜"
+        android:theme="@style/AppTheme.EditText"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="3dp"
+        android:layout_weight="0.14"
+        android:orientation="horizontal"
         android:weightSum="1">
 
         <EditText
-            android:id="@+id/et_name"
-            android:layout_width="match_parent"
+            android:id="@+id/et_meeting_hour"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:gravity="center"
-            android:hint="스케줄이름" />
+            android:hint="시간"
+            android:theme="@style/AppTheme.EditText"/>
 
         <EditText
-            android:id="@+id/et_content"
-            android:layout_width="match_parent"
+            android:id="@+id/et_meeting_minute"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:gravity="center"
-            android:hint="스케줄내용" />
-
-        <EditText
-            android:id="@+id/et_region"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="지역" />
-
-        <EditText
-            android:id="@+id/et_meeting_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:gravity="center"
-            android:hint="모임날짜" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <EditText
-                android:id="@+id/et_meeting_hour"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="center"
-                android:hint="시간" />
-
-            <EditText
-                android:id="@+id/et_meeting_minute"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="center"
-                android:hint="분" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_create_schedule"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="일정 생성"
-            android:textStyle="bold" />
-
+            android:hint="분"
+            android:theme="@style/AppTheme.EditText"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_create_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:background="@color/md_cyan_200"
+        android:gravity="center"
+        android:text="일정 생성"
+        android:textColor="@color/md_white_1000" />
 
 </LinearLayout>

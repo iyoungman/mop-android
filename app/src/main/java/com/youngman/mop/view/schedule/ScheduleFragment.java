@@ -41,7 +41,14 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     private Context context;
     private MaterialCalendarView calendarView;
     private TextView tvSelectedDate;
-    private LinearLayout llCreateSchedule, llDeleteSchedule;
+    private LinearLayout llCreateSchedule;
+    private LinearLayout llDeleteSchedule;
+    private LinearLayout llScheduleInfo;
+    private TextView tvScheduleName;
+    private TextView tvScheduleContent;
+    private TextView tvScheduleRegion;
+    private TextView tvScheduleMeetingTime;
+    private TextView tvScheduleWriter;
     private ScheduleContract.Presenter presenter;
 
     private Long clubId;
@@ -70,6 +77,12 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         tvSelectedDate = (TextView) view.findViewById(R.id.tv_selected_date);
         llCreateSchedule = (LinearLayout) view.findViewById(R.id.ll_create_schedule);
         llDeleteSchedule = (LinearLayout) view.findViewById(R.id.ll_delete_schedule);
+        llScheduleInfo = (LinearLayout) view.findViewById(R.id.ll_schedule_info);
+        tvScheduleName = (TextView) view.findViewById(R.id.tv_schedule_name);
+        tvScheduleContent = (TextView) view.findViewById(R.id.tv_schedule_content);
+        tvScheduleRegion = (TextView) view.findViewById(R.id.tv_schedule_region);
+        tvScheduleMeetingTime = (TextView) view.findViewById(R.id.tv_schedule_meeting_time);
+        tvScheduleWriter = (TextView) view.findViewById(R.id.tv_schedule_writer);
         presenter = new SchedulePresenter(this, ScheduleRepository.getInstance());
 
         clubId = getArguments().getLong("EXTRA_CLUB_ID");
@@ -91,6 +104,15 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         });
 
         presenter.callSchedulesByClubIdAndMonth(clubId, calendarView.getCurrentDate().getDate().toString());
+        onTodaySelected();
+    }
+
+    private void onTodaySelected() {
+        calendarView.setSelectedDate(CalendarDay.today());
+
+        String strDate = DateUtils.convertDateFormatNow();
+        tvSelectedDate.setText(strDate);
+        setScheduleInfo(strDate);
     }
 
     @Override
@@ -100,10 +122,22 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
 
         String strDate = DateUtils.convertDateFormat(calendarDay);
         tvSelectedDate.setText(isSelected ? strDate : "No Selected");
+        setScheduleInfo(strDate);
+    }
 
-        if (scheduleMap.containsKey(strDate)) {
-            ToastUtils.showToast(context, scheduleMap.get(strDate).getContent());
+    private void setScheduleInfo(String strDate) {
+        if (!scheduleMap.containsKey(strDate)) {
+            llScheduleInfo.setVisibility(View.INVISIBLE);
+            return;
         }
+        Schedule schedule = scheduleMap.get(strDate);
+
+        tvScheduleName.setText(schedule.getName());
+        tvScheduleContent.setText(schedule.getContent());
+        tvScheduleRegion.setText(schedule.getRegion());
+        tvScheduleMeetingTime.setText(schedule.getOnlyTime());
+        tvScheduleWriter.setText(schedule.getWriter());
+        llScheduleInfo.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -73,7 +73,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Non"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
@@ -107,6 +106,201 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/md_grey_600" />
+
+    <!--일정 정보-->
+    <LinearLayout
+        android:id="@+id/ll_schedule_info"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:weightSum="1"
+        android:visibility="invisible">
+
+        <!--첫번째 라인-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.35"
+                    android:gravity="center|top"
+                    android:text="제목"
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/tv_schedule_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.65"
+                    android:gravity="center"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/md_grey_300" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.35"
+                    android:gravity="center|top"
+                    android:text="내용"
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/tv_schedule_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.65"
+                    android:gravity="center"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/md_grey_300" />
+
+        <!--두번째 라인-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.33"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.35"
+                    android:gravity="center|top"
+                    android:text="지역"
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/tv_schedule_region"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.65"
+                    android:gravity="center"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/md_grey_300" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.34"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.35"
+                    android:gravity="center|top"
+                    android:text="시간"
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/tv_schedule_meeting_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.65"
+                    android:gravity="center"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/md_grey_300" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.33"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.35"
+                    android:gravity="center|top"
+                    android:text="주최자"
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/tv_schedule_writer"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.65"
+                    android:gravity="center"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
 </LinearLayout>
