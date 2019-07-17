@@ -41,7 +41,7 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
         tvBoardType.setText(board.getStrBoardType());
         tvBoardTitle.setText(board.getTitle());
         tvBoardWriter.setText(board.getWriter());
-        tvBoardDate.setText(board.getCreatedTime());
+        tvBoardDate.setText(board.getSimpleTime());
 
         itemView.setOnClickListener(view -> {
             onBasicItemClickListener.onStartItemClick(position);

@@ -40,4 +40,13 @@ public class Board {
     public String getStrBoardType() {
         return (boardType.equals(BoardType.NOTICE)) ? "공지" : "자유";
     }
+
+    public String getSimpleTime() {
+        String[] split = createdTime.split("T");
+        String date = split[0].substring(2);
+
+        String[] split2 = split[1].split(":");
+        String time = split2[0] + "시 " + split2[1] + "분";
+        return date + " " + time;
+    }
 }

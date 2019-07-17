@@ -26,22 +26,22 @@ public class MyClubsAdapter extends RecyclerView.Adapter<MyClubsViewHolder> impl
     }
 
     @Override
-    public void setOnMyClubsItemClickListener(@NonNull OnMyClubsItemClickListener onMyClubsItemClickListener) {
+    public void setOnMyClubsItemClickListener(OnMyClubsItemClickListener onMyClubsItemClickListener) {
         this.onMyClubsItemClickListener = onMyClubsItemClickListener;
     }
 
     @Override
-    public void addItems(@NonNull List<com.youngman.mop.data.Club> myClubs) {
+    public void addItems(List<com.youngman.mop.data.Club> myClubs) {
         this.myClubs = myClubs;
     }
 
     @Override
-    public void deleteItem(@NonNull Integer position) {
+    public void deleteItem(int position) {
         myClubs.remove(position);
     }
 
     @Override
-    public Club getItem(@NonNull Integer position) {
+    public Club getItem(int position) {
         return myClubs.get(position);
     }
 

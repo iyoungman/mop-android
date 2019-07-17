@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_gravity="center"
-                android:src="@color/md_grey_400"/>
+                android:scaleType="fitXY"/>
 
             <!--동호회 정보-->
             <LinearLayout

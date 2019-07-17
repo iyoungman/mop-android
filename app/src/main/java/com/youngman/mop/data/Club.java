@@ -38,4 +38,17 @@ public class Club {
         this.imageUri = imageUri;
         this.upComingMeetingDate = upComingMeetingDate;
     }
+
+    public String getSimpleTime() {
+        if (upComingMeetingDate == null) {
+            return "예정된 모임이 없습니다";
+        } else {
+            String[] split = upComingMeetingDate.split("T");
+            String date = split[0].substring(2);
+
+            String[] split2 = split[1].split(":");
+            String time = split2[0] + "시 " + split2[1] + "분";
+            return date + " " + time;
+        }
+    }
 }
