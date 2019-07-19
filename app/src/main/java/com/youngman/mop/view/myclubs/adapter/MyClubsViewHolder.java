@@ -1,7 +1,6 @@
 package com.youngman.mop.view.myclubs.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,13 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
-import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.youngman.mop.R;
 import com.youngman.mop.data.Club;
-import com.youngman.mop.listener.OnMyClubsItemClickListener;
-import com.youngman.mop.util.SignUtils;
+import com.youngman.mop.util.PrefUtils;
 
 /**
  * Created by YoungMan on 2019-05-01.
@@ -31,7 +28,6 @@ public class MyClubsViewHolder extends RecyclerView.ViewHolder {
     private TextView tvMyClubRecentSchedule;
 
     private OnMyClubsItemClickListener onMyClubsItemClickListener;
-    private RequestManager requestManager;
 
 
     public MyClubsViewHolder(Context context,
@@ -45,17 +41,15 @@ public class MyClubsViewHolder extends RecyclerView.ViewHolder {
         this.ivMyClub = itemView.findViewById(R.id.iv_myclub);
         this.tvMyClubRecentSchedule = itemView.findViewById(R.id.tv_myclub_recent_schedule);
         this.onMyClubsItemClickListener = onMyClubsItemClickListener;
-        this.requestManager = Glide.with(context);
     }
 
     public void onBind(Club club, int position) {
-
         setClubImage(club.getImageUri());
         tvMyClubName.setText(club.getName());
         tvMyClubRecentSchedule.setText(club.getSimpleTime());
 
         btnMyClubDelete.setOnClickListener(view -> {
-            onMyClubsItemClickListener.onDeleteMyClubClick(SignUtils.readUserIdFromPref(context), position);
+            onMyClubsItemClickListener.onDeleteMyClubClick(PrefUtils.readUserIdFromPref(context), position);
         });
 
         ivMyClub.setOnClickListener(view -> {
@@ -65,11 +59,17 @@ public class MyClubsViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setClubImage(String imageUri) {
-        RequestBuilder requestBuilder = requestManager.load(imageUri);
-        RequestOptions requestOptions = new RequestOptions();
-        requestBuilder.apply(requestOptions);
-        ivMyClub.setImageResource(0);
-        requestBuilder.into(ivMyClub);
+        if(imageUri != null) {
+            RequestOptions myOptions = new RequestOptions()
+                    .fitCenter()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true);
+
+            Glide.with(context)
+                    .load(imageUri)
+                    .apply(myOptions)
+                    .into(ivMyClub);
+        }
     }
 
 }

@@ -11,74 +11,72 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_weight="0.2"
-        android:padding="5dp" />
+        android:layout_weight="0.25"
+        android:scaleType="fitXY"/>
 
-    <!--이름, 이메일, 핸드폰 TextView-->
+    <!--동호회 정보-->
     <LinearLayout
+        android:id="@+id/ll_club_info"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"
+        android:layout_weight="0.6"
         android:orientation="vertical"
         android:weightSum="1">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.15" />
 
         <TextView
             android:id="@+id/tv_club_name"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.25"
+            android:gravity="center"
             android:textColor="@color/md_grey_600"
-            android:textSize="18dp" />
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/tv_club_region"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.2"
+            android:layout_weight="0.25"
+            android:gravity="center"
             android:textColor="@color/md_grey_500"
-            android:textSize="15dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/tv_club_hobby"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="0.3"
-            android:textColor="@color/md_black_1000"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1" />
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:textColor="@color/md_grey_500"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/tv_club_introduce"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:textColor="@color/md_grey_500"
+            android:textSize="16dp" />
 
     </LinearLayout>
 
-    <!--공백-->
+    <!--가입-->
     <LinearLayout
+        android:id="@+id/ll_club_join"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.12" />
-
-    <!--<LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.18"
-        android:gravity="center_vertical">
+        android:layout_weight="0.15">
 
         <TextView
-            android:id="@+id/callCountTextView"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:id="@+id/tv_club_join"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
+            android:text="가입"
             android:textColor="@color/md_grey_600"
-            android:textSize="18dp" />
+            android:textSize="20dp" />
 
-    </LinearLayout>-->
+    </LinearLayout>
 
 </LinearLayout>

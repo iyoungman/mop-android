@@ -32,8 +32,8 @@ public class ClubInfoPresenter implements ClubInfoContract.Presenter, OnBasicIte
         clubInfoRepository.callClubInfoByClubId(clubId, new ClubInfoSource.InfoApiListener() {
             @Override
             public void onSuccess(ClubInfoResponse clubInfoResponse) {
-                infoView.setClubInfo(clubInfoResponse.getClub());
                 infoView.setClubImage(clubInfoResponse.getClub().getImageUri());
+                infoView.setClubInfo(clubInfoResponse.getClub());
                 adapterModel.addItems(clubInfoResponse.getMembers());
                 adapterView.notifyAdapter();
             }

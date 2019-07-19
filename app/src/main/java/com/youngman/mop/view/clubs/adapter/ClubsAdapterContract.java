@@ -11,6 +11,7 @@ import java.util.List;
 public interface ClubsAdapterContract {
 
     interface View {
+        void setOnClubsItemClickListener(OnClubsItemClickListener onClubsItemClickListener);
         void notifyAdapter();
     }
 

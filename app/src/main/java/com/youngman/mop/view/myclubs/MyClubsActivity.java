@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import com.youngman.mop.R;
 import com.youngman.mop.data.source.myclubs.MyClubsRepository;
-import com.youngman.mop.util.SignUtils;
+import com.youngman.mop.util.PrefUtils;
 import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.club.ClubActivity;
 import com.youngman.mop.view.clubs.ClubsActivity;
@@ -18,11 +18,13 @@ import com.youngman.mop.view.myclubs.adapter.MyClubsAdapter;
 import com.youngman.mop.view.myclubs.presenter.MyClubsContract;
 import com.youngman.mop.view.myclubs.presenter.MyClubsPresenter;
 
+import java.util.List;
+
 public class MyClubsActivity extends AppCompatActivity implements MyClubsContract.View {
 
     private Context context;
     private RecyclerView recyclerView;
-    private Button btnStartClubList;
+    private Button btnStartClubs;
     private MyClubsAdapter myClubsAdapter;
     private MyClubsContract.Presenter presenter;
 
@@ -37,7 +39,7 @@ public class MyClubsActivity extends AppCompatActivity implements MyClubsContrac
     private void init() {
         context = getApplicationContext();
         recyclerView = (RecyclerView) findViewById(R.id.rv_myclubs);
-        btnStartClubList = (Button) findViewById(R.id.btn_start_clubs);
+        btnStartClubs = (Button) findViewById(R.id.btn_start_clubs);
 
         myClubsAdapter = new MyClubsAdapter(context);
         recyclerView.setAdapter(myClubsAdapter);
@@ -46,11 +48,14 @@ public class MyClubsActivity extends AppCompatActivity implements MyClubsContrac
         presenter = new MyClubsPresenter(this, MyClubsRepository.getInstance());
         presenter.setMyClubAdapterView(myClubsAdapter);
         presenter.setMyClubAdapterModel(myClubsAdapter);
-        presenter.callMyClubList(SignUtils.readUserIdFromPref(context));
+        presenter.callMyClubs(PrefUtils.readUserIdFromPref(context));
 
-        btnStartClubList.setOnClickListener(view -> {
-            startClubsActivity();
-        });
+        btnStartClubs.setOnClickListener(view -> startClubsActivity());
+    }
+
+    @Override
+    public void writeMyClubsToPref(List<Long> myClubIds) {
+        PrefUtils.writeMyClubIdsToPref(context, myClubIds);
     }
 
     @Override
@@ -69,5 +74,12 @@ public class MyClubsActivity extends AppCompatActivity implements MyClubsContrac
         intent.putExtra("EXTRA_CLUB_ID", clubId);
         intent.putExtra("EXTRA_CLUB_NAME", clubName);
         startActivity(intent);
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
     }
 }

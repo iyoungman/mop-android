@@ -12,7 +12,7 @@ import com.youngman.mop.R;
 import com.youngman.mop.data.Schedule;
 import com.youngman.mop.data.source.schedulecreate.ScheduleCreateRepository;
 import com.youngman.mop.util.DateUtils;
-import com.youngman.mop.util.SignUtils;
+import com.youngman.mop.util.PrefUtils;
 import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.schedulecreate.presenter.ScheduleCreateContract;
 import com.youngman.mop.view.schedulecreate.presenter.ScheduleCreatePresenter;
@@ -57,7 +57,7 @@ public class ScheduleCreateActivity extends Activity implements ScheduleCreateCo
                 .name(etName.getText().toString())
                 .content(etContent.getText().toString())
                 .region(etRegion.getText().toString())
-                .writer(SignUtils.readMemberNameFromPref(context))
+                .writer(PrefUtils.readMemberNameFromPref(context))
                 .meetingTime(getMeetingDateTime())
                 .clubId(clubId)
                 .build()

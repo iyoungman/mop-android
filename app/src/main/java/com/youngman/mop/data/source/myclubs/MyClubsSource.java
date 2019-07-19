@@ -18,7 +18,7 @@ public interface MyClubsSource {
         void onFail(String message);
     }
 
-    void callMyClubList(String email, ListApiListener listener);
+    void callMyClubs(String email, ListApiListener listener);
 
     void callDeleteMyClubModel(String email,
                                Long clubId,

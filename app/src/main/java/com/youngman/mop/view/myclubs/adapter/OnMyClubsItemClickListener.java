@@ -1,4 +1,4 @@
-package com.youngman.mop.listener;
+package com.youngman.mop.view.myclubs.adapter;
 
 /**
  * Created by YoungMan on 2019-05-02.
@@ -6,6 +6,5 @@ package com.youngman.mop.listener;
 
 public interface OnMyClubsItemClickListener {
     void onDeleteMyClubClick(String email, int position);
-    //    void onAddMyClubClick(int position);
     void onStartMyClubClick(int position);
 }

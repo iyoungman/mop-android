@@ -23,8 +23,8 @@ public class MyClubsRepository implements MyClubsSource {
     }
 
     @Override
-    public void callMyClubList(String email, ListApiListener listener) {
-        myClubsRemoteDataSource.callMyClubList(email, listener);
+    public void callMyClubs(String email, ListApiListener listener) {
+        myClubsRemoteDataSource.callMyClubs(email, listener);
     }
 
     @Override

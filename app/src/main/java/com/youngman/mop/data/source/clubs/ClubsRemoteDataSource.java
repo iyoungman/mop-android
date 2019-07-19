@@ -58,7 +58,36 @@ public class ClubsRemoteDataSource implements ClubsSource {
         Map<String, Object> params = new HashMap<>();
         params.put("email", email);
         params.put("pageNo", pageNo);
+        return params;
+    }
 
+    @Override
+    public void callCreateMyClub(String email,
+                                 Long clubId,
+                                 CreateApiListener listener) {
+
+        Call<Void> result = RetrofitClient.getInstance().getRetrofitApiService().callCreateMyClub(makeParams(email, clubId));
+        result.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    listener.onSuccess();
+                    return;
+                }
+                listener.onFail("마이 동호회 생성에 실패하였습니다");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                listener.onFail("통신에 실패하였습니다.");
+            }
+        });
+    }
+
+    private Map<String, Object> makeParams(String email, Long clubId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("email", email);
+        params.put("pageNo", clubId);
         return params;
     }
 }

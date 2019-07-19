@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -12,8 +11,7 @@ import android.widget.EditText;
 import com.youngman.mop.R;
 import com.youngman.mop.data.SignInResponse;
 import com.youngman.mop.data.source.signin.SignInRepository;
-import com.youngman.mop.util.LogUtils;
-import com.youngman.mop.util.SignUtils;
+import com.youngman.mop.util.PrefUtils;
 import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.myclubs.MyClubsActivity;
 import com.youngman.mop.view.signin.presenter.SignInContract;
@@ -47,20 +45,11 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
         cbAutoSignIn = (CheckBox) findViewById(R.id.cb_auto_signin);
         presenter = new SignInPresenter(this, SignInRepository.getInstance());
 
-        confirmAutoSignIn();
-
         btnSignIn.setOnClickListener(v -> presenter.callSignIn(etEmail.getText().toString(),
                 etPw.getText().toString()
         ));
 
         btnStartSignUp.setOnClickListener(v -> startSignUpActivity());
-    }
-
-    private void confirmAutoSignIn() {
-        if (SignUtils.readAutoSignInFromPref(context)) {
-            String token = SignUtils.readMemberTokenFromPref(context);
-            presenter.callIsValidToken(token);
-        }
     }
 
     @Override
@@ -70,19 +59,12 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
 
     @Override
     public void startMyClubActivity(SignInResponse signInResponse) {
-        SignUtils.writeMemberInfoToPref(context, signInResponse);
+        PrefUtils.writeMemberInfoToPref(context, signInResponse);
 
         if(cbAutoSignIn.isChecked()) {
-            SignUtils.writeAutoSignInToPref(context);
+            PrefUtils.writeAutoSignInToPref(context);
         }
 
-        Intent intent = new Intent(context, MyClubsActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    @Override
-    public void startMyClubActivityByToken() {
         Intent intent = new Intent(context, MyClubsActivity.class);
         startActivity(intent);
         finish();

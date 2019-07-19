@@ -37,7 +37,7 @@ public class MyClubsRemoteDataSource implements MyClubsSource {
     /**
      * 마이 동호회 리스트 조회
      */
-    public void callMyClubList(String email, final ListApiListener listener) {
+    public void callMyClubs(String email, final ListApiListener listener) {
         Call<List<Club>> result = RetrofitClient.getInstance().getRetrofitApiService().callMyClubsByMemberEmail(email);
         result.enqueue(new Callback<List<Club>>() {
             @Override

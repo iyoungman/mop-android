@@ -3,7 +3,7 @@ package com.youngman.mop.view.myclubs.presenter;
 import com.youngman.mop.data.MyClubsResponse;
 import com.youngman.mop.data.source.myclubs.MyClubsRepository;
 import com.youngman.mop.data.source.myclubs.MyClubsSource;
-import com.youngman.mop.listener.OnMyClubsItemClickListener;
+import com.youngman.mop.view.myclubs.adapter.OnMyClubsItemClickListener;
 import com.youngman.mop.view.myclubs.adapter.MyClubsAdapterContract;
 
 /**
@@ -25,13 +25,13 @@ public class MyClubsPresenter implements MyClubsContract.Presenter, OnMyClubsIte
     }
 
     @Override
-    public void callMyClubList(String userId) {
-            myClubListRepository.callMyClubList(userId, new MyClubsSource.ListApiListener() {
-
+    public void callMyClubs(String userId) {
+            myClubListRepository.callMyClubs(userId, new MyClubsSource.ListApiListener() {
                 @Override
                 public void onSuccess(MyClubsResponse myClubsResponse) {
                     adapterModel.addItems(myClubsResponse.getMyClubs());
                     adapterView.notifyAdapter();
+                    myClubView.writeMyClubsToPref(myClubsResponse.getMyClubIds());
                 }
 
                 @Override

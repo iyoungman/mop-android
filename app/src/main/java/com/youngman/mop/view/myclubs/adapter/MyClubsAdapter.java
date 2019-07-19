@@ -1,12 +1,10 @@
 package com.youngman.mop.view.myclubs.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.youngman.mop.data.Club;
-import com.youngman.mop.listener.OnMyClubsItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;

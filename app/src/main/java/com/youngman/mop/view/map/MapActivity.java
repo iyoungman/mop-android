@@ -31,7 +31,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.youngman.mop.R;
 import com.youngman.mop.lib.realtimedb.MemberLocation;
-import com.youngman.mop.util.SignUtils;
+import com.youngman.mop.util.PrefUtils;
 import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.map.adapter.MemberLocationsAdapter;
 import com.youngman.mop.view.map.presenter.MapContract;
@@ -95,7 +95,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setPanelSlideListener();
 
         llMapRefresh.setOnClickListener(v -> {
-            presenter.callMapRefresh(clubId, SignUtils.readUserIdFromPref(context),
+            presenter.callMapRefresh(clubId, PrefUtils.readUserIdFromPref(context),
                     new LatLng(simpleLocation.getLatitude(), simpleLocation.getLongitude())
             );
         });
@@ -173,7 +173,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private BitmapDescriptor decideBitmapDescriptor(String email) {
-        return email.equals(SignUtils.readUserIdFromPref(context)) ?
+        return email.equals(PrefUtils.readUserIdFromPref(context)) ?
                 BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED) :
                 BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
     }
@@ -265,7 +265,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("지도 단체방을 나가시겠습니까?");
         builder.setPositiveButton("예", (d, w) -> {
-            presenter.callMapOut(clubId, SignUtils.readUserIdFromPref(context));
+            presenter.callMapOut(clubId, PrefUtils.readUserIdFromPref(context));
         });
         builder.setNegativeButton("아니오", (d, w) -> {
             ToastUtils.showToast(context, "취소 되었습니다");

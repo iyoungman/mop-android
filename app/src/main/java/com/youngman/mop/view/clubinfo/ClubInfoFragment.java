@@ -2,9 +2,6 @@ package com.youngman.mop.view.clubinfo;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,8 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.squareup.otto.Subscribe;
 import com.youngman.mop.R;
@@ -31,6 +28,7 @@ import com.youngman.mop.data.source.clubinfo.ClubInfoRepository;
 import com.youngman.mop.lib.otto.ActivityResultEvent;
 import com.youngman.mop.lib.otto.BusProvider;
 import com.youngman.mop.util.CameraUtils;
+import com.youngman.mop.util.LogUtils;
 import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.clubinfo.adapter.MembersAdapter;
 import com.youngman.mop.view.clubinfo.presenter.ClubInfoContract;
@@ -52,7 +50,6 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
     private ClubInfoContract.Presenter presenter;
 
     private Long clubId;
-    private RequestManager requestManager;
 
 
     public static ClubInfoFragment createFragment(Long clubId) {
@@ -82,7 +79,6 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
         tvClubHobby = (TextView) view.findViewById(R.id.tv_club_hobby);
 
         clubId = getArguments().getLong("EXTRA_CLUB_ID");
-        requestManager = Glide.with(context);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         membersAdapter = new MembersAdapter(context);
@@ -93,7 +89,7 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
         presenter = new ClubInfoPresenter(this, ClubInfoRepository.getInstance());
         presenter.setMembersAdapterView(membersAdapter);
         presenter.setMembersAdapterModel(membersAdapter);
-        presenter.callClubInfoByClubId(getArguments().getLong("EXTRA_CLUB_ID"));
+        presenter.callClubInfoByClubId(clubId);
 
         ivClubImg.setOnLongClickListener(v -> startToAlbum());
 
@@ -118,7 +114,7 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
     @Subscribe
     public void onActivityResult(ActivityResultEvent activityResultEvent) {
         onActivityResult(activityResultEvent.getRequestCode(), activityResultEvent.getResultCode(), activityResultEvent.getData());
-        if (activityResultEvent.getRequestCode() == 2222) {
+        if (activityResultEvent.getRequestCode() == 2222 && activityResultEvent.getData() != null) {
             Uri imageUri = activityResultEvent.getData().getData();
             File imageFile = CameraUtils.getImageFromAlbum(context.getContentResolver(), imageUri);
             presenter.callUploadClubImage(clubId, imageFile);
@@ -127,11 +123,17 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
 
     @Override
     public void setClubImage(String imageUri) {
-        RequestBuilder requestBuilder = requestManager.load(imageUri);
-        RequestOptions requestOptions = new RequestOptions();
-        requestBuilder.apply(requestOptions);
-        ivClubImg.setImageResource(0);
-        requestBuilder.into(ivClubImg);
+        if (imageUri != null && getContext() != null) {
+            RequestOptions myOptions = new RequestOptions()
+                    .fitCenter()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true);
+
+            Glide.with(getContext())
+                    .load(imageUri)
+                    .apply(myOptions)
+                    .into(ivClubImg);
+        }
     }
 
     @Override

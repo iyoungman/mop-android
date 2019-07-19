@@ -2,33 +2,30 @@ package com.youngman.mop.view.clubs;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.youngman.mop.R;
 import com.youngman.mop.data.source.clubs.ClubsRepository;
+import com.youngman.mop.listener.OnLoadMoreListener;
+import com.youngman.mop.util.PrefUtils;
+import com.youngman.mop.util.ToastUtils;
+import com.youngman.mop.view.club.ClubActivity;
 import com.youngman.mop.view.clubs.adapter.ClubsAdapter;
 import com.youngman.mop.view.clubs.presenter.ClubsContract;
-import com.youngman.mop.listener.OnLoadMoreListener;
 import com.youngman.mop.view.clubs.presenter.ClubsPresenter;
-import com.youngman.mop.util.SignUtils;
-import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.clubsearch.ClubSearchActivity;
-import com.youngman.mop.view.club.ClubActivity;
 
 public class ClubsActivity extends AppCompatActivity implements ClubsContract.View, OnLoadMoreListener {
 
     private Context context;
     private RecyclerView recyclerView;
     private EditText etSearchClubs;
-    private Button btnSearchClubs;
     private ClubsAdapter clubsAdapter;
     private ClubsContract.Presenter presenter;
 
@@ -43,7 +40,6 @@ public class ClubsActivity extends AppCompatActivity implements ClubsContract.Vi
     private void init() {
         context = getApplicationContext();
         etSearchClubs = (EditText) findViewById(R.id.et_search_clubs);
-        btnSearchClubs = (Button) findViewById(R.id.btn_search_clubs);
         recyclerView = (RecyclerView) findViewById(R.id.rv_clubs);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
@@ -57,17 +53,15 @@ public class ClubsActivity extends AppCompatActivity implements ClubsContract.Vi
         presenter = new ClubsPresenter(this, ClubsRepository.getInstance());
         presenter.setClubsAdapterView(clubsAdapter);
         presenter.setClubsAdapterModel(clubsAdapter);
-        presenter.callClubsByUserInfo(SignUtils.readUserIdFromPref(context), 1);
+        presenter.callClubsByUserInfo(PrefUtils.readUserIdFromPref(context), 1);
 
-        etSearchClubs.setOnClickListener(view -> {
-            startClubSearchActivity();
-        });
+        etSearchClubs.setOnClickListener(view -> startClubSearchActivity());
     }
 
     @Override
     public void onLoadMore() {
         new Handler().postDelayed(() -> {
-            presenter.callClubsByUserInfo(SignUtils.readUserIdFromPref(context), calculatePageNo());
+            presenter.callClubsByUserInfo(PrefUtils.readUserIdFromPref(context), calculatePageNo());
         }, 500);
     }
 
@@ -75,6 +69,12 @@ public class ClubsActivity extends AppCompatActivity implements ClubsContract.Vi
         final int pageSize = 24;
         int itemCount = clubsAdapter.getItemCount();
         return (itemCount == 0) ? 0 : (itemCount / pageSize) + 1;
+    }
+
+    @Override
+    public void successCreateMyClub() {
+        ToastUtils.showToast(context, "마이 동호회 저장 성공");
+        finish();
     }
 
     @Override

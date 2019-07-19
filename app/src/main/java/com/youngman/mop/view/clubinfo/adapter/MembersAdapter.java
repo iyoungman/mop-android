@@ -20,10 +20,10 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersViewHolder> impl
     private List<Member> members = new ArrayList<>();
     private OnBasicItemClickListener onBasicItemClickListener;
 
+
     public MembersAdapter(Context context) {
         this.context = context;
     }
-
 
     @Override
     public void setOnBasicItemClickListener(OnBasicItemClickListener onBasicItemClickListener) {

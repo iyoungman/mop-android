@@ -2,87 +2,87 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="180dp"
     android:layout_height="260dp"
-    android:background="@drawable/ll_border"
     android:orientation="vertical"
+    android:background="@drawable/ll_border"
     android:weightSum="1">
 
-  <!--Title + 삭제 버튼-->
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="0.2"
-      android:orientation="horizontal"
-      android:weightSum="1">
-
+    <!--Title + 삭제 버튼-->
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.25"/>
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
-    <TextView
-        android:id="@+id/tv_myclub_name"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25" />
+
+        <TextView
+            android:id="@+id/tv_myclub_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/btn_myclub_delete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25"
+            android:background="@drawable/btn_border2"
+            android:text="삭제"
+            android:textColor="@color/md_white_1000"
+            android:textSize="12dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:background="@color/md_grey_600" />
+
+    <!--동호회 이미지-->
+    <ImageView
+        android:id="@+id/iv_myclub"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
         android:layout_weight="0.5"
-        android:gravity="center"
-        android:textSize="18dp" />
+        android:scaleType="fitXY" />
 
-    <Button
-        android:id="@+id/btn_myclub_delete"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.25"
-        android:text="삭제"
-        android:textSize="12dp"
-        android:textColor="@color/md_white_1000"
-        android:background="@drawable/btn_border2"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:background="@color/md_grey_600" />
 
-  </LinearLayout>
-
-  <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="@color/md_grey_600" />
-
-  <!--동호회 이미지-->
-  <ImageView
-      android:id="@+id/iv_myclub"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_gravity="center"
-      android:layout_weight="0.5"
-      android:scaleType="fitXY"/>
-
-  <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="@color/md_grey_600" />
-
-  <!--동호회 일정-->
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="0.3"
-      android:orientation="vertical"
-      android:weightSum="1">
-
-    <TextView
+    <!--동호회 일정-->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.4"
-        android:gravity="center"
-        android:text="다가오는 모임"
-        android:textSize="18dp" />
+        android:layout_weight="0.3"
+        android:orientation="vertical"
+        android:weightSum="1">
 
-    <TextView
-        android:id="@+id/tv_myclub_recent_schedule"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.4"
-        android:gravity="center"
-        android:text="-"
-        android:textSize="18dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4"
+            android:gravity="center"
+            android:text="다가오는 모임"
+            android:textSize="18dp" />
 
-  </LinearLayout>
+        <TextView
+            android:id="@+id/tv_myclub_recent_schedule"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4"
+            android:gravity="center"
+            android:text="-"
+            android:textSize="18dp" />
+
+    </LinearLayout>
 
 </LinearLayout>

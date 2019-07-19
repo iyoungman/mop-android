@@ -14,7 +14,7 @@ import lombok.Getter;
 @Getter
 public class ClubPagingResponse {
 
-    @SerializedName("myClubResponses")
+    @SerializedName("clubResponses")
     private List<Club> clubs = new ArrayList<>();
 
     @SerializedName("last")

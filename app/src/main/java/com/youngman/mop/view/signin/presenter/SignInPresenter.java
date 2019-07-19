@@ -45,19 +45,4 @@ public class SignInPresenter implements SignInContract.Presenter {
         }
         signInView.showErrorMessage("내용을 입력해주세요");
     }
-
-    @Override
-    public void callIsValidToken(String token) {
-        signInRepository.callIsValidToken(token, new SignInSource.TokenApiListener() {
-            @Override
-            public void onSuccess() {
-                signInView.startMyClubActivityByToken();
-            }
-
-            @Override
-            public void onFail(String message) {
-                signInView.showErrorMessage(message);
-            }
-        });
-    }
 }

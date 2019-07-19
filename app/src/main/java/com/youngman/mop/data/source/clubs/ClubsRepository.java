@@ -29,4 +29,12 @@ public class ClubsRepository implements ClubsSource {
 
         clubsRemoteDataSource.callClubsByUserInfo(email, pageNo, listener);
     }
+
+    @Override
+    public void callCreateMyClub(String email,
+                                 Long clubId,
+                                 CreateApiListener listener) {
+
+        clubsRemoteDataSource.callCreateMyClub(email, clubId, listener);
+    }
 }

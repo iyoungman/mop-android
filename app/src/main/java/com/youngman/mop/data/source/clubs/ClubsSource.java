@@ -13,8 +13,16 @@ public interface ClubsSource {
         void onFail(String message);
     }
 
+    interface CreateApiListener {
+        void onSuccess();
+        void onFail(String message);
+    }
+
     void callClubsByUserInfo(String email,
                              int pageNo,
                              ListApiListener listener);
 
+    void callCreateMyClub(String email,
+                          Long clubId,
+                          CreateApiListener listener);
 }

@@ -3,14 +3,14 @@ package com.youngman.mop.view.clubs.presenter;
 import com.youngman.mop.data.ClubPagingResponse;
 import com.youngman.mop.data.source.clubs.ClubsRepository;
 import com.youngman.mop.data.source.clubs.ClubsSource;
-import com.youngman.mop.listener.OnBasicItemClickListener;
 import com.youngman.mop.view.clubs.adapter.ClubsAdapterContract;
+import com.youngman.mop.view.clubs.adapter.OnClubsItemClickListener;
 
 /**
  * Created by YoungMan on 2019-05-03.
  */
 
-public class ClubsPresenter implements ClubsContract.Presenter, OnBasicItemClickListener {
+public class ClubsPresenter implements ClubsContract.Presenter, OnClubsItemClickListener {
 
     private ClubsContract.View clubsView;
     private final ClubsRepository clubsRepository;
@@ -43,14 +43,29 @@ public class ClubsPresenter implements ClubsContract.Presenter, OnBasicItemClick
     }
 
     @Override
-    public void onStartItemClick(int position) {
-        Long clubId = adapterModel.getItem(position).getClubId();
+    public void onStartClubClick(Long clubId) {
         clubsView.startClubActivity(clubId);
+    }
+
+    @Override
+    public void onJoinClubClick(String email, Long clubId) {
+        clubsRepository.callCreateMyClub(email, clubId, new ClubsSource.CreateApiListener() {
+            @Override
+            public void onSuccess() {
+                clubsView.successCreateMyClub();
+            }
+
+            @Override
+            public void onFail(String message) {
+                clubsView.showErrorMessage(message);
+            }
+        });
     }
 
     @Override
     public void setClubsAdapterView(ClubsAdapterContract.View adapterView) {
         this.adapterView = adapterView;
+        this.adapterView.setOnClubsItemClickListener(this);
     }
 
     @Override

@@ -1,9 +1,6 @@
 package com.youngman.mop.view.myclubs.adapter;
 
-import android.support.annotation.NonNull;
-
 import com.youngman.mop.data.Club;
-import com.youngman.mop.listener.OnMyClubsItemClickListener;
 
 import java.util.List;
 

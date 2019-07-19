@@ -53,7 +53,7 @@ public interface RetrofitApiService {
 
 
     @POST("mop/myclub")
-    Call<Void> callCreateMyClub();
+    Call<Void> callCreateMyClub(@QueryMap Map<String, Object> params);
 
     @GET("mop/myclub")
     Call<List<Club>> callMyClubsByMemberEmail(@Query("email") String email);
@@ -65,9 +65,6 @@ public interface RetrofitApiService {
 
     @POST("mop/club")
     Call<Void> callCreateClub();
-
-//    @GET("mop/club/search")
-//    Call<List<ClubModel>> callPagingClubsBySearch(@Query("searchClub") String searchClub);
 
     @GET("mop/club/member")
     Call<ClubPagingResponse> callPagingClubsByMember(@QueryMap Map<String, Object> params);
@@ -83,8 +80,7 @@ public interface RetrofitApiService {
 
     @Multipart
     @POST("mop/club/image")
-    Call<Map<String, String>> callUploadClubImage(@Part("clubId") Long clubId,
-                                     @Part MultipartBody.Part image);
+    Call<Map<String, String>> callUploadClubImage(@Part("clubId") Long clubId, @Part MultipartBody.Part image);
 
 
 

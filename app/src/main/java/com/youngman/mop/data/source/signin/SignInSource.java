@@ -14,11 +14,5 @@ public interface SignInSource {
         void onFail(String message);
     }
 
-    interface TokenApiListener {
-        void onSuccess();
-        void onFail(String message);
-    }
-
     void callSignIn(SignIn signIn, SignInApiListener listener);
-    void callIsValidToken(String token, TokenApiListener listener);
 }
