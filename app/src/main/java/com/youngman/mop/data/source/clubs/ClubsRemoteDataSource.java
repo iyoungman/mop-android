@@ -66,7 +66,7 @@ public class ClubsRemoteDataSource implements ClubsSource {
                                  Long clubId,
                                  CreateApiListener listener) {
 
-        Call<Void> result = RetrofitClient.getInstance().getRetrofitApiService().callCreateMyClub(makeParams(email, clubId));
+        Call<Void> result = RetrofitClient.getInstance().getRetrofitApiService().callCreateMyClub(makeBody(email, clubId));
         result.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -84,10 +84,10 @@ public class ClubsRemoteDataSource implements ClubsSource {
         });
     }
 
-    private Map<String, Object> makeParams(String email, Long clubId) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("email", email);
-        params.put("pageNo", clubId);
-        return params;
+    private Map<String, Object> makeBody(String email, Long clubId) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("email", email);
+        body.put("clubId", clubId);
+        return body;
     }
 }
