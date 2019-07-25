@@ -18,12 +18,7 @@ import java.util.List;
 
 public class PrefUtils {
 
-    public static String readUserIdFromPref(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("PREF_MOP", Context.MODE_PRIVATE);
-        return sharedPreferences.getString("PREF_USER_ID", null);
-    }
-
-    public static void writeMemberInfoToPref(Context context, SignInResponse signInResponse) {
+    public static void writeMemberInfoTo(Context context, SignInResponse signInResponse) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("PREF_MOP", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("PREF_MEMBER_TOKEN", signInResponse.getToken());
@@ -32,34 +27,34 @@ public class PrefUtils {
         editor.apply();
     }
 
-    public static String readMemberTokenFromPref(Context context) {
+    public static String readMemberTokenFrom(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("PREF_MOP", Context.MODE_PRIVATE);
         return sharedPreferences.getString("PREF_MEMBER_TOKEN", null);
     }
 
-    public static String readMemberEmailFromPref(Context context) {
+    public static String readMemberEmailFrom(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("PREF_MOP", Context.MODE_PRIVATE);
         return sharedPreferences.getString("PREF_MEMBER_EMAIL", null);
     }
 
-    public static String readMemberNameFromPref(Context context) {
+    public static String readMemberNameFrom(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("PREF_MOP", Context.MODE_PRIVATE);
         return sharedPreferences.getString("PREF_MEMBER_NAME", null);
     }
 
-    public static void writeAutoSignInToPref(Context context) {
+    public static void writeAutoSignInTo(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("PREF_MOP", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("PREF_AUTO_SIGNIN", true);
         editor.apply();
     }
 
-    public static boolean readAutoSignInFromPref(Context context) {
+    public static boolean readAutoSignInFrom(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("PREF_MOP", Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean("PREF_AUTO_SIGNIN", false);
     }
 
-    public static void writeMyClubIdsToPref(Context context, List<Long> myClubIds) {
+    public static void writeMyClubIdsTo(Context context, List<Long> myClubIds) {
         Type listType = new TypeToken<ArrayList<Long>>() {}.getType();
         String json = new GsonBuilder().create()
                 .toJson(myClubIds, listType);
@@ -70,7 +65,7 @@ public class PrefUtils {
         editor.apply();
     }
 
-    public static List<Long> readMyClubIdsFromPref(Context context) {
+    public static List<Long> readMyClubIdsFrom(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("PREF_MOP", Context.MODE_PRIVATE);
         String json = sharedPreferences.getString("PREF_MY_CLUB_IDS", null);
 

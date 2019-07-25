@@ -3,8 +3,13 @@ package com.youngman.mop.view.club;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,15 +17,20 @@ import android.widget.TextView;
 import com.youngman.mop.R;
 import com.youngman.mop.lib.otto.ActivityResultEvent;
 import com.youngman.mop.lib.otto.BusProvider;
+import com.youngman.mop.util.PrefUtils;
+import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.board.BoardFragment;
+import com.youngman.mop.view.club.presenter.ClubContract;
+import com.youngman.mop.view.club.presenter.ClubPresenter;
 import com.youngman.mop.view.clubinfo.ClubInfoFragment;
 import com.youngman.mop.view.map.MapActivity;
 import com.youngman.mop.view.schedule.ScheduleFragment;
 
-public class ClubActivity extends AppCompatActivity {
+public class ClubActivity extends AppCompatActivity implements ClubContract.View, NavigationView.OnNavigationItemSelectedListener {
 
     private Context context;
     private Toolbar tbClub;
+    private ImageView ivSideMenu;
     private TextView tvClubName;
     private LinearLayout llMenuInfo;
     private LinearLayout llMenuSchedule;
@@ -29,6 +39,11 @@ public class ClubActivity extends AppCompatActivity {
     private ImageView ivMenuInfo;
     private ImageView ivMenuSchedule;
     private ImageView ivMenuBoard;
+    private DrawerLayout dlSideMenu;
+    private ClubContract.Presenter presenter;
+
+    private Long clubId;
+    private boolean isClubChair;
 
     private static final String[] MENU_STRINGS = {
             "INFO", "SCHEDULE", "BOARD"
@@ -45,6 +60,7 @@ public class ClubActivity extends AppCompatActivity {
     private void init() {
         context = getApplicationContext();
         tbClub = (Toolbar) findViewById(R.id.tb_club);
+        ivSideMenu = (ImageView) findViewById(R.id.iv_side_menu);
         setSupportActionBar(tbClub);
         tvClubName = (TextView) tbClub.findViewById(R.id.tv_club_name);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -56,10 +72,16 @@ public class ClubActivity extends AppCompatActivity {
         ivMenuInfo = (ImageView) findViewById(R.id.iv_menu_info);
         ivMenuSchedule = (ImageView) findViewById(R.id.iv_menu_schedule);
         ivMenuBoard = (ImageView) findViewById(R.id.iv_menu_board);
+        dlSideMenu = (DrawerLayout) findViewById(R.id.dl_side_menu);
 
-        Long clubId = getIntent().getLongExtra("EXTRA_CLUB_ID", 1);
+        clubId = getIntent().getLongExtra("EXTRA_CLUB_ID", -1);
         String clubName = getIntent().getStringExtra("EXTRA_CLUB_NAME");
         tvClubName.setText(clubName);
+
+        presenter = new ClubPresenter(this);
+        presenter.callIsClubChair(clubId, PrefUtils.readMemberEmailFrom(context));
+
+        ivSideMenu.setOnClickListener(v -> dlSideMenu.openDrawer(GravityCompat.START));
 
         llMenuInfo.setOnClickListener(view -> {
             convertSelectedMenu(MENU_STRINGS[0]);
@@ -82,11 +104,19 @@ public class ClubActivity extends AppCompatActivity {
                     .commit();
         });
 
-        llMenuMap.setOnClickListener(view -> {
-            startMapActivity(clubId);
-        });
+        llMenuMap.setOnClickListener(view -> startMapActivity());
 
         llMenuInfo.performClick();
+    }
+
+    @Override
+    public void setIsClubChair(boolean isClubChair) {
+        this.isClubChair = isClubChair;
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        ToastUtils.showToast(context, message);
     }
 
     private void convertSelectedMenu(String menu) {
@@ -109,10 +139,38 @@ public class ClubActivity extends AppCompatActivity {
         }
     }
 
-    private void startMapActivity(Long clubId) {
+    private void startMapActivity() {
         Intent intent = new Intent(context, MapActivity.class);
         intent.putExtra("EXTRA_CLUB_ID", clubId);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.menu_add_map_member:
+                startSideMenuBy("MapMemberAddActivity");
+
+            case R.id.menu_club_statistics:
+                startSideMenuBy("ClubStatisticsActivity");
+        }
+        dlSideMenu.closeDrawer(GravityCompat.START);
+        return false;
+    }
+
+    private void startSideMenuBy(String activityName) {
+        if (!isClubChair) {
+            ToastUtils.showToast(context, "동호회장 권한이 없습니다");
+            return;
+        }
+        try {
+            Class<?> cls = Class.forName(activityName);
+            Intent intent = new Intent(context, cls);
+            intent.putExtra("EXTRA_CLUB_ID", clubId);
+            startActivity(intent);
+        } catch (ClassNotFoundException e) {
+            ToastUtils.showToast(context, "Side Menu 시작에 실패하였습니다");
+        }
     }
 
     @Override

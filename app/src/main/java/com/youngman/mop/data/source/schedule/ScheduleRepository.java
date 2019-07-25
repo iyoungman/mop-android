@@ -1,9 +1,5 @@
 package com.youngman.mop.data.source.schedule;
 
-import com.youngman.mop.data.source.myclubs.MyClubsRemoteDataSource;
-import com.youngman.mop.data.source.myclubs.MyClubsRepository;
-import com.youngman.mop.data.source.myclubs.MyClubsSource;
-
 /**
  * Created by YoungMan on 2019-07-06.
  */
@@ -27,10 +23,19 @@ public class ScheduleRepository implements ScheduleSource {
     }
 
     @Override
-    public void callSchedulesByClubIdAndMonth(Long clubId,
-                                              String date,
-                                              ScheduleSource.ListApiListener listener) {
+    public void callSchedules(Long clubId,
+                              String date,
+                              ScheduleSource.ListApiListener listener) {
 
-        scheduleRemoteDataSource.callSchedulesByClubIdAndMonth(clubId, date, listener);
+        scheduleRemoteDataSource.callSchedules(clubId, date, listener);
+    }
+
+    @Override
+    public void callCreateParticipant(Long scheduleId,
+                                      String email,
+                                      String name,
+                                      ParticipantApiListener listener) {
+
+
     }
 }

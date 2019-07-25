@@ -13,7 +13,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.youngman.mop.util.LogUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -34,13 +36,64 @@ public class MapFirebaseService {
     }
 
     /**
+     * 단체지도방 생성
+     */
+    public void callCreateMapGroup(Long clubId, List<String> memberEmails, CreateApiListener createApiListener) {
+        DatabaseReference club = databaseReference.child(clubId.toString());
+        Map<String, Object> map = new HashMap<>();
+
+        for (String email : memberEmails) {
+            map.put(email, new MemberLocation().getLatLng());
+        }
+
+        club.setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                createApiListener.onSuccess();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                createApiListener.onFail(e.getMessage());
+            }
+        });
+    }
+
+    /**
+     * 1. 동호회 단체 지도방 존재여부
+     * 2. 단체 지도방이 있다면 초대 멤버인지 확인 여부
+     */
+    public void callIsValidateMapAndMember(Long clubId, String email, ValidateApiListener validateApiListener) {
+        DatabaseReference clubReference = databaseReference.child(clubId.toString());
+        clubReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()) {
+                    validateApiListener.onFail("생성되어 있는 단체지도방이 없습니다");
+                    return;
+                }
+
+                if (dataSnapshot.child(email).exists()) {
+                    validateApiListener.onSuccess();
+                } else {
+                    validateApiListener.onFail("단체지도방에 초대되지 않은 멤버입니다.");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                validateApiListener.onFail("통신에 실패하였습니다.");
+            }
+        });
+    }
+
+    /**
      * 1. 자신의 위치 저장
      * 2. 동호회 멤버 위치목록 조회
      */
     public void callMapRefresh(Long clubId, String email, LatLng latLng, RefreshApiListener refreshApiListener) {
         DatabaseReference clubReference = databaseReference.child(clubId.toString());
         DatabaseReference memberReference = clubReference.child(email);
-        if(isAllZero(latLng.latitude, latLng.longitude)) {
+        if (isAllZero(latLng.latitude, latLng.longitude)) {
             return;
         }
         memberReference.setValue(latLng);
@@ -54,20 +107,17 @@ public class MapFirebaseService {
                     double latitude = snapshot.child("latitude").getValue(Double.class);
                     double longitude = snapshot.child("longitude").getValue(Double.class);
 
-                    if(email.equals(snapshot.getKey())) {
+                    if (email.equals(snapshot.getKey())) {
                         myLocation = new MemberLocation(snapshot.getKey(), new LatLng(latitude, longitude));
                         continue;
                     }
                     otherLocations.add(new MemberLocation(snapshot.getKey(), new LatLng(latitude, longitude)));
                 }
-
                 refreshApiListener.onSuccess(otherLocations, myLocation);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                LogUtils.logDebug(databaseError.getMessage());
-                LogUtils.logDebug(databaseError.getDetails());
                 refreshApiListener.onFail("통신에 실패하였습니다.");
             }
         });
@@ -77,6 +127,7 @@ public class MapFirebaseService {
         long count = Stream.of(latitude, longitude)
                 .filter(data -> data.equals(0d))
                 .count();
+
         Predicate<Long> isAllZero = cnt -> cnt == 2;
         return isAllZero.test(count);
     }
@@ -99,6 +150,7 @@ public class MapFirebaseService {
             }
         });
     }
+
 
     //동호회 인원들 위치 목록 가져오기
 
@@ -197,13 +249,27 @@ public class MapFirebaseService {
 ////        club.setValue(map);
 //    }
 
+    public interface CreateApiListener {
+        void onSuccess();
+
+        void onFail(String message);
+    }
+
+    public interface ValidateApiListener {
+        void onSuccess();
+
+        void onFail(String message);
+    }
+
     public interface RefreshApiListener {
         void onSuccess(List<MemberLocation> otherLocations, MemberLocation myLocation);
+
         void onFail(String message);
     }
 
     public interface DeleteApiListener {
         void onSuccess();
+
         void onFail(String message);
     }
 }

@@ -79,7 +79,7 @@ public class ClubsViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void isPossibleStart(Long clubId) {
-        List<Long> myClubIds = PrefUtils.readMyClubIdsFromPref(context);
+        List<Long> myClubIds = PrefUtils.readMyClubIdsFrom(context);
 
         if (!myClubIds.contains(clubId)) {
             ToastUtils.showToast(context, "동호회의 회원이 아닙니다");
@@ -89,13 +89,13 @@ public class ClubsViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void isPossibleJoin(Long clubId) {
-        List<Long> myClubIds = PrefUtils.readMyClubIdsFromPref(context);
+        List<Long> myClubIds = PrefUtils.readMyClubIdsFrom(context);
 
         if (myClubIds.contains(clubId)) {
             ToastUtils.showToast(context, "이미 가입된 동호회 입니다");
             return;
         }
-        String email = PrefUtils.readMemberEmailFromPref(context);
+        String email = PrefUtils.readMemberEmailFrom(context);
         onClubsItemClickListener.onJoinClubClick(email, clubId);
     }
 

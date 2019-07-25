@@ -18,7 +18,8 @@ public interface ScheduleContract {
     }
 
     interface Presenter {
-        void callSchedulesByClubIdAndMonth(Long clubId, String date);
+        void callSchedules(Long clubId, String date);
         void callDeleteSchedule(Long scheduleId);
+        void callCreateParticipant(Long scheduleId, String email, String name);
     }
 }

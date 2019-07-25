@@ -49,7 +49,7 @@ public class MyClubsViewHolder extends RecyclerView.ViewHolder {
         tvMyClubRecentSchedule.setText(club.getSimpleTime());
 
         btnMyClubDelete.setOnClickListener(view -> {
-            onMyClubsItemClickListener.onDeleteMyClubClick(PrefUtils.readUserIdFromPref(context), position);
+            onMyClubsItemClickListener.onDeleteMyClubClick(PrefUtils.readMemberEmailFrom(context), position);
         });
 
         ivMyClub.setOnClickListener(view -> {

@@ -48,14 +48,14 @@ public class MyClubsActivity extends AppCompatActivity implements MyClubsContrac
         presenter = new MyClubsPresenter(this, MyClubsRepository.getInstance());
         presenter.setMyClubAdapterView(myClubsAdapter);
         presenter.setMyClubAdapterModel(myClubsAdapter);
-        presenter.callMyClubs(PrefUtils.readUserIdFromPref(context));
+        presenter.callMyClubs(PrefUtils.readMemberEmailFrom(context));
 
         btnStartClubs.setOnClickListener(view -> startClubsActivity());
     }
 
     @Override
     public void writeMyClubsToPref(List<Long> myClubIds) {
-        PrefUtils.writeMyClubIdsToPref(context, myClubIds);
+        PrefUtils.writeMyClubIdsTo(context, myClubIds);
     }
 
     @Override

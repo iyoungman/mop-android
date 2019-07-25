@@ -64,6 +64,9 @@ public interface RetrofitApiService {
     @POST("mop/club")
     Call<Void> callCreateClub();
 
+    @GET("mop/club/chair")
+    Call<Boolean> callIsClubChair(@QueryMap Map<String, Object> params);
+
     @GET("mop/club/member")
     Call<ClubPagingResponse> callPagingClubsByMember(@QueryMap Map<String, Object> params);
 
@@ -86,10 +89,15 @@ public interface RetrofitApiService {
     Call<Void> callCreateSchedule(@Body Schedule schedule);
 
     @GET("mop/schedule/monthly")
-    Call<Map<String, Schedule>> callSchedulesByClubIdAndMonth(@QueryMap Map<String, Object> params);
+    Call<Map<String, Schedule>> callSchedules(@QueryMap Map<String, Object> params);
+
+
+
+    @POST("mop/participant")
+    Call<Integer> callCreateParticipant(@Body Map<String, Object> body);
 
 
 
     @GET("mop/board")
-    Call<BoardPagingResponse> callPagingBoardsByClub(@QueryMap Map<String, Object> params);
+    Call<BoardPagingResponse> callPagingBoards(@QueryMap Map<String, Object> params);
 }

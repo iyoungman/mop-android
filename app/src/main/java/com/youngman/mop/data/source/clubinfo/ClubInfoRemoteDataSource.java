@@ -79,18 +79,4 @@ public class ClubInfoRemoteDataSource implements ClubInfoSource {
         });
     }
 
-//    private Map<String, RequestBody> ew(Long clubId, MultipartBody.Part imageFile) {
-//        Map<String, RequestBody> map = new HashMap<>();
-//        map.put("clubId", toRequestBody(clubId));
-//
-//        RequestBody fileBody = RequestBody.create(MediaType.parse("image/png"), imageFile);
-//        map.put("image\"; filename=\"pp.png\"", fileBody);
-//        return map;
-//    }
-//
-//    public static RequestBody toRequestBody (Long value) {
-//        RequestBody body = RequestBody.create(MediaType.parse("text/plain"), value.toString());
-//        return body ;
-//    }
-
 }

@@ -27,19 +27,33 @@ public class MapPresenter implements MapContract.Presenter, OnBasicItemClickList
     }
 
     @Override
+    public void callIsValidateMapAndMember(Long clubId, String email) {
+        mapFirebaseService.callIsValidateMapAndMember(clubId, email, new MapFirebaseService.ValidateApiListener() {
+            @Override
+            public void onSuccess() {
+                mapView.isValidate();
+            }
+
+            @Override
+            public void onFail(String message) {
+                mapView.isUnValidate(message);
+            }
+        });
+    }
+
+    @Override
     public void callMapRefresh(Long clubId, String email, LatLng latLng) {
         mapFirebaseService.callMapRefresh(clubId, email, latLng, new MapFirebaseService.RefreshApiListener() {
             @Override
             public void onSuccess(List<MemberLocation> otherLocations, MemberLocation myLocation) {
                 adapterModel.addItems(otherLocations);
                 adapterView.notifyAdapter();
-
                 mapView.mapRefresh(otherLocations, myLocation);
             }
 
             @Override
             public void onFail(String message) {
-                mapView.showErrorMessage("지도를 갱신하는데 실패하였습니다.");
+                mapView.showErrorMessage(message);
             }
         });
     }

@@ -82,35 +82,33 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         memberLocationsAdapter = new MemberLocationsAdapter(context);
         recyclerView.setAdapter(memberLocationsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        clubId = getIntent().getLongExtra("EXTRA_CLUB_ID", 1);
-        simpleLocation = new SimpleLocation(context, false, false, 10 * 1000, true);//15초
-        mapFragment.getMapAsync(this);
-
         presenter = new MapPresenter(this);
         presenter.setMemberLocationsAdapterView(memberLocationsAdapter);
         presenter.setMemberLocationsAdapterModel(memberLocationsAdapter);
+        simpleLocation = new SimpleLocation(context, false, false, 10 * 1000, true);//15초
+        clubId = getIntent().getLongExtra("EXTRA_CLUB_ID", 1);
 
-        checkLocationSetting();
-        setPanelSlideListener();
+        checkValidateMapAndMember();
 
         llMapRefresh.setOnClickListener(v -> {
-            presenter.callMapRefresh(clubId, PrefUtils.readUserIdFromPref(context),
+            presenter.callMapRefresh(clubId, PrefUtils.readMemberEmailFrom(context),
                     new LatLng(simpleLocation.getLatitude(), simpleLocation.getLongitude())
             );
         });
+        llMapRoute.setOnClickListener(v -> drawMyRoute());
+        llMapAddMember.setOnClickListener(v -> startMapMemberAddActivity(clubId));
+        llMapOut.setOnClickListener(v -> showMapOutDialog());
+    }
 
-        llMapRoute.setOnClickListener(v -> {
-            drawMyRoute();
-        });
+    private void checkValidateMapAndMember() {
+        presenter.callIsValidateMapAndMember(clubId, PrefUtils.readMemberEmailFrom(context));
+    }
 
-        llMapAddMember.setOnClickListener(v -> {
-            startMapMemberAddActivity(clubId);
-        });
-
-        llMapOut.setOnClickListener(v -> {
-            showMapOutDialog();
-        });
+    @Override
+    public void isValidate() {
+        mapFragment.getMapAsync(this);
+        checkLocationSetting();
+        setPanelSlideListener();
     }
 
     private void checkLocationSetting() {
@@ -136,19 +134,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
+    public void isUnValidate(String message) {
+        ToastUtils.showToast(context, message);
+        finish();
+    }
+
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
         mGoogleMap.getUiSettings().setZoomGesturesEnabled(true);
         mGoogleMap.setMaxZoomPreference(20);
         mGoogleMap.setMinZoomPreference(10);
 
-        setSimpleLocationListener();
-    }
-
-    private void setSimpleLocationListener() {
-        simpleLocation.setListener(() -> {
-            llMapRefresh.performClick();
-        });
+        simpleLocation.setListener(() -> llMapRefresh.performClick());
     }
 
     @Override
@@ -173,7 +171,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private BitmapDescriptor decideBitmapDescriptor(String email) {
-        return email.equals(PrefUtils.readUserIdFromPref(context)) ?
+        return email.equals(PrefUtils.readMemberEmailFrom(context)) ?
                 BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED) :
                 BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
     }
@@ -265,7 +263,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("지도 단체방을 나가시겠습니까?");
         builder.setPositiveButton("예", (d, w) -> {
-            presenter.callMapOut(clubId, PrefUtils.readUserIdFromPref(context));
+            presenter.callMapOut(clubId, PrefUtils.readMemberEmailFrom(context));
         });
         builder.setNegativeButton("아니오", (d, w) -> {
             ToastUtils.showToast(context, "취소 되었습니다");

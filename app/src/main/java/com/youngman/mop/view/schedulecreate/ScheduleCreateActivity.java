@@ -57,7 +57,7 @@ public class ScheduleCreateActivity extends Activity implements ScheduleCreateCo
                 .name(etName.getText().toString())
                 .content(etContent.getText().toString())
                 .region(etRegion.getText().toString())
-                .writer(PrefUtils.readMemberNameFromPref(context))
+                .writer(PrefUtils.readMemberNameFrom(context))
                 .meetingTime(getMeetingDateTime())
                 .clubId(clubId)
                 .build()

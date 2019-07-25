@@ -1,16 +1,10 @@
 package com.youngman.mop.data.source.schedule;
 
-import android.util.Log;
-
-import com.youngman.mop.data.Club;
-import com.youngman.mop.data.MyClubsResponse;
 import com.youngman.mop.data.Schedule;
-import com.youngman.mop.data.source.myclubs.MyClubsRemoteDataSource;
 import com.youngman.mop.net.RetrofitClient;
 import com.youngman.mop.util.LogUtils;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import lombok.AccessLevel;
@@ -33,18 +27,15 @@ public class ScheduleRemoteDataSource implements ScheduleSource {
         if (INSTANCE == null) {
             INSTANCE = new ScheduleRemoteDataSource();
         }
-
         return INSTANCE;
     }
 
-
     @Override
-    public void callSchedulesByClubIdAndMonth(Long clubId,
-                                              String date,
-                                              ListApiListener listener) {
+    public void callSchedules(Long clubId,
+                              String date,
+                              ListApiListener listener) {
 
-        Call<Map<String, Schedule>> result = RetrofitClient.getInstance().getRetrofitApiService().callSchedulesByClubIdAndMonth(makeParams(clubId, date));
-
+        Call<Map<String, Schedule>> result = RetrofitClient.getInstance().getRetrofitApiService().callSchedules(makeParams(clubId, date));
         result.enqueue(new Callback<Map<String, Schedule>>() {
             @Override
             public void onResponse(Call<Map<String, Schedule>> call, Response<Map<String, Schedule>> response) {
@@ -67,6 +58,38 @@ public class ScheduleRemoteDataSource implements ScheduleSource {
         Map<String, Object> params = new HashMap<>();
         params.put("clubId", clubId);
         params.put("date", date);
+
+        return params;
+    }
+
+    @Override
+    public void callCreateParticipant(Long scheduleId,
+                                      String email,
+                                      String name,
+                                      ParticipantApiListener listener) {
+
+        Call<Integer> result = RetrofitClient.getInstance().getRetrofitApiService().callCreateParticipant(makeParams(scheduleId, email, name));
+        result.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if (response.isSuccessful()) {
+                    listener.onSuccess();
+                    return;
+                }
+                listener.onFail("저장에 실패하였습니다");
+            }
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                listener.onFail("통신에 실패하였습니다.");
+            }
+        });
+    }
+
+    private Map<String, Object> makeParams(Long scheduleId, String email, String name) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("scheduleId", scheduleId);
+        params.put("email", email);
+        params.put("name", name);
 
         return params;
     }

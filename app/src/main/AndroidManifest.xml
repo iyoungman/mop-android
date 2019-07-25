@@ -21,6 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".view.clubstatistics.ClubStatisticsActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -28,12 +29,9 @@
 
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false" />
-
-        <!-- <meta-data -->
+            android:required="false" /> <!-- <meta-data -->
         <!-- android:name="com.google.firebase.messaging.default_notification_channel_id" -->
         <!-- android:value="@string/default_notification_channel_id"/> -->
-
         <activity
             android:name=".view.splash.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -44,7 +42,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.signin.SignInActivity"/>
+        <activity android:name=".view.signin.SignInActivity" />
         <activity android:name=".view.signup.SignUpActivity" />
         <activity android:name=".view.myclubs.MyClubsActivity" />
         <activity android:name=".view.clubs.ClubsActivity" />
@@ -54,7 +52,7 @@
         <activity android:name=".view.clubsearch.ClubSearchActivity" />
         <activity
             android:name=".view.memberinfo.MemberInfoActivity"
-            android:theme="@android:style/Theme.Dialog"/>
+            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".view.schedulecreate.ScheduleCreateActivity"
             android:theme="@android:style/Theme.Dialog" />

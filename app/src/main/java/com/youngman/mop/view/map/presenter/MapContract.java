@@ -13,8 +13,9 @@ import java.util.List;
 
 public interface MapContract {
 
-    //방장 - 유저목록(단톡방) 생성, 단톡방 삭제, (멤버 추가)
     interface View {
+        void isValidate();
+        void isUnValidate(String message);
         void mapRefresh(List<MemberLocation> memberLocations, MemberLocation myLocation);
         void moveOtherLocation(MemberLocation memberLocation);
         void finishMapActivity();
@@ -22,6 +23,7 @@ public interface MapContract {
     }
 
     interface Presenter {
+        void callIsValidateMapAndMember(Long clubId, String email);
         void callMapRefresh(Long clubId, String email, LatLng latLng);
         void callMapOut(Long clubId, String email);
         void setMemberLocationsAdapterView(MemberLocationsAdapterContract.View adapterView);

@@ -25,6 +25,7 @@ import com.youngman.mop.lib.decorators.HighlightWeekendsDecorator;
 import com.youngman.mop.lib.decorators.OneDayDecorator;
 import com.youngman.mop.lib.otto.ActivityResultEvent;
 import com.youngman.mop.util.DateUtils;
+import com.youngman.mop.util.PrefUtils;
 import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.schedule.presenter.ScheduleContract;
 import com.youngman.mop.view.schedule.presenter.SchedulePresenter;
@@ -45,8 +46,10 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     private LinearLayout llDeleteSchedule;
     private LinearLayout llScheduleInfo;
     private TextView tvScheduleName;
+    private TextView tvScheduleParticipate;
     private TextView tvScheduleContent;
     private TextView tvScheduleRegion;
+    private TextView tvScheduleParticipantNum;
     private TextView tvScheduleMeetingTime;
     private TextView tvScheduleWriter;
     private ScheduleContract.Presenter presenter;
@@ -79,8 +82,10 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         llDeleteSchedule = (LinearLayout) view.findViewById(R.id.ll_delete_schedule);
         llScheduleInfo = (LinearLayout) view.findViewById(R.id.ll_schedule_info);
         tvScheduleName = (TextView) view.findViewById(R.id.tv_schedule_name);
+        tvScheduleParticipate = (TextView) view.findViewById(R.id.tv_schedule_participate);
         tvScheduleContent = (TextView) view.findViewById(R.id.tv_schedule_content);
         tvScheduleRegion = (TextView) view.findViewById(R.id.tv_schedule_region);
+        tvScheduleParticipantNum = (TextView) view.findViewById(R.id.tv_schedule_participant_num);
         tvScheduleMeetingTime = (TextView) view.findViewById(R.id.tv_schedule_meeting_time);
         tvScheduleWriter = (TextView) view.findViewById(R.id.tv_schedule_writer);
         presenter = new SchedulePresenter(this, ScheduleRepository.getInstance());
@@ -95,15 +100,11 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         calendarView.setOnMonthChangedListener(this);
         calendarView.setTitleFormatter(DateUtils::convertMonthFormat);
 
-        llCreateSchedule.setOnClickListener(v -> {
-            startScheduleCreateActivity();
-        });
+        llCreateSchedule.setOnClickListener(v -> startScheduleCreateActivity());
+        llDeleteSchedule.setOnClickListener(v -> callDeleteSchedule());
+        tvScheduleParticipantNum.setOnClickListener(v -> callCreateParticipant());
 
-        llDeleteSchedule.setOnClickListener(v -> {
-            callDeleteSchedule();
-        });
-
-        presenter.callSchedulesByClubIdAndMonth(clubId, calendarView.getCurrentDate().getDate().toString());
+        presenter.callSchedules(clubId, calendarView.getCurrentDate().getDate().toString());
         onTodaySelected();
     }
 
@@ -143,7 +144,7 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     @Override
     public void onMonthChanged(MaterialCalendarView materialCalendarView, CalendarDay calendarDay) {
         String strDate = DateUtils.convertDateFormat(calendarDay);
-        presenter.callSchedulesByClubIdAndMonth(clubId, strDate);
+        presenter.callSchedules(clubId, strDate);
     }
 
     @Override
@@ -175,7 +176,7 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     public void onActivityResult(ActivityResultEvent activityResultEvent) {
         onActivityResult(activityResultEvent.getRequestCode(), activityResultEvent.getResultCode(), activityResultEvent.getData());
         if (activityResultEvent.getRequestCode() == 1111 && activityResultEvent.getResultCode() == 1111) {
-            presenter.callSchedulesByClubIdAndMonth(clubId, calendarView.getCurrentDate().getDate().toString());
+            presenter.callSchedules(clubId, calendarView.getCurrentDate().getDate().toString());
         }
     }
 
@@ -191,6 +192,15 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         }
         Long scheduleId = scheduleMap.get(strDate).getId();
         presenter.callDeleteSchedule(scheduleId);
+    }
+
+    private void callCreateParticipant() {
+        String strDate = calendarView.getSelectedDate().getDate().toString();
+        Long scheduleId = scheduleMap.get(strDate).getId();
+        String email = PrefUtils.readMemberEmailFrom(context);
+        String name = PrefUtils.readMemberNameFrom(context);
+
+        presenter.callCreateParticipant(scheduleId, email, name);
     }
 
     @Override

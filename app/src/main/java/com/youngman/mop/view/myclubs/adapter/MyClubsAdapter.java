@@ -29,7 +29,7 @@ public class MyClubsAdapter extends RecyclerView.Adapter<MyClubsViewHolder> impl
     }
 
     @Override
-    public void addItems(List<com.youngman.mop.data.Club> myClubs) {
+    public void addItems(List<Club> myClubs) {
         this.myClubs = myClubs;
     }
 

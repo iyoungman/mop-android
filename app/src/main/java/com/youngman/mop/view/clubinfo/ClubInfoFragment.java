@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -17,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.squareup.otto.Subscribe;
@@ -28,7 +28,6 @@ import com.youngman.mop.data.source.clubinfo.ClubInfoRepository;
 import com.youngman.mop.lib.otto.ActivityResultEvent;
 import com.youngman.mop.lib.otto.BusProvider;
 import com.youngman.mop.util.CameraUtils;
-import com.youngman.mop.util.LogUtils;
 import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.clubinfo.adapter.MembersAdapter;
 import com.youngman.mop.view.clubinfo.presenter.ClubInfoContract;
@@ -92,8 +91,6 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
         presenter.callClubInfoByClubId(clubId);
 
         ivClubImg.setOnLongClickListener(v -> startToAlbum());
-
-        BusProvider.getInstance().register(this);
     }
 
     @Override
@@ -146,5 +143,17 @@ public class ClubInfoFragment extends Fragment implements ClubInfoContract.View 
     @Override
     public void showErrorMessage(String message) {
         ToastUtils.showToast(context, message);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        BusProvider.getInstance().register(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        BusProvider.getInstance().unregister(this);
+        super.onDestroyView();
     }
 }

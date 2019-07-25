@@ -12,6 +12,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.youngman.mop.R;
 import com.youngman.mop.util.LogUtils;
+import com.youngman.mop.view.clubstatistics.ClubStatisticsActivity;
 import com.youngman.mop.view.map.MapActivity;
 
 /**
@@ -39,7 +40,7 @@ public class PushNotificationService extends FirebaseMessagingService {
     }
 
     private void handleNotification(RemoteMessage remoteMessage) {
-        Intent intent = new Intent(this, MapActivity.class);
+        Intent intent = new Intent(this, ClubStatisticsActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 

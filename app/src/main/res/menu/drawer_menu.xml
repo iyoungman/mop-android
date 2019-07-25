@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_add_map_member"
+            android:title="단체지도방 생성" />
+        <item
+            android:id="@+id/menu_club_statistics"
+            android:title="일일 통계" />
+    </group>
+</menu>

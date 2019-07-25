@@ -59,10 +59,10 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
 
     @Override
     public void startMyClubActivity(SignInResponse signInResponse) {
-        PrefUtils.writeMemberInfoToPref(context, signInResponse);
+        PrefUtils.writeMemberInfoTo(context, signInResponse);
 
         if(cbAutoSignIn.isChecked()) {
-            PrefUtils.writeAutoSignInToPref(context);
+            PrefUtils.writeAutoSignInTo(context);
         }
 
         Intent intent = new Intent(context, MyClubsActivity.class);

@@ -22,8 +22,8 @@ public class SchedulePresenter implements ScheduleContract.Presenter {
     }
 
     @Override
-    public void callSchedulesByClubIdAndMonth(Long clubId, String date) {
-        scheduleRepository.callSchedulesByClubIdAndMonth(clubId, date, new ScheduleSource.ListApiListener() {
+    public void callSchedules(Long clubId, String date) {
+        scheduleRepository.callSchedules(clubId, date, new ScheduleSource.ListApiListener() {
             @Override
             public void onSuccess(Map<String, Schedule> scheduleMap) {
                 scheduleView.setSchedules(scheduleMap.keySet());
@@ -39,6 +39,11 @@ public class SchedulePresenter implements ScheduleContract.Presenter {
 
     @Override
     public void callDeleteSchedule(Long scheduleId) {
+
+    }
+
+    @Override
+    public void callCreateParticipant(Long scheduleId, String email, String name) {
 
     }
 }

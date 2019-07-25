@@ -53,7 +53,7 @@ public class ClubsActivity extends AppCompatActivity implements ClubsContract.Vi
         presenter = new ClubsPresenter(this, ClubsRepository.getInstance());
         presenter.setClubsAdapterView(clubsAdapter);
         presenter.setClubsAdapterModel(clubsAdapter);
-        presenter.callClubsByUserInfo(PrefUtils.readUserIdFromPref(context), 1);
+        presenter.callClubsByUserInfo(PrefUtils.readMemberEmailFrom(context), 1);
 
         etSearchClubs.setOnClickListener(view -> startClubSearchActivity());
     }
@@ -61,7 +61,7 @@ public class ClubsActivity extends AppCompatActivity implements ClubsContract.Vi
     @Override
     public void onLoadMore() {
         new Handler().postDelayed(() -> {
-            presenter.callClubsByUserInfo(PrefUtils.readUserIdFromPref(context), calculatePageNo());
+            presenter.callClubsByUserInfo(PrefUtils.readMemberEmailFrom(context), calculatePageNo());
         }, 500);
     }
 
