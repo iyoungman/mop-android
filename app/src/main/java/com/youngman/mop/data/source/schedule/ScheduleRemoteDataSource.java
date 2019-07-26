@@ -63,10 +63,8 @@ public class ScheduleRemoteDataSource implements ScheduleSource {
     }
 
     @Override
-    public void callCreateParticipant(Long scheduleId,
-                                      String email,
-                                      String name,
-                                      ParticipantApiListener listener) {
+    public void callCreateParticipant(Long scheduleId, String email,
+                                      String name, ParticipantApiListener listener) {
 
         Call<Integer> result = RetrofitClient.getInstance().getRetrofitApiService().callCreateParticipant(makeParams(scheduleId, email, name));
         result.enqueue(new Callback<Integer>() {
@@ -93,4 +91,6 @@ public class ScheduleRemoteDataSource implements ScheduleSource {
 
         return params;
     }
+
+
 }

@@ -48,8 +48,10 @@
         <activity android:name=".view.clubs.ClubsActivity" />
         <activity android:name=".view.club.ClubActivity" />
         <activity android:name=".view.map.MapActivity" />
-        <activity android:name=".view.mapmemberadd.MapMemberAddActivity" />
         <activity android:name=".view.clubsearch.ClubSearchActivity" />
+        <activity
+            android:name=".view.mapmemberadd.MapMemberAddActivity"
+            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".view.memberinfo.MemberInfoActivity"
             android:theme="@android:style/Theme.Dialog" />

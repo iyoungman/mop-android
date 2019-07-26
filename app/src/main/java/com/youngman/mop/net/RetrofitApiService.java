@@ -4,6 +4,7 @@ import com.youngman.mop.data.BoardPagingResponse;
 import com.youngman.mop.data.Club;
 import com.youngman.mop.data.ClubInfoResponse;
 import com.youngman.mop.data.ClubPagingResponse;
+import com.youngman.mop.data.Participant;
 import com.youngman.mop.data.Schedule;
 import com.youngman.mop.data.SignIn;
 import com.youngman.mop.data.SignInResponse;
@@ -95,6 +96,9 @@ public interface RetrofitApiService {
 
     @POST("mop/participant")
     Call<Integer> callCreateParticipant(@Body Map<String, Object> body);
+
+    @GET("mop/participant")
+    Call<List<Participant>> callParticipants(@QueryMap Map<String, Object> params);
 
 
 

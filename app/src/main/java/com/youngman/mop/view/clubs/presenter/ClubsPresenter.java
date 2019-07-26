@@ -13,8 +13,7 @@ import com.youngman.mop.view.clubs.adapter.OnClubsItemClickListener;
 public class ClubsPresenter implements ClubsContract.Presenter, OnClubsItemClickListener {
 
     private ClubsContract.View clubsView;
-    private final ClubsRepository clubsRepository;
-
+    private ClubsRepository clubsRepository;
     private ClubsAdapterContract.View adapterView;
     private ClubsAdapterContract.Model adapterModel;
 

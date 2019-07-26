@@ -34,7 +34,7 @@ public class ScheduleCreateActivity extends Activity implements ScheduleCreateCo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_schedule_create);
+        setContentView(R.layout.dialog_schedule_create);
         init();
     }
 

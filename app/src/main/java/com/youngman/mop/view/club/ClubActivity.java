@@ -23,7 +23,9 @@ import com.youngman.mop.view.board.BoardFragment;
 import com.youngman.mop.view.club.presenter.ClubContract;
 import com.youngman.mop.view.club.presenter.ClubPresenter;
 import com.youngman.mop.view.clubinfo.ClubInfoFragment;
+import com.youngman.mop.view.clubstatistics.ClubStatisticsActivity;
 import com.youngman.mop.view.map.MapActivity;
+import com.youngman.mop.view.mapmemberadd.MapMemberAddActivity;
 import com.youngman.mop.view.schedule.ScheduleFragment;
 
 public class ClubActivity extends AppCompatActivity implements ClubContract.View, NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +42,7 @@ public class ClubActivity extends AppCompatActivity implements ClubContract.View
     private ImageView ivMenuSchedule;
     private ImageView ivMenuBoard;
     private DrawerLayout dlSideMenu;
+    private NavigationView nvSideMenu;
     private ClubContract.Presenter presenter;
 
     private Long clubId;
@@ -73,6 +76,8 @@ public class ClubActivity extends AppCompatActivity implements ClubContract.View
         ivMenuSchedule = (ImageView) findViewById(R.id.iv_menu_schedule);
         ivMenuBoard = (ImageView) findViewById(R.id.iv_menu_board);
         dlSideMenu = (DrawerLayout) findViewById(R.id.dl_side_menu);
+        nvSideMenu = (NavigationView) findViewById(R.id.nv_side_menu);
+        nvSideMenu.setNavigationItemSelectedListener(this);
 
         clubId = getIntent().getLongExtra("EXTRA_CLUB_ID", -1);
         String clubName = getIntent().getStringExtra("EXTRA_CLUB_NAME");
@@ -149,29 +154,27 @@ public class ClubActivity extends AppCompatActivity implements ClubContract.View
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.menu_add_map_member:
-                startSideMenuBy("MapMemberAddActivity");
-
+                startSideMenu("MapMemberAddActivity");
+                break;
             case R.id.menu_club_statistics:
-                startSideMenuBy("ClubStatisticsActivity");
+                startSideMenu("ClubStatisticsActivity");
+                break;
         }
+
         dlSideMenu.closeDrawer(GravityCompat.START);
         return false;
     }
 
-    private void startSideMenuBy(String activityName) {
+    private void startSideMenu(String activityName) {
         if (!isClubChair) {
             ToastUtils.showToast(context, "동호회장 권한이 없습니다");
             return;
         }
-        try {
-            Class<?> cls = Class.forName(activityName);
-            Intent intent = new Intent(context, cls);
-            intent.putExtra("EXTRA_CLUB_ID", clubId);
-            startActivity(intent);
-        } catch (ClassNotFoundException e) {
-            ToastUtils.showToast(context, "Side Menu 시작에 실패하였습니다");
-        }
-    }
+        Class<?> cls = activityName.equals("MapMemberAddActivity") ? MapMemberAddActivity.class : ClubStatisticsActivity.class;
+        Intent intent = new Intent(context, cls);
+        intent.putExtra("EXTRA_CLUB_ID", clubId);
+        startActivity(intent);
+}
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

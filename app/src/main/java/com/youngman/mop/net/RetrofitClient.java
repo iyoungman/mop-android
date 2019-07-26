@@ -17,9 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RetrofitClient {
 
-    private final String LOCAL_BASE_URL = "http://172.30.1.22:8092/";
+    private final String LOCAL_BASE_URL = "http://172.30.1.16:8092/";
     private final String DEV_BASE_URL = "http://13.125.46.192:8092/";
-
     private static final RetrofitClient INSTANCE = new RetrofitClient();
     private RetrofitApiService retrofitApiService;
 
@@ -37,7 +36,7 @@ public class RetrofitClient {
             .build();
 
     private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(DEV_BASE_URL)
+            .baseUrl(LOCAL_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build();
