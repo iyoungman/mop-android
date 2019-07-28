@@ -11,5 +11,7 @@ import java.util.List;
 
 public class SampleDataUtils {
 
-    public static List<LatLng> sampleRoutes = Arrays.asList(new LatLng(37.6564482, 127.0633077), new LatLng(37.6563804, 127.0626695));
+    public static List<LatLng> sampleRoutesOne = Arrays.asList(new LatLng(37.6564482, 127.0633077), new LatLng(37.6563804, 127.0626695));
+
+    public static List<LatLng> SampleRoutesTwo = Arrays.asList(new LatLng(37.652792, 127.0626444), new LatLng(37.652743, 127.076090));
 }

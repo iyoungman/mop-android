@@ -34,6 +34,14 @@ public class DateUtils {
         return strDate;
     }
 
+    public static String convertDateTimeFormatNow() {
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd일");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+
+        return dateFormat.format(date) + " " + timeFormat.format(timeFormat);
+    }
+
     public static CalendarDay convertStrDateToCalendarDay(String strDate) {
         LocalDate localDate = LocalDate.parse(strDate);
         return CalendarDay.from(localDate);

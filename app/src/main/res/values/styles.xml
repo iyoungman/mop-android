@@ -20,6 +20,7 @@
 
     <style name="AppTheme.EditText">
         <item name="colorControlNormal">@color/md_blue_grey_200</item>
+        <item name="colorAccent">@color/md_grey_400</item>
     </style>
 
 </resources>

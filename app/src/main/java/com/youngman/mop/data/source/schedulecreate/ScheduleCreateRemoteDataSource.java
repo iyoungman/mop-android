@@ -2,6 +2,7 @@ package com.youngman.mop.data.source.schedulecreate;
 
 import com.youngman.mop.data.Schedule;
 import com.youngman.mop.net.RetrofitClient;
+import com.youngman.mop.util.LogUtils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -39,6 +40,7 @@ public class ScheduleCreateRemoteDataSource {
                     listener.onSuccess();
                     return;
                 }
+                LogUtils.logInfo(response.message());
                 listener.onFail("일정 저장에 실패하였습니다");
             }
 

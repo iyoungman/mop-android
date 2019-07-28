@@ -16,12 +16,35 @@ public class MemberLocation {
 
     private String email;
     private LatLng latLng;
+//    private String name;
+//    private String updateTime;
+//    private LocationInfo locationInfo;
+
+//    @Builder
+//    public MemberLocation(String email, LocationInfo locationInfo) {
+//        this.email = email;
+//        this.locationInfo = locationInfo;
+//    }
 
 
-    @Builder
+        @Builder
     public MemberLocation(String email, LatLng latLng) {
         this.email = email;
         this.latLng = latLng;
-    }
+//    }
 
+//    @Getter
+//    @NoArgsConstructor
+//    public static class LocationInfo {
+//        private LatLng latLng;
+//        private String name;
+//        private String updateTime;
+//
+//        @Builder
+//        public LocationInfo(LatLng latLng, String name, String updateTime) {
+//            this.latLng = latLng;
+//            this.name = name;
+//            this.updateTime = updateTime;
+//        }
+    }
 }

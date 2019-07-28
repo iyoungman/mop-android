@@ -59,6 +59,8 @@ dependencies {
     // Map Direction
     implementation 'com.github.jd-alexander:library:1.1.0'
 
+    implementation 'com.akexorcist:googledirectionlibrary:1.1.1'
+
     // Google FireBase
     implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.google.firebase:firebase-database:17.0.0'
@@ -80,6 +82,9 @@ dependencies {
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+
+    //Google Guava
+    api 'com.google.guava:guava:28.0-android'
 
     // TEST
     testImplementation 'junit:junit:4.12'

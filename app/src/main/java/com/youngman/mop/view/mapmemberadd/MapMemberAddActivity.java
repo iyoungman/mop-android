@@ -23,7 +23,7 @@ public class MapMemberAddActivity extends Activity implements MapMemberAddContra
     private MapMemberAddAdapter mapMemberAddAdapter;
     private MapMemberAddContract.Presenter presenter;
 
-    private Long scheduleId = 2L;
+    private Long scheduleId;
     private Long clubId;
 
 
@@ -40,6 +40,7 @@ public class MapMemberAddActivity extends Activity implements MapMemberAddContra
         recyclerView = (RecyclerView) findViewById(R.id.rv_map_add_members);
         llInviteMembers = (LinearLayout) findViewById(R.id.ll_invite_members);
 
+        scheduleId = getIntent().getLongExtra("EXTRA_SCHEDULE_ID", -1);
         clubId = getIntent().getLongExtra("EXTRA_CLUB_ID", -1);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);

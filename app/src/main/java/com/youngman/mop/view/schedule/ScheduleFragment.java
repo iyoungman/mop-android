@@ -24,9 +24,12 @@ import com.youngman.mop.lib.decorators.EventDecorator;
 import com.youngman.mop.lib.decorators.HighlightWeekendsDecorator;
 import com.youngman.mop.lib.decorators.OneDayDecorator;
 import com.youngman.mop.lib.otto.ActivityResultEvent;
+import com.youngman.mop.lib.otto.BusProvider;
 import com.youngman.mop.util.DateUtils;
 import com.youngman.mop.util.PrefUtils;
 import com.youngman.mop.util.ToastUtils;
+import com.youngman.mop.view.clubstatistics.ClubStatisticsActivity;
+import com.youngman.mop.view.mapmemberadd.MapMemberAddActivity;
 import com.youngman.mop.view.schedule.presenter.ScheduleContract;
 import com.youngman.mop.view.schedule.presenter.SchedulePresenter;
 import com.youngman.mop.view.schedulecreate.ScheduleCreateActivity;
@@ -42,8 +45,10 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     private Context context;
     private MaterialCalendarView calendarView;
     private TextView tvSelectedDate;
-    private LinearLayout llCreateSchedule;
+    private View viewContour;
     private LinearLayout llDeleteSchedule;
+    private LinearLayout llCreateMapGroup;
+    private LinearLayout llCreateSchedule;
     private LinearLayout llScheduleInfo;
     private TextView tvScheduleName;
     private TextView tvScheduleParticipate;
@@ -55,13 +60,15 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     private ScheduleContract.Presenter presenter;
 
     private Long clubId;
+    private boolean isClubChair;
     private Map<String, Schedule> scheduleMap = new HashMap<>();
 
 
-    public static ScheduleFragment createFragment(Long clubId) {
+    public static ScheduleFragment createFragment(Long clubId, boolean isClubChair) {
         ScheduleFragment fragment = new ScheduleFragment();
         Bundle bundle = new Bundle();
         bundle.putLong("EXTRA_CLUB_ID", clubId);
+        bundle.putBoolean("EXTRA_IS_CLUB_CHAIR", isClubChair);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -78,8 +85,10 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         context = view.getContext();
         calendarView = (MaterialCalendarView) view.findViewById(R.id.material_calendar_view);
         tvSelectedDate = (TextView) view.findViewById(R.id.tv_selected_date);
-        llCreateSchedule = (LinearLayout) view.findViewById(R.id.ll_create_schedule);
+        viewContour = (View) view.findViewById(R.id.view_contour);
         llDeleteSchedule = (LinearLayout) view.findViewById(R.id.ll_delete_schedule);
+        llCreateMapGroup = (LinearLayout) view.findViewById(R.id.ll_create_map_group);
+        llCreateSchedule = (LinearLayout) view.findViewById(R.id.ll_create_schedule);
         llScheduleInfo = (LinearLayout) view.findViewById(R.id.ll_schedule_info);
         tvScheduleName = (TextView) view.findViewById(R.id.tv_schedule_name);
         tvScheduleParticipate = (TextView) view.findViewById(R.id.tv_schedule_participate);
@@ -91,6 +100,7 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         presenter = new SchedulePresenter(this, ScheduleRepository.getInstance());
 
         clubId = getArguments().getLong("EXTRA_CLUB_ID");
+        isClubChair = getArguments().getBoolean("EXTRA_IS_CLUB_CHAIR");
 
         calendarView.addDecorators(
                 new HighlightWeekendsDecorator(),
@@ -100,8 +110,9 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         calendarView.setOnMonthChangedListener(this);
         calendarView.setTitleFormatter(DateUtils::convertMonthFormat);
 
-        llCreateSchedule.setOnClickListener(v -> startScheduleCreateActivity());
         llDeleteSchedule.setOnClickListener(v -> callDeleteSchedule());
+        llCreateMapGroup.setOnClickListener(v -> startMapMemberAddActivity());
+        llCreateSchedule.setOnClickListener(v -> startScheduleCreateActivity());
         tvScheduleParticipantNum.setOnClickListener(v -> callCreateParticipant());
 
         presenter.callSchedules(clubId, calendarView.getCurrentDate().getDate().toString());
@@ -117,10 +128,7 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     }
 
     @Override
-    public void onDateSelected(@NonNull MaterialCalendarView materialCalendarView,
-                               @NonNull CalendarDay calendarDay,
-                               boolean isSelected) {
-
+    public void onDateSelected(@NonNull MaterialCalendarView materialCalendarView, @NonNull CalendarDay calendarDay, boolean isSelected) {
         String strDate = DateUtils.convertDateFormat(calendarDay);
         tvSelectedDate.setText(isSelected ? strDate : "No Selected");
         setScheduleInfo(strDate);
@@ -129,6 +137,8 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     private void setScheduleInfo(String strDate) {
         if (!scheduleMap.containsKey(strDate)) {
             llScheduleInfo.setVisibility(View.INVISIBLE);
+            llCreateMapGroup.setVisibility(View.GONE);
+            viewContour.setVisibility(View.GONE);
             return;
         }
         Schedule schedule = scheduleMap.get(strDate);
@@ -139,6 +149,8 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         tvScheduleMeetingTime.setText(schedule.getOnlyTime());
         tvScheduleWriter.setText(schedule.getWriter());
         llScheduleInfo.setVisibility(View.VISIBLE);
+        llCreateMapGroup.setVisibility(View.VISIBLE);
+        viewContour.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -161,6 +173,29 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         this.scheduleMap = scheduleMap;
     }
 
+    private void callDeleteSchedule() {
+        if(calendarView.getSelectedDate() == null) {
+            ToastUtils.showToast(context, "날짜를 선택해주세요");
+            return;
+        }
+
+        Long scheduleId = getScheduleId();
+        if(scheduleId != null) {
+            presenter.callDeleteSchedule(scheduleId);
+        }
+    }
+
+    private void startMapMemberAddActivity() {
+        if (!isClubChair) {
+            ToastUtils.showToast(context, "동호회장 권한이 없습니다");
+            return;
+        }
+        Intent intent = new Intent(context, MapMemberAddActivity.class);
+        intent.putExtra("EXTRA_SCHEDULE_ID", getScheduleId());
+        intent.putExtra("EXTRA_CLUB_ID", clubId);
+        startActivity(intent);
+    }
+
     private void startScheduleCreateActivity() {
         if(calendarView.getSelectedDate() == null) {
             ToastUtils.showToast(context, "날짜를 선택해주세요");
@@ -180,20 +215,6 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         }
     }
 
-    private void callDeleteSchedule() {
-        if(calendarView.getSelectedDate() == null) {
-            ToastUtils.showToast(context, "날짜를 선택해주세요");
-            return;
-        }
-        String strDate = calendarView.getSelectedDate().getDate().toString();
-
-        if (!scheduleMap.containsKey(strDate)) {
-            return;
-        }
-        Long scheduleId = scheduleMap.get(strDate).getId();
-        presenter.callDeleteSchedule(scheduleId);
-    }
-
     private void callCreateParticipant() {
         String strDate = calendarView.getSelectedDate().getDate().toString();
         Long scheduleId = scheduleMap.get(strDate).getId();
@@ -203,8 +224,30 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         presenter.callCreateParticipant(scheduleId, email, name);
     }
 
+    private Long getScheduleId() {
+        String strDate = calendarView.getSelectedDate().getDate().toString();
+
+        if (!scheduleMap.containsKey(strDate)) {
+               ToastUtils.showToast(context, "삭제할 일정이 없습니다");
+               return null;
+        }
+        return scheduleMap.get(strDate).getId();
+    }
+
     @Override
     public void showErrorMessage(String message) {
         ToastUtils.showToast(context, message);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        BusProvider.getInstance().register(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        BusProvider.getInstance().unregister(this);
+        super.onDestroyView();
     }
 }

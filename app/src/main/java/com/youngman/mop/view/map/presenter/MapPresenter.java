@@ -42,8 +42,8 @@ public class MapPresenter implements MapContract.Presenter, OnBasicItemClickList
     }
 
     @Override
-    public void callMapRefresh(Long clubId, String email, LatLng latLng) {
-        mapFirebaseService.callMapRefresh(clubId, email, latLng, new MapFirebaseService.RefreshApiListener() {
+    public void callMapRefresh(Long clubId, String email, LatLng latLng, String updateTime) {
+        mapFirebaseService.callMapRefresh(clubId, email, latLng, updateTime, new MapFirebaseService.RefreshApiListener() {
             @Override
             public void onSuccess(List<MemberLocation> otherLocations, MemberLocation myLocation) {
                 adapterModel.addItems(otherLocations);

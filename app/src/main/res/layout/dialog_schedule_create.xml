@@ -19,6 +19,7 @@
         android:layout_weight="0.14"
         android:gravity="center"
         android:hint="스케줄이름"
+        android:inputType="text"
         android:theme="@style/AppTheme.EditText"/>
 
     <EditText
@@ -28,6 +29,7 @@
         android:layout_weight="0.14"
         android:gravity="center"
         android:hint="스케줄내용"
+        android:inputType="text"
         android:theme="@style/AppTheme.EditText"/>
 
     <EditText
@@ -37,6 +39,7 @@
         android:layout_weight="0.14"
         android:gravity="center"
         android:hint="지역"
+        android:inputType="text"
         android:theme="@style/AppTheme.EditText"/>
 
     <EditText
@@ -47,6 +50,7 @@
         android:enabled="false"
         android:gravity="center"
         android:hint="모임날짜"
+        android:inputType="date"
         android:theme="@style/AppTheme.EditText"/>
 
     <LinearLayout
@@ -64,6 +68,8 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:hint="시간"
+            android:inputType="number"
+            android:maxLength="2"
             android:theme="@style/AppTheme.EditText"/>
 
         <EditText
@@ -73,6 +79,8 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:hint="분"
+            android:inputType="number"
+            android:maxLength="2"
             android:theme="@style/AppTheme.EditText"/>
 
     </LinearLayout>

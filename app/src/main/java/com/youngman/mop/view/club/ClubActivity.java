@@ -98,7 +98,7 @@ public class ClubActivity extends AppCompatActivity implements ClubContract.View
         llMenuSchedule.setOnClickListener(view -> {
             convertSelectedMenu(MENU_STRINGS[1]);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.ll_fragment_container, ScheduleFragment.createFragment(clubId))
+                    .replace(R.id.ll_fragment_container, ScheduleFragment.createFragment(clubId, isClubChair))
                     .commit();
         });
 
@@ -152,16 +152,16 @@ public class ClubActivity extends AppCompatActivity implements ClubContract.View
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.menu_add_map_member:
-                startSideMenu("MapMemberAddActivity");
-                break;
-            case R.id.menu_club_statistics:
-                startSideMenu("ClubStatisticsActivity");
-                break;
-        }
-
-        dlSideMenu.closeDrawer(GravityCompat.START);
+//        switch (menuItem.getItemId()) {
+//            case R.id.menu_add_map_member:
+//                startSideMenu("MapMemberAddActivity");
+//                break;
+//            case R.id.menu_club_statistics:
+//                startSideMenu("ClubStatisticsActivity");
+//                break;
+//        }
+//
+//        dlSideMenu.closeDrawer(GravityCompat.START);
         return false;
     }
 
@@ -174,7 +174,7 @@ public class ClubActivity extends AppCompatActivity implements ClubContract.View
         Intent intent = new Intent(context, cls);
         intent.putExtra("EXTRA_CLUB_ID", clubId);
         startActivity(intent);
-}
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

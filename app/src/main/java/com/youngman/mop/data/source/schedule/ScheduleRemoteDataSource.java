@@ -31,10 +31,7 @@ public class ScheduleRemoteDataSource implements ScheduleSource {
     }
 
     @Override
-    public void callSchedules(Long clubId,
-                              String date,
-                              ListApiListener listener) {
-
+    public void callSchedules(Long clubId, String date, ListApiListener listener) {
         Call<Map<String, Schedule>> result = RetrofitClient.getInstance().getRetrofitApiService().callSchedules(makeParams(clubId, date));
         result.enqueue(new Callback<Map<String, Schedule>>() {
             @Override

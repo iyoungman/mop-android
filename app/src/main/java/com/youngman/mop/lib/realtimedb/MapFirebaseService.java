@@ -90,7 +90,7 @@ public class MapFirebaseService {
      * 1. 자신의 위치 저장
      * 2. 동호회 멤버 위치목록 조회
      */
-    public void callMapRefresh(Long clubId, String email, LatLng latLng, RefreshApiListener refreshApiListener) {
+    public void callMapRefresh(Long clubId, String email, LatLng latLng, String updateTime, RefreshApiListener refreshApiListener) {
         DatabaseReference clubReference = databaseReference.child(clubId.toString());
         DatabaseReference memberReference = clubReference.child(email);
         if (isAllZero(latLng.latitude, latLng.longitude)) {

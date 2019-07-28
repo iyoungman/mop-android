@@ -17,11 +17,11 @@
             android:id="@+id/material_calendar_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:mcv_showOtherDates="none"
             app:mcv_selectionColor="@color/md_cyan_200"
+            app:mcv_showOtherDates="none"
+            app:mcv_tileHeight="match_parent"
             app:mcv_tileSize="match_parent"
-            app:mcv_tileWidth="match_parent"
-            app:mcv_tileHeight="match_parent" />
+            app:mcv_tileWidth="match_parent" />
 
     </LinearLayout>
 
@@ -34,24 +34,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.15"
         android:gravity="center"
         android:orientation="horizontal"
         android:weightSum="1">
 
         <LinearLayout
-            android:id="@+id/ll_create_schedule"
+            android:id="@+id/ll_delete_schedule"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.25"
+            android:layout_weight="0.33"
             android:gravity="center">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="생성"
-                android:textSize="16dp"
+                android:text="일정 삭제"
+                android:textSize="14dp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -65,7 +65,7 @@
             android:id="@+id/ll_selected_date"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
+            android:layout_weight="0.34"
             android:gravity="center">
 
             <TextView
@@ -83,20 +83,55 @@
             android:layout_height="match_parent"
             android:background="@color/md_grey_600" />
 
+        <!--일정 생성 + 단체 지도방 생성-->
         <LinearLayout
-            android:id="@+id/ll_delete_schedule"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.25"
-            android:gravity="center">
+            android:layout_weight="0.33"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/ll_create_map_group"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
                 android:gravity="center"
-                android:text="삭제"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="단체 지도방 생성"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_contour"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/md_grey_600"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/ll_create_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="일정 생성"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -112,11 +147,11 @@
         android:id="@+id/ll_schedule_info"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
+        android:layout_weight="0.25"
         android:gravity="center"
         android:orientation="vertical"
-        android:weightSum="1"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        android:weightSum="1">
 
         <!--첫번째 라인-->
         <LinearLayout
@@ -172,10 +207,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="GO"
+                    android:text="참석"
                     android:textColor="@color/md_cyan_200"
                     android:textSize="26dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
