@@ -16,8 +16,8 @@ public class MemberLocation {
 
     private String email;
     private LatLng latLng;
-//    private String name;
-//    private String updateTime;
+    private String name;
+    private String updateTime;
 //    private LocationInfo locationInfo;
 
 //    @Builder

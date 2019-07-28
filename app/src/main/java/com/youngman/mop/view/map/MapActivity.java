@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,10 +18,9 @@ import com.akexorcist.googledirection.GoogleDirection;
 import com.akexorcist.googledirection.config.GoogleDirectionConfiguration;
 import com.akexorcist.googledirection.constant.TransportMode;
 import com.akexorcist.googledirection.model.Direction;
-import com.akexorcist.googledirection.model.Leg;
 import com.akexorcist.googledirection.model.Route;
-import com.akexorcist.googledirection.model.Step;
 import com.akexorcist.googledirection.util.DirectionConverter;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,8 +28,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.common.collect.Iterables;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -46,10 +44,7 @@ import com.youngman.mop.view.map.presenter.MapPresenter;
 import com.youngman.mop.view.mapmemberadd.MapMemberAddActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import im.delight.android.location.SimpleLocation;
 
@@ -110,9 +105,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         llMapRoute.setOnClickListener(v -> drawMyRoute());
         llMapAddMember.setOnClickListener(v -> startMapMemberAddActivity(clubId));
         llMapOut.setOnClickListener(v -> showMapOutDialog());
-
-        //Panel
-        llRequestDirection.setOnClickListener(v -> drawDirection());
     }
 
     private void checkValidateMapAndMember() {
@@ -210,7 +202,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         if (isDrawPolylines) {
             ToastUtils.showToast(context, "Draw My Route");
-            draw();
+            drawDetail();
         } else {
             ToastUtils.showToast(context, "Remove My Route");
             isPossibleRefreshMap = true;
@@ -219,43 +211,26 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-    private void draw() {
-        PolylineOptions polylineOptions = new PolylineOptions();
-        polylineOptions.addAll(myRoutes);
-        polylineOptions.width(6);
-        polylineOptions.color(Color.GREEN);
-        mGoogleMap.addPolyline(polylineOptions);
+    private void drawDetail() {
+        isPossibleRefreshMap = false;
+        isDrawPolylines = false;
+        mGoogleMap.clear();
+
+        CameraUpdate center = CameraUpdateFactory.newLatLng(myRoutes.get(0));
+        mGoogleMap.moveCamera(center);
+
+        addPolylineOptionsToMap();
+        for (int i = 0; i < myRoutes.size(); i++) {
+            addMarkerToMap(i + 1, myRoutes.get(i));
+        }
     }
 
-//    @Override
-//    public void onRoutingStart() {
-//        ToastUtils.showToast(context, "경로 그리기 시작");
-//    }
-//
-//    @Override
-//    public void onRoutingSuccess(ArrayList<Route> routes, int shortestRouteIndex) {
-//        isPossibleRefreshMap = false;
-//        isDrawPolylines = false;
-//        mGoogleMap.clear();
-//
-//        CameraUpdate center = CameraUpdateFactory.newLatLng(myRoutes.get(0));
-//        mGoogleMap.moveCamera(center);
-//
-//        for (int i = 0; i < routes.size(); i++) {
-//            addPolylineOptionsToMap(10 + i * 3, routes.get(i).getPoints());
-//        }
-//
-//        for (int i = 0; i < myRoutes.size(); i++) {
-//            addMarkerToMap(i + 1, myRoutes.get(i));
-//        }
-//    }
-
-    private void addPolylineOptionsToMap(int width, List<LatLng> points) {
-        PolylineOptions polyOptions = new PolylineOptions();
-        polyOptions.color(ResourcesCompat.getColor(getResources(), R.color.md_grey_600, null));
-        polyOptions.width(width);
-        polyOptions.addAll(points);
-        Polyline polyline = mGoogleMap.addPolyline(polyOptions);
+    private void addPolylineOptionsToMap() {
+        PolylineOptions polylineOptions = new PolylineOptions();
+        polylineOptions.width(5);
+        polylineOptions.color(Color.GREEN);
+        polylineOptions.addAll(myRoutes);
+        mGoogleMap.addPolyline(polylineOptions);
     }
 
     private void addMarkerToMap(int title, LatLng position) {
@@ -265,18 +240,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         mGoogleMap.addMarker(markerOptions);
     }
-
-//    @Override
-//    public void onRoutingFailure(RouteException e) {
-//        ToastUtils.showToast(context, "경로 찾기 실패");
-//        ToastUtils.showToast(context, e.getStatusCode() + "  " +  e.getStatusCode());
-//        LogUtils.logInfo(e.getMessage());
-//    }
-//
-//    @Override
-//    public void onRoutingCancelled() {
-//        ToastUtils.showToast(context, "경로 찾기 취소");
-//    }
 
     private void startMapMemberAddActivity(Long clubId) {
         Intent intent = new Intent(context, MapMemberAddActivity.class);
@@ -309,38 +272,42 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         tvRecentUpdate.setText(memberLocation.getUpdateTime());
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(memberLocation.getLatLng(), 16));
         isPossibleRefreshMap = false;
+
+        llRequestDirection.setOnClickListener(v -> drawDirection(memberLocation.getLatLng()));
     }
 
-    private void drawDirection() {
+    private void drawDirection(LatLng otherLocation) {
         ToastUtils.showToast(context, "Direction Drawing...");
 
         GoogleDirectionConfiguration.getInstance().setLogEnabled(true);
         GoogleDirection.withServerKey(getString(R.string.google_direction_server_api_key))
-                .from(myRoutes.get(myRoutes.size() - 1))//내 위치
-                .to(new LatLng(37.652743, 127.076090))//상대방 위치
+                .from(Iterables.getLast(myRoutes))//내 위치
+                .to(otherLocation)//상대 위치
                 .transportMode(TransportMode.TRANSIT)
                 .execute(this);
     }
 
     @Override
     public void onDirectionSuccess(Direction direction, String rawBody) {
-        Snackbar.make(llMapRoute, "Success : " + direction.getStatus(), Snackbar.LENGTH_SHORT).show();
+        ToastUtils.showToast(context, "Success : " + direction.getStatus());
+        isPossibleRefreshMap = false;
+        isDrawPolylines = false;
+
         if (direction.isOK()) {
             Route route = direction.getRouteList().get(0);
-            int legCount = route.getLegList().size();
-            for (int index = 0; index < legCount; index++) {
-                Leg leg = route.getLegList().get(index);
-                mGoogleMap.addMarker(new MarkerOptions().position(leg.getStartLocation().getCoordination()));
-                if (index == legCount - 1) {
-                    mGoogleMap.addMarker(new MarkerOptions().position(leg.getEndLocation().getCoordination()));
-                }
-                List<Step> stepList = leg.getStepList();
-                ArrayList<PolylineOptions> polylineOptionList = DirectionConverter.createTransitPolyline(this, stepList, 5, Color.GREEN, 3, Color.YELLOW);
-                for (PolylineOptions polylineOption : polylineOptionList) {
-                    mGoogleMap.addPolyline(polylineOption);
-                }
-            }
+            ArrayList<LatLng> directionPositions = route.getLegList().get(0).getDirectionPoint();
+            mGoogleMap.addPolyline(DirectionConverter.createPolyline(this, directionPositions, 5, Color.GREEN));
+            setCameraWithCoordinationBounds(route);
+        } else {
+            ToastUtils.showToast(context, direction.getStatus());
         }
+    }
+
+    private void setCameraWithCoordinationBounds(Route route) {
+        LatLng southwest = route.getBound().getSouthwestCoordination().getCoordination();
+        LatLng northeast = route.getBound().getNortheastCoordination().getCoordination();
+        LatLngBounds bounds = new LatLngBounds(southwest, northeast);
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
     }
 
     @Override

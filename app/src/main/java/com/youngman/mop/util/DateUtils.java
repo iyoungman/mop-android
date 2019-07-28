@@ -39,7 +39,7 @@ public class DateUtils {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd일");
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
 
-        return dateFormat.format(date) + " " + timeFormat.format(timeFormat);
+        return dateFormat.format(date) + " " + timeFormat.format(date);
     }
 
     public static CalendarDay convertStrDateToCalendarDay(String strDate) {
