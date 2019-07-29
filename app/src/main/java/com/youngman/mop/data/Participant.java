@@ -1,5 +1,7 @@
 package com.youngman.mop.data;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 
 /**
@@ -12,14 +14,25 @@ public class Participant {
     private String name;
     private String email;
     private boolean isParticipate;
+    private boolean isChecked;
 
-    public Participant(String name, String email, boolean isParticipate) {
+    public Participant(String name, String email,
+                       boolean isParticipate, boolean isChecked) {
         this.name = name;
         this.email = email;
         this.isParticipate = isParticipate;
+        this.isChecked = isChecked;
     }
 
     public String isParticipate() {
         return isParticipate ? "참석" : "미정";
+    }
+
+    public void setCheck(boolean check) {
+        isChecked = check;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
     }
 }

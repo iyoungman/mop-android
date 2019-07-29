@@ -15,7 +15,8 @@ public interface MapMemberAddAdapterContract {
     }
 
     interface Model {
-        Participant getItem(int position);
         void addItems(List<Participant> participants);
+        Participant getItem(int position);
+        List<Participant> getCheckedParticipants();
     }
 }

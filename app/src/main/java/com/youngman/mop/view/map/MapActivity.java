@@ -163,6 +163,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         presenter.callMapRefresh(clubId,
                 PrefUtils.readMemberEmailFrom(context),
                 new LatLng(simpleLocation.getLatitude(), simpleLocation.getLongitude()),
+                PrefUtils.readMemberNameFrom(context),
                 DateUtils.convertDateTimeFormatNow()
         );
     }
@@ -175,14 +176,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mGoogleMap.clear();
         otherLocations.forEach(m -> mGoogleMap.addMarker(markLocation(m)));
         mGoogleMap.addMarker(markLocation(myLocation));
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation.getLatLng(), 16));
-        myRoutes.add(myLocation.getLatLng());
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation.getLocationInfo().getLatLng(), 16));
+        myRoutes.add(myLocation.getLocationInfo().getLatLng());
     }
 
     private MarkerOptions markLocation(MemberLocation memberLocation) {
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(memberLocation.getLatLng());
-        markerOptions.title(memberLocation.getEmail());
+        markerOptions.position(memberLocation.getLocationInfo().getLatLng());
+        markerOptions.title(memberLocation.getLocationInfo().getName());
         markerOptions.icon(decideBitmapDescriptor(memberLocation.getEmail()));
 
         return markerOptions;
@@ -267,13 +268,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void moveOtherLocation(MemberLocation memberLocation) {
         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-        tvMapOtherName.setText(memberLocation.getEmail());
-        tvDistanceFromMe.setText(MapHelper.calculateDistance(Iterables.getLast(myRoutes), memberLocation.getLatLng()));
-        tvRecentUpdate.setText(memberLocation.getUpdateTime());
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(memberLocation.getLatLng(), 16));
+        tvMapOtherName.setText(memberLocation.getLocationInfo().getName());
+        tvDistanceFromMe.setText(MapHelper.calculateDistance(Iterables.getLast(myRoutes), memberLocation.getLocationInfo().getLatLng()));
+        tvRecentUpdate.setText(memberLocation.getLocationInfo().getUpdateTime());
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(memberLocation.getLocationInfo().getLatLng(), 16));
         isPossibleRefreshMap = false;
 
-        llRequestDirection.setOnClickListener(v -> drawDirection(memberLocation.getLatLng()));
+        llRequestDirection.setOnClickListener(v -> drawDirection(memberLocation.getLocationInfo().getLatLng()));
     }
 
     private void drawDirection(LatLng otherLocation) {

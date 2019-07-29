@@ -28,7 +28,6 @@ import com.youngman.mop.lib.otto.BusProvider;
 import com.youngman.mop.util.DateUtils;
 import com.youngman.mop.util.PrefUtils;
 import com.youngman.mop.util.ToastUtils;
-import com.youngman.mop.view.clubstatistics.ClubStatisticsActivity;
 import com.youngman.mop.view.mapmemberadd.MapMemberAddActivity;
 import com.youngman.mop.view.schedule.presenter.ScheduleContract;
 import com.youngman.mop.view.schedule.presenter.SchedulePresenter;

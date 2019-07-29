@@ -21,7 +21,7 @@
 
     <!--초대하기-->
     <LinearLayout
-        android:id="@+id/ll_invite_members"
+        android:id="@+id/ll_create_add_members"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/md_cyan_200" >

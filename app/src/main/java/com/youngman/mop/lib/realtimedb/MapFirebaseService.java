@@ -1,6 +1,7 @@
 package com.youngman.mop.lib.realtimedb;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -10,14 +11,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.youngman.mop.data.Participant;
 import com.youngman.mop.util.LogUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 /**
  * Created by YoungMan on 2019-06-27.
@@ -38,23 +38,29 @@ public class MapFirebaseService {
     /**
      * 단체지도방 생성
      */
-    public void callCreateMapGroup(Long clubId, List<String> memberEmails, CreateApiListener createApiListener) {
+    public void callCreateMapGroup(Long clubId, List<Participant> participants, CreateApiListener createApiListener) {
         DatabaseReference club = databaseReference.child(clubId.toString());
         Map<String, Object> map = new HashMap<>();
 
-        for (String email : memberEmails) {
-            map.put(email, new MemberLocation().getLatLng());
+        for (Participant participant : participants) {
+            LocationInfo locationInfo = LocationInfo.builder()
+                    .name(participant.getName())
+                    .latLng(new LatLng(0, 0))
+                    .updateTime("init")
+                    .build();
+
+            map.put(participant.getEmail(), locationInfo);
         }
 
-        club.setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+        club.setValue(map, new DatabaseReference.CompletionListener() {
             @Override
-            public void onSuccess(Void aVoid) {
-                createApiListener.onSuccess();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                createApiListener.onFail(e.getMessage());
+            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                if (databaseError == null) {
+                    createApiListener.onSuccess();
+                } else {//There was an error
+                    LogUtils.logInfo(databaseError.getDetails());
+                    createApiListener.onFail(databaseError.getMessage());
+                }
             }
         });
     }
@@ -90,13 +96,14 @@ public class MapFirebaseService {
      * 1. 자신의 위치 저장
      * 2. 동호회 멤버 위치목록 조회
      */
-    public void callMapRefresh(Long clubId, String email, LatLng latLng, String updateTime, RefreshApiListener refreshApiListener) {
+    public void callMapRefresh(Long clubId, String email, LocationInfo locationInfo, RefreshApiListener refreshApiListener) {
         DatabaseReference clubReference = databaseReference.child(clubId.toString());
         DatabaseReference memberReference = clubReference.child(email);
-        if (isAllZero(latLng.latitude, latLng.longitude)) {
+        if (locationInfo.isWrongLocation()) {
             return;
         }
-        memberReference.setValue(latLng);
+
+        memberReference.setValue(locationInfo);
 
         clubReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -104,14 +111,17 @@ public class MapFirebaseService {
                 List<MemberLocation> otherLocations = new ArrayList<>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    double latitude = snapshot.child("latitude").getValue(Double.class);
-                    double longitude = snapshot.child("longitude").getValue(Double.class);
+                    double latitude = snapshot.child("latLng").child("latitude").getValue(Double.class);
+                    double longitude = snapshot.child("latLng").child("longitude").getValue(Double.class);
+                    String name = snapshot.child("name").getValue(String.class);
+                    String updateTime = snapshot.child("updateTime").getValue(String.class);
+                    LocationInfo locationInfo = LocationInfo.of(latitude, longitude, name, updateTime);
 
                     if (email.equals(snapshot.getKey())) {
-                        myLocation = new MemberLocation(snapshot.getKey(), new LatLng(latitude, longitude));
+                        myLocation = new MemberLocation(email, locationInfo);
                         continue;
                     }
-                    otherLocations.add(new MemberLocation(snapshot.getKey(), new LatLng(latitude, longitude)));
+                    otherLocations.add(new MemberLocation(snapshot.getKey(), locationInfo));
                 }
                 refreshApiListener.onSuccess(otherLocations, myLocation);
             }
@@ -121,15 +131,6 @@ public class MapFirebaseService {
                 refreshApiListener.onFail("통신에 실패하였습니다.");
             }
         });
-    }
-
-    private boolean isAllZero(double latitude, double longitude) {
-        long count = Stream.of(latitude, longitude)
-                .filter(data -> data.equals(0d))
-                .count();
-
-        Predicate<Long> isAllZero = cnt -> cnt == 2;
-        return isAllZero.test(count);
     }
 
     /**
@@ -151,125 +152,30 @@ public class MapFirebaseService {
         });
     }
 
-
-    //동호회 인원들 위치 목록 가져오기
-
-
-    //DB 변경이 있을때마다 가져온다
-//        databaseReference.child(clubId.toString()).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    LogUtils.logDebug(snapshot.getKey());
-//                    LogUtils.logDebug(snapshot.getValue().toString());
-//                    apiListener.onSuccess(null);//TODO 어떻게 받지
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                LogUtils.logDebug(databaseError.getMessage());
-//                LogUtils.logDebug(databaseError.getDetails());
-//                apiListener.onFail("통신에 실패하였습니다."); }
-//        });
-//}
-
-
-//    /**
-//     * 단체지도방 생성
-//     */
-//    public void callCreateMapMemberGroup(Long clubId, List<String> memberEmails) {
+//    public void callAddMapMember(Long clubId, String email) {
 //        DatabaseReference club = databaseReference.child(clubId.toString());
 //        Map<String, Object> map = new HashMap<>();
-//
-////        for (String email : memberEmails) {
-////            map.put(email, new FirebaseLocation());
-////        }
+//        map.put(email, new FirebaseLocation());
 //        club.setValue(map);
-//    }
-//
-//    /**
-//     * 초기 한번만 실행하는 용도
-//     */
-//    public void callIsMapMember(Long clubId, String email) {
-//        databaseReference.child(clubId.toString()).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if (!dataSnapshot.child(email).exists()) {
-//                    LogUtils.logDebug("지도 단톡방 멤버가 아닙니다");
-//                    return;
-//                }
-//                LogUtils.logDebug("지도 단톡방 멤버입니다");
-//
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    LogUtils.logDebug(snapshot.getKey());
-//                    LogUtils.logDebug(snapshot.getValue().toString());
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
-//
-//    /**
-//     * 단체지도방의 멤버들 위치 정보 받기
-//     */
-//    public void callMapMembersLocationByClubId(@NonNull Long clubId,
-//                                               @NonNull MapSource.ApiListener listener) {
-//
-//        databaseReference.child(clubId.toString()).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    LogUtils.logDebug(snapshot.getKey());
-//                    LogUtils.logDebug(snapshot.getValue().toString());
-//                    listener.onSuccess(null);//TODO 어떻게 받지
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                LogUtils.logDebug(databaseError.getMessage());
-//                LogUtils.logDebug(databaseError.getDetails());
-//                listener.onFail("통신에 실패하였습니다.");
-//            }
-//        });
-//    }
-//
-//    /**
-//     * 단체지도방 멤버 추가
-//     */
-//    public void callAddMapMember(Long clubId, String email) {
-////        DatabaseReference club = databaseReference.child(clubId.toString());
-////        Map<String, Object> map = new HashMap<>();
-////        map.put(email, new FirebaseLocation());
-////        club.setValue(map);
 //    }
 
     public interface CreateApiListener {
         void onSuccess();
-
         void onFail(String message);
     }
 
     public interface ValidateApiListener {
         void onSuccess();
-
         void onFail(String message);
     }
 
     public interface RefreshApiListener {
         void onSuccess(List<MemberLocation> otherLocations, MemberLocation myLocation);
-
         void onFail(String message);
     }
 
     public interface DeleteApiListener {
         void onSuccess();
-
         void onFail(String message);
     }
 }

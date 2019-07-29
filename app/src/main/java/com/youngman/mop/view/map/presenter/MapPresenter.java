@@ -1,6 +1,7 @@
 package com.youngman.mop.view.map.presenter;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.youngman.mop.lib.realtimedb.LocationInfo;
 import com.youngman.mop.lib.realtimedb.MapFirebaseService;
 import com.youngman.mop.lib.realtimedb.MemberLocation;
 import com.youngman.mop.listener.OnBasicItemClickListener;
@@ -42,8 +43,9 @@ public class MapPresenter implements MapContract.Presenter, OnBasicItemClickList
     }
 
     @Override
-    public void callMapRefresh(Long clubId, String email, LatLng latLng, String updateTime) {
-        mapFirebaseService.callMapRefresh(clubId, email, latLng, updateTime, new MapFirebaseService.RefreshApiListener() {
+    public void callMapRefresh(Long clubId, String email, LatLng latLng, String name, String updateTime) {
+        LocationInfo locationInfo = LocationInfo.of(latLng, name, updateTime);
+        mapFirebaseService.callMapRefresh(clubId, email, locationInfo, new MapFirebaseService.RefreshApiListener() {
             @Override
             public void onSuccess(List<MemberLocation> otherLocations, MemberLocation myLocation) {
                 adapterModel.addItems(otherLocations);
@@ -76,7 +78,11 @@ public class MapPresenter implements MapContract.Presenter, OnBasicItemClickList
     @Override
     public void onStartItemClick(int position) {
         MemberLocation otherLocation = adapterModel.getItem(position);
-        mapView.moveOtherLocation(otherLocation);
+        if (otherLocation.getLocationInfo().isWrongLocation()) {
+            mapView.showErrorMessage("저장된 위치 기록이 없습니다.");
+        } else {
+            mapView.moveOtherLocation(otherLocation);
+        }
     }
 
     public void setMemberLocationsAdapterView(MemberLocationsAdapterContract.View adapterView) {

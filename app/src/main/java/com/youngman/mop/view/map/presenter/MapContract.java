@@ -24,7 +24,7 @@ public interface MapContract {
 
     interface Presenter {
         void callIsValidateMapAndMember(Long clubId, String email);
-        void callMapRefresh(Long clubId, String email, LatLng latLng, String updateTime);
+        void callMapRefresh(Long clubId, String email, LatLng latLng, String name, String updateTime);
         void callMapOut(Long clubId, String email);
         void setMemberLocationsAdapterView(MemberLocationsAdapterContract.View adapterView);
         void setMemberLocationsAdapterModel(MemberLocationsAdapterContract.Model adapterModel);

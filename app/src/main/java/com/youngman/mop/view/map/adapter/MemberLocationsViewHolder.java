@@ -30,7 +30,7 @@ public class MemberLocationsViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBind(MemberLocation memberLocation, int position) {
-        tvMapMemberName.setText(memberLocation.getEmail());
+        tvMapMemberName.setText(memberLocation.getLocationInfo().getName());
 
         itemView.setOnClickListener(view -> {
             onBasicItemClickListener.onStartItemClick(position);
