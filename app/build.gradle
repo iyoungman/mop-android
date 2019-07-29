@@ -53,6 +53,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
 
+    // Google Map Utils
+    implementation 'com.google.maps.android:android-maps-utils:0.5'
+
     // Location
     implementation 'com.github.delight-im:Android-SimpleLocation:v1.0.1'
 

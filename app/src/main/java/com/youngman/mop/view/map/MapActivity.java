@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.common.collect.Iterables;
+import com.google.maps.android.ui.IconGenerator;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.youngman.mop.R;
 import com.youngman.mop.lib.realtimedb.MemberLocation;
@@ -135,7 +136,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if (newState.equals(SlidingUpPanelLayout.PanelState.DRAGGING)
                         && previousState.equals(SlidingUpPanelLayout.PanelState.EXPANDED)) {
                     isPossibleRefreshMap = true;
-
                 }
             }
         });
@@ -174,8 +174,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             return;
         }
         mGoogleMap.clear();
-        otherLocations.forEach(m -> mGoogleMap.addMarker(markLocation(m)));
         mGoogleMap.addMarker(markLocation(myLocation));
+        otherLocations.forEach(m -> mGoogleMap.addMarker(markLocation(m)));
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation.getLocationInfo().getLatLng(), 16));
         myRoutes.add(myLocation.getLocationInfo().getLatLng());
     }
@@ -203,7 +203,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         if (isDrawPolylines) {
             ToastUtils.showToast(context, "Draw My Route");
-            drawDetail();
+            drawMyRouteDetail();
         } else {
             ToastUtils.showToast(context, "Remove My Route");
             isPossibleRefreshMap = true;
@@ -212,7 +212,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-    private void drawDetail() {
+    private void drawMyRouteDetail() {
         isPossibleRefreshMap = false;
         isDrawPolylines = false;
         mGoogleMap.clear();
@@ -221,8 +221,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mGoogleMap.moveCamera(center);
 
         addPolylineOptionsToMap();
+        IconGenerator iconGenerator = MapHelper.createIconGenerator(context);
         for (int i = 0; i < myRoutes.size(); i++) {
-            addMarkerToMap(i + 1, myRoutes.get(i));
+            if (i == 0 || i == myRoutes.size() - 1) {
+                String title = (i == 0) ? "start" : "end";
+                addTextMarkerToMap(iconGenerator, title, myRoutes.get(i));
+                continue;
+            }
+            addTextMarkerToMap(iconGenerator, String.valueOf(i), myRoutes.get(i));
         }
     }
 
@@ -234,11 +240,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mGoogleMap.addPolyline(polylineOptions);
     }
 
-    private void addMarkerToMap(int title, LatLng position) {
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.title(String.valueOf(title));
-        markerOptions.position(position);
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+    private void addTextMarkerToMap(IconGenerator iconFactory, String title, LatLng position) {
+        MarkerOptions markerOptions = new MarkerOptions()
+                .icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(title)))
+                .position(position)
+                .anchor(iconFactory.getAnchorU(), iconFactory.getAnchorV());
         mGoogleMap.addMarker(markerOptions);
     }
 
