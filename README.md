@@ -23,5 +23,5 @@
 * Etc..
 
 ## Uniqueness
-* [Google MVP Architecture](https://github.com/googlesamples/android-architecture/tree/todo-mvp/) 참고, 변형  
-* [Android Style Guide](https://github.com/PRNDcompany/android-style-guide)를 따름
+* 디자인 패턴은 [Google MVP Architecture](https://github.com/googlesamples/android-architecture/tree/todo-mvp/) 참고, 변형  
+* 코드 규칙은 [Android Style Guide](https://github.com/PRNDcompany/android-style-guide)를 따름
