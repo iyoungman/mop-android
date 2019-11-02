@@ -21,6 +21,7 @@ public class MapHelper {
 
     public static IconGenerator createIconGenerator(Context context) {
         IconGenerator iconGenerator = new IconGenerator(context);
+        iconGenerator.setBackground(context.getResources().getDrawable(R.drawable.ll_circle));
         iconGenerator.setColor(Color.GREEN);
         iconGenerator.setTextAppearance(R.style.IconGenText);
         return iconGenerator;

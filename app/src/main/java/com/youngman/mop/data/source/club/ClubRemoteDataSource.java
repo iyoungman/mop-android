@@ -1,6 +1,6 @@
 package com.youngman.mop.data.source.club;
 
-import com.youngman.mop.net.RetrofitClient;
+import com.youngman.mop.net.api.RetrofitApiClient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +28,7 @@ public class ClubRemoteDataSource {
     }
 
     public void callIsClubChair(Long clubId, String email, ApiListener listener) {
-        Call<Boolean> result = RetrofitClient.getInstance().getRetrofitApiService().callIsClubChair(makeParams(clubId, email));
+        Call<Boolean> result = RetrofitApiClient.getInstance().getRetrofitApiService().callIsClubChair(makeParams(clubId, email));
         result.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {

@@ -21,9 +21,8 @@ import com.youngman.mop.view.map.MapActivity;
 
 public class PushNotificationService extends FirebaseMessagingService {
 
-    private final String CHANNEL_ID = getString(R.string.default_notification_channel_id);
-    private final long[] VIBRATE = {500,1000, 500, 1000};
-
+    private final String CHANNEL_ID = "Channel ID";
+    private final long[] VIBRATE = {500, 1000, 500, 1000};
 
     @Override
     public void onNewToken(String token) {
@@ -33,8 +32,7 @@ public class PushNotificationService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-
-        if(remoteMessage.getNotification() != null) {
+        if (remoteMessage.getNotification() != null) {
             handleNotification(remoteMessage);
         }
     }
@@ -47,6 +45,7 @@ public class PushNotificationService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationCompat = new NotificationCompat.Builder(this, CHANNEL_ID);
         notificationCompat.setContentIntent(pendingIntent);
         notificationCompat.setWhen(System.currentTimeMillis());
+        notificationCompat.setSmallIcon(R.drawable.common_google_signin_btn_icon_light);
         notificationCompat.setContentTitle(remoteMessage.getNotification().getTitle());
         notificationCompat.setContentText(remoteMessage.getNotification().getBody());
         notificationCompat.setVibrate(VIBRATE);

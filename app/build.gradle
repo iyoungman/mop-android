@@ -80,12 +80,16 @@ dependencies {
     // Permission
     implementation "gun0912.ted:tedpermission:2.1.0"
 
-    //Glide
+    // Glide
     implementation 'com.github.bumptech.glide:glide:4.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
 
-    //Google Guava
+    // Google Guava
     api 'com.google.guava:guava:28.0-android'
+
+    // Graph
+    implementation 'com.github.blackfizz:eazegraph:1.2.2@aar'
+    implementation 'com.nineoldandroids:library:2.4.0'
 
     // TEST
     testImplementation 'junit:junit:4.12'

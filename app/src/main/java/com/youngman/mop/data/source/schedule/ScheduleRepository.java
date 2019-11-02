@@ -23,19 +23,19 @@ public class ScheduleRepository implements ScheduleSource {
     }
 
     @Override
-    public void callSchedules(Long clubId,
-                              String date,
+    public void callSchedules(Long clubId, String email, String date,
                               ScheduleSource.ListApiListener listener) {
-
-        scheduleRemoteDataSource.callSchedules(clubId, date, listener);
+        scheduleRemoteDataSource.callSchedules(clubId, email, date, listener);
     }
 
     @Override
-    public void callCreateParticipant(Long scheduleId,
-                                      String email,
-                                      String name,
-                                      ParticipantApiListener listener) {
+    public void callCreateParticipant(Long scheduleId, String email,
+                                      String name, ParticipantApiListener listener) {
+        scheduleRemoteDataSource.callCreateParticipant(scheduleId, email, name, listener);
+    }
 
-
+    @Override
+    public void callParticipantCount(Long scheduleId, ParticipantApiListener listener) {
+        scheduleRemoteDataSource.callParticipantCount(scheduleId, listener);
     }
 }

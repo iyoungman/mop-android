@@ -1,9 +1,11 @@
-package com.youngman.mop.net;
+package com.youngman.mop.net.api;
 
+import com.youngman.mop.data.BoardCreateRequest;
 import com.youngman.mop.data.BoardPagingResponse;
 import com.youngman.mop.data.Club;
 import com.youngman.mop.data.ClubInfoResponse;
 import com.youngman.mop.data.ClubPagingResponse;
+import com.youngman.mop.data.ClubSignCountResponse;
 import com.youngman.mop.data.Participant;
 import com.youngman.mop.data.Schedule;
 import com.youngman.mop.data.SignIn;
@@ -41,7 +43,7 @@ public interface RetrofitApiService {
     Call<SignInResponse> callSingIn(@Body SignIn signIn);
 
     @POST("mop/member/signup")
-    Call<Boolean> callSingUp(@Body SignUp signUp);
+    Call<Void> callSingUp(@Body SignUp signUp);
 
     @PUT("mop/member")
     Call<Void> callUpdateMember();
@@ -95,13 +97,20 @@ public interface RetrofitApiService {
 
 
     @POST("mop/participant")
-    Call<Integer> callCreateParticipant(@Body Map<String, Object> body);
+    Call<Integer> callChangeParticipant(@Body Map<String, Object> body);
 
     @GET("mop/participant")
     Call<List<Participant>> callParticipants(@QueryMap Map<String, Object> params);
 
+    @GET("mop/participant/count")
+    Call<Integer> callParticipantCount(@QueryMap Map<String, Object> params);
 
+
+    @POST("mop/board")
+    Call<Void> callCreateBoard(@Body BoardCreateRequest boardCreateRequest);
 
     @GET("mop/board")
     Call<BoardPagingResponse> callPagingBoards(@QueryMap Map<String, Object> params);
+
+
 }

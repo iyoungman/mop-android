@@ -2,7 +2,7 @@ package com.youngman.mop.data.source.signin;
 
 import com.youngman.mop.data.SignIn;
 import com.youngman.mop.data.SignInResponse;
-import com.youngman.mop.net.RetrofitClient;
+import com.youngman.mop.net.api.RetrofitApiClient;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -29,7 +29,7 @@ public class SignInRemoteDataSource implements SignInSource {
     }
 
     public void callSignIn(SignIn signIn, SignInApiListener listener) {
-        Call<SignInResponse> result = RetrofitClient.getInstance().getRetrofitApiService().callSingIn(signIn);
+        Call<SignInResponse> result = RetrofitApiClient.getInstance().getRetrofitApiService().callSingIn(signIn);
         result.enqueue(new Callback<SignInResponse>() {
             @Override
             public void onResponse(Call<SignInResponse> call, Response<SignInResponse> response) {

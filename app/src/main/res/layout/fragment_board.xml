@@ -9,8 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:orientation="horizontal"
         android:background="@color/md_grey_200"
+        android:orientation="horizontal"
         android:weightSum="1">
 
         <!--공지 or 게시판 여부-->
@@ -23,7 +23,7 @@
             android:gravity="center|right"
             android:text="타입"
             android:textColor="@color/md_black_1000"
-            android:textSize="16dp"/>
+            android:textSize="16dp" />
 
         <!--공백-->
         <LinearLayout
@@ -81,10 +81,29 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_boards"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_boards"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/md_cyan_200"
+            android:tint="@color/white"
+            app:fabSize="normal"
+            app:layout_anchor="@id/rv_boards"
+            app:layout_anchorGravity="bottom|right|end"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

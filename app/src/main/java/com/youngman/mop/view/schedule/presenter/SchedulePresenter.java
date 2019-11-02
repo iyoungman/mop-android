@@ -22,14 +22,13 @@ public class SchedulePresenter implements ScheduleContract.Presenter {
     }
 
     @Override
-    public void callSchedules(Long clubId, String date) {
-        scheduleRepository.callSchedules(clubId, date, new ScheduleSource.ListApiListener() {
+    public void callSchedules(Long clubId, String email, String date) {
+        scheduleRepository.callSchedules(clubId, email, date, new ScheduleSource.ListApiListener() {
             @Override
             public void onSuccess(Map<String, Schedule> scheduleMap) {
                 scheduleView.setSchedules(scheduleMap.keySet());
                 scheduleView.setScheduleMap(scheduleMap);
             }
-
             @Override
             public void onFail(String message) {
                 scheduleView.showErrorMessage(message);
@@ -43,7 +42,30 @@ public class SchedulePresenter implements ScheduleContract.Presenter {
     }
 
     @Override
-    public void callCreateParticipant(Long scheduleId, String email, String name) {
+    public void callChangeParticipant(Long scheduleId, String email, String name) {
+        scheduleRepository.callCreateParticipant(scheduleId, email, name, new ScheduleSource.ParticipantApiListener() {
+            @Override
+            public void onSuccess(int participantCount) {
+                scheduleView.changeParticipant(participantCount);
+            }
+            @Override
+            public void onFail(String message) {
+                scheduleView.showErrorMessage(message);
+            }
+        });
+    }
 
+    @Override
+    public void callParticipantCount(Long scheduleId) {
+        scheduleRepository.callParticipantCount(scheduleId, new ScheduleSource.ParticipantApiListener() {
+            @Override
+            public void onSuccess(int participantCount) {
+                scheduleView.setParticipantCount(participantCount);
+            }
+            @Override
+            public void onFail(String message) {
+                scheduleView.showErrorMessage(message);
+            }
+        });
     }
 }

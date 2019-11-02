@@ -1,7 +1,7 @@
 package com.youngman.mop.data.source.mapmemberadd;
 
 import com.youngman.mop.data.Participant;
-import com.youngman.mop.net.RetrofitClient;
+import com.youngman.mop.net.api.RetrofitApiClient;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +30,7 @@ public class MapMemberAddRemoteDataSource {
     }
 
     public void callParticipants(Long scheduleId, Long clubId, ParticipantsApiListener listener) {
-        Call<List<Participant>> result = RetrofitClient.getInstance().getRetrofitApiService().callParticipants(makeParams(scheduleId, clubId));
+        Call<List<Participant>> result = RetrofitApiClient.getInstance().getRetrofitApiService().callParticipants(makeParams(scheduleId, clubId));
         result.enqueue(new Callback<List<Participant>>() {
             @Override
             public void onResponse(Call<List<Participant>> call, Response<List<Participant>> response) {

@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/md_cyan_200</item>
         <item name="colorPrimaryDark">@color/md_cyan_200</item>
-        <item name="colorAccent">@color/md_black_1000</item>
+        <item name="colorAccent">@color/md_cyan_200</item>
         <!--<item name="android:windowActionBarOverlay">true</item>-->
     </style>
 

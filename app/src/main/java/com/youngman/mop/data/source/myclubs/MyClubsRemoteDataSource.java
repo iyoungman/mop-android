@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.youngman.mop.data.Club;
 import com.youngman.mop.data.MyClubsResponse;
-import com.youngman.mop.net.RetrofitClient;
+import com.youngman.mop.net.api.RetrofitApiClient;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +38,7 @@ public class MyClubsRemoteDataSource implements MyClubsSource {
      * 마이 동호회 리스트 조회
      */
     public void callMyClubs(String email, final ListApiListener listener) {
-        Call<List<Club>> result = RetrofitClient.getInstance().getRetrofitApiService().callMyClubsByMemberEmail(email);
+        Call<List<Club>> result = RetrofitApiClient.getInstance().getRetrofitApiService().callMyClubsByMemberEmail(email);
         result.enqueue(new Callback<List<Club>>() {
             @Override
             public void onResponse(Call<List<Club>> call, Response<List<Club>> response) {
@@ -65,7 +65,7 @@ public class MyClubsRemoteDataSource implements MyClubsSource {
                                       int position,
                                       DeleteApiListener listener) {
 
-        Call<Void> result = RetrofitClient.getInstance().getRetrofitApiService().callDeleteMyClub(makeParams(email, clubId));
+        Call<Void> result = RetrofitApiClient.getInstance().getRetrofitApiService().callDeleteMyClub(makeParams(email, clubId));
         result.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

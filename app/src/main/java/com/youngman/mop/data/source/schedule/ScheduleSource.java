@@ -12,28 +12,24 @@ public interface ScheduleSource {
 
     interface ListApiListener {
         void onSuccess(Map<String, Schedule> scheduleMap);
-
         void onFail(String message);
     }
 
     interface DeleteApiListener {
         void onSuccess();
-
         void onFail(String message);
     }
 
     interface ParticipantApiListener {
-        void onSuccess();
-
+        void onSuccess(int participantCount);
         void onFail(String message);
     }
 
-    void callSchedules(Long clubId,
-                       String date,
-                       ListApiListener listener);
+    void callSchedules(Long clubId, String email,
+                       String date, ListApiListener listener);
 
-    void callCreateParticipant(Long scheduleId,
-                               String email,
-                               String name,
-                               ParticipantApiListener listener);
+    void callCreateParticipant(Long scheduleId, String email,
+                               String name, ParticipantApiListener listener);
+
+    void callParticipantCount(Long scheduleId, ParticipantApiListener listener);
 }

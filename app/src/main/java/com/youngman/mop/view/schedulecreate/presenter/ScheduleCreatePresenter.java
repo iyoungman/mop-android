@@ -16,7 +16,6 @@ public class ScheduleCreatePresenter implements ScheduleCreateContract.Presenter
 
     public ScheduleCreatePresenter(ScheduleCreateContract.View scheduleCreateView,
                                    ScheduleCreateRepository scheduleCreateRepository) {
-
         this.scheduleCreateView = scheduleCreateView;
         this.scheduleCreateRepository = scheduleCreateRepository;
     }

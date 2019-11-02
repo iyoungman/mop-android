@@ -19,12 +19,14 @@ public interface MapContract {
         void mapRefresh(List<MemberLocation> memberLocations, MemberLocation myLocation);
         void moveOtherLocation(MemberLocation memberLocation);
         void finishMapActivity();
+        void showSuccessMessage();
         void showErrorMessage(String message);
     }
 
     interface Presenter {
         void callIsValidateMapAndMember(Long clubId, String email);
         void callMapRefresh(Long clubId, String email, LatLng latLng, String name, String updateTime);
+        void callEmergencyToOthers();
         void callMapOut(Long clubId, String email);
         void setMemberLocationsAdapterView(MemberLocationsAdapterContract.View adapterView);
         void setMemberLocationsAdapterModel(MemberLocationsAdapterContract.Model adapterModel);

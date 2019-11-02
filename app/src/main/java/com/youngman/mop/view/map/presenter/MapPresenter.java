@@ -1,13 +1,17 @@
 package com.youngman.mop.view.map.presenter;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.youngman.mop.data.Emergency;
+import com.youngman.mop.data.source.emergency.EmergencyRemoteDataSource;
 import com.youngman.mop.lib.realtimedb.LocationInfo;
 import com.youngman.mop.lib.realtimedb.MapFirebaseService;
 import com.youngman.mop.lib.realtimedb.MemberLocation;
 import com.youngman.mop.listener.OnBasicItemClickListener;
 import com.youngman.mop.view.map.adapter.MemberLocationsAdapterContract;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by YoungMan on 2019-06-07.
@@ -19,12 +23,15 @@ public class MapPresenter implements MapContract.Presenter, OnBasicItemClickList
     private MapFirebaseService mapFirebaseService;
     private MemberLocationsAdapterContract.View adapterView;
     private MemberLocationsAdapterContract.Model adapterModel;
-    private boolean isFirst = true;
 
+    private EmergencyRemoteDataSource emergencyRemoteDataSource;
+    private List<MemberLocation> others = new ArrayList<>();
+    private MemberLocation my;
 
     public MapPresenter(MapContract.View mapView) {
         this.mapView = mapView;
         mapFirebaseService = new MapFirebaseService();
+        emergencyRemoteDataSource = EmergencyRemoteDataSource.getInstance();
     }
 
     @Override
@@ -51,6 +58,35 @@ public class MapPresenter implements MapContract.Presenter, OnBasicItemClickList
                 adapterModel.addItems(otherLocations);
                 adapterView.notifyAdapter();
                 mapView.mapRefresh(otherLocations, myLocation);
+
+                others = otherLocations;
+                my = myLocation;
+            }
+
+            @Override
+            public void onFail(String message) {
+                mapView.showErrorMessage(message);
+            }
+        });
+    }
+
+    @Override
+    public void callEmergencyToOthers() {
+        if (others.size() == 0 || my == null) {
+            return;
+        }
+        Emergency emergency = Emergency.builder()
+                .otherEmails(others.stream()
+                        .map(MemberLocation::getEmail)
+                        .collect(Collectors.toList())
+                )
+                .sender(my.getEmail())
+                .build();
+
+        emergencyRemoteDataSource.callEmergencyToOthers(emergency, new EmergencyRemoteDataSource.EmergencyApiListener() {
+            @Override
+            public void onSuccess() {
+                mapView.showSuccessMessage();
             }
 
             @Override
