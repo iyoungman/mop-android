@@ -1,11 +1,9 @@
 package com.youngman.mop.data.source.clubinfo;
 
 import com.youngman.mop.data.ClubInfoResponse;
-import com.youngman.mop.net.RetrofitClient;
-import com.youngman.mop.util.LogUtils;
+import com.youngman.mop.net.api.RetrofitApiClient;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.Map;
 
 import lombok.AccessLevel;
@@ -37,7 +35,7 @@ public class ClubInfoRemoteDataSource implements ClubInfoSource {
 
     @Override
     public void callClubInfoByClubId(Long clubId, InfoApiListener listener) {
-        Call<ClubInfoResponse> result = RetrofitClient.getInstance().getRetrofitApiService().callClubInfoById(clubId);
+        Call<ClubInfoResponse> result = RetrofitApiClient.getInstance().getRetrofitApiService().callClubInfoById(clubId);
         result.enqueue(new Callback<ClubInfoResponse>() {
             @Override
             public void onResponse(Call<ClubInfoResponse> call, Response<ClubInfoResponse> response) {
@@ -60,7 +58,7 @@ public class ClubInfoRemoteDataSource implements ClubInfoSource {
     public void callUploadClubImage(Long clubId, File imageFile, UploadApiListener listener) {
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
         MultipartBody.Part uploadFile = MultipartBody.Part.createFormData("image", imageFile.getName(), requestFile);
-        Call<Map<String, String>> result = RetrofitClient.getInstance().getRetrofitApiService().callUploadClubImage(clubId, uploadFile);
+        Call<Map<String, String>> result = RetrofitApiClient.getInstance().getRetrofitApiService().callUploadClubImage(clubId, uploadFile);
         result.enqueue(new Callback<Map<String, String>>() {
             @Override
             public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {

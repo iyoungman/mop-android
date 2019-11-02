@@ -1,7 +1,5 @@
 package com.youngman.mop.data;
 
-import java.io.Serializable;
-
 import lombok.Getter;
 
 /**

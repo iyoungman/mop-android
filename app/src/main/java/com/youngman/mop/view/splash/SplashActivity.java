@@ -43,14 +43,14 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
     }
 
     private void confirmAutoSignIn() {
-        if (PrefUtils.readAutoSignInFrom(context)) {
-            String token = PrefUtils.readMemberTokenFrom(context);
-            presenter.callIsValidToken(token);
-        } else {
+//        if (PrefUtils.readAutoSignInFrom(context)) {
+//            String token = PrefUtils.readMemberTokenFrom(context);
+//            presenter.callIsValidToken(token);
+//        } else {
             Intent intent = new Intent(context, SignInActivity.class);
             startActivity(intent);
             finish();
-        }
+//        }
     }
 
     @Override

@@ -14,12 +14,15 @@ public interface ScheduleContract {
     interface View {
         void setSchedules(Set<String> scheduleDates);
         void setScheduleMap(Map<String, Schedule> scheduleMap);
+        void setParticipantCount(int participantCount);
+        void changeParticipant(int participantCount);
         void showErrorMessage(String message);
     }
 
     interface Presenter {
-        void callSchedules(Long clubId, String date);
+        void callSchedules(Long clubId, String email, String date);
         void callDeleteSchedule(Long scheduleId);
-        void callCreateParticipant(Long scheduleId, String email, String name);
+        void callChangeParticipant(Long scheduleId, String email, String name);
+        void callParticipantCount(Long scheduleId);
     }
 }

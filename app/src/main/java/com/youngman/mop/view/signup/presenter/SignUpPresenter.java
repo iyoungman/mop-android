@@ -16,17 +16,14 @@ public class SignUpPresenter implements SignUpContract.Presenter {
 
     public SignUpPresenter(SignUpContract.View signUpView,
                            SignUpRepository signUpRepository) {
-
         this.signUpView = signUpView;
         this.signUpRepository = signUpRepository;
     }
 
     @Override
     public void callSignUp(SignUp signUp) {
-
         if (signUp.isAllNonNull()) {
             signUpRepository.callSignUp(signUp, new SignUpSource.ApiListener() {
-
                 @Override
                 public void onSuccess() {
                     signUpView.startSignInActivity();

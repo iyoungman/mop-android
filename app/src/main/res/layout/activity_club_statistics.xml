@@ -1,9 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.clubstatistics.ClubStatisticsActivity">
+    android:orientation="vertical"
+    android:weightSum="1">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25"
+        android:background="#FFCC80">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="가입 통계"
+            android:textColor="@color/md_black_1000"
+            android:textSize="30dp"
+            android:fontFamily="sans-serif-light"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"/>
+
+    <org.eazegraph.lib.charts.BarChart
+        android:id="@+id/bar_chart_sign_count"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:layout_gravity="bottom"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        app:egBarWidth="10dp"
+        app:egLegendColor="@color/md_grey_300"
+        app:egLegendHeight="20dp"
+        app:egLegendTextSize="9dp"
+        app:egShowStandardValue="true"
+        app:egShowValueIndicator="true"
+        app:egShowValues="true"
+        app:egUseOverlapFill="true" />
+
+    <!--구분선-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/md_grey_200" />
+
+    <!--숫자 통계-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:gravity="start"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:gravity="top|center_horizontal"
+                android:text="현재"
+                android:textColor="@color/md_black_1000"
+                android:textSize="18dp"
+                android:fontFamily="sans-serif-light"/>
+
+            <TextView
+                android:id="@+id/tv_current_count"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.6"
+                android:gravity="center"
+                android:textColor="@color/md_grey_500"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/md_grey_200" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.34"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:gravity="top|center_horizontal"
+                android:text="가입"
+                android:textColor="@color/md_black_1000"
+                android:textSize="18dp"
+                android:fontFamily="sans-serif-light"/>
+
+            <TextView
+                android:id="@+id/tv_all_count"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.6"
+                android:gravity="center"
+                android:textColor="@color/md_grey_500"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/md_grey_200" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:gravity="top|center_horizontal"
+                android:text="탈퇴"
+                android:textColor="@color/md_black_1000"
+                android:textSize="18dp"
+                android:fontFamily="sans-serif-light"/>
+
+            <TextView
+                android:id="@+id/tv_out_count"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.6"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="0명"
+                android:textColor="@color/md_grey_500"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

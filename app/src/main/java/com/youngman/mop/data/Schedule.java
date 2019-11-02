@@ -19,33 +19,29 @@ public class Schedule {
     private String region;
     private String writer;
     private String meetingTime;
+    private boolean participate;
     private Long clubId;
 
 
     @Builder
-    public Schedule(Long id,
-                    String name,
-                    String content,
-                    String region,
-                    String writer,
-                    String meetingTime,
-                    Long clubId) {
-
+    public Schedule(Long id, String name, String content, String region,
+                    String writer, String meetingTime, boolean participate, Long clubId) {
         this.id = id;
         this.name = name;
         this.content = content;
         this.region = region;
         this.writer = writer;
         this.meetingTime = meetingTime;
+        this.participate = participate;
         this.clubId = clubId;
     }
 
     public boolean isAllNonNull() {
-        long count =  Stream.of(name, content, region, writer, meetingTime, String.valueOf(clubId))
+        long count =  Stream.of(name, content, region, writer, meetingTime)
                 .filter(data -> !data.isEmpty())
                 .count();
 
-        Predicate<Long> isAllNonNull = cnt -> cnt == 6;
+        Predicate<Long> isAllNonNull = cnt -> cnt == 5;
         return isAllNonNull.test(count);
     }
 

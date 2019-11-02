@@ -39,20 +39,55 @@
         android:orientation="horizontal"
         android:weightSum="1">
 
+        <!--단체 지도방 삭제 + 일정 삭제-->
         <LinearLayout
-            android:id="@+id/ll_delete_schedule"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.33"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/ll_delete_map_group"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
                 android:gravity="center"
-                android:text="일정 삭제"
-                android:textSize="14dp"
-                android:textStyle="bold" />
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="단체 지도방 삭제"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_contour_two"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/md_grey_600"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/ll_delete_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="일정 삭제"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -110,7 +145,7 @@
             </LinearLayout>
 
             <View
-                android:id="@+id/view_contour"
+                android:id="@+id/view_contour_one"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/md_grey_600"
@@ -319,7 +354,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="0.65"
                     android:gravity="center"
-                    android:text="8명"
+                    android:text="3명"
                     android:textColor="@color/md_black_1000"
                     android:textSize="16dp" />
 

@@ -1,6 +1,6 @@
 package com.youngman.mop.data.source.splash;
 
-import com.youngman.mop.net.RetrofitClient;
+import com.youngman.mop.net.api.RetrofitApiClient;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -27,7 +27,7 @@ public class TokenRemoteDataSource {
 
 
     public void callIsValidToken(String token, TokenApiListener listener) {
-        Call<Boolean> result = RetrofitClient.getInstance().getRetrofitApiService().callIsValidToken(token);
+        Call<Boolean> result = RetrofitApiClient.getInstance().getRetrofitApiService().callIsValidToken(token);
         result.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {

@@ -44,7 +44,9 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     private Context context;
     private MaterialCalendarView calendarView;
     private TextView tvSelectedDate;
-    private View viewContour;
+    private View viewContourOne;
+    private View viewContourTwo;
+    private LinearLayout llDeleteMapGroup;
     private LinearLayout llDeleteSchedule;
     private LinearLayout llCreateMapGroup;
     private LinearLayout llCreateSchedule;
@@ -84,7 +86,9 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         context = view.getContext();
         calendarView = (MaterialCalendarView) view.findViewById(R.id.material_calendar_view);
         tvSelectedDate = (TextView) view.findViewById(R.id.tv_selected_date);
-        viewContour = (View) view.findViewById(R.id.view_contour);
+        viewContourOne = (View) view.findViewById(R.id.view_contour_one);
+        viewContourTwo = (View) view.findViewById(R.id.view_contour_two);
+        llDeleteMapGroup = (LinearLayout) view.findViewById(R.id.ll_delete_map_group);
         llDeleteSchedule = (LinearLayout) view.findViewById(R.id.ll_delete_schedule);
         llCreateMapGroup = (LinearLayout) view.findViewById(R.id.ll_create_map_group);
         llCreateSchedule = (LinearLayout) view.findViewById(R.id.ll_create_schedule);
@@ -112,9 +116,12 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         llDeleteSchedule.setOnClickListener(v -> callDeleteSchedule());
         llCreateMapGroup.setOnClickListener(v -> startMapMemberAddActivity());
         llCreateSchedule.setOnClickListener(v -> startScheduleCreateActivity());
-        tvScheduleParticipantNum.setOnClickListener(v -> callCreateParticipant());
+        tvScheduleParticipate.setOnClickListener(v -> callChangeParticipant());
+        tvScheduleParticipantNum.setOnClickListener(v -> callChangeParticipant());
 
-        presenter.callSchedules(clubId, calendarView.getCurrentDate().getDate().toString());
+        presenter.callSchedules(clubId, PrefUtils.readMemberEmailFrom(context),
+                calendarView.getCurrentDate().getDate().toString()
+        );
         onTodaySelected();
     }
 
@@ -127,7 +134,8 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     }
 
     @Override
-    public void onDateSelected(@NonNull MaterialCalendarView materialCalendarView, @NonNull CalendarDay calendarDay, boolean isSelected) {
+    public void onDateSelected(@NonNull MaterialCalendarView materialCalendarView,
+                               @NonNull CalendarDay calendarDay, boolean isSelected) {
         String strDate = DateUtils.convertDateFormat(calendarDay);
         tvSelectedDate.setText(isSelected ? strDate : "No Selected");
         setScheduleInfo(strDate);
@@ -136,8 +144,10 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     private void setScheduleInfo(String strDate) {
         if (!scheduleMap.containsKey(strDate)) {
             llScheduleInfo.setVisibility(View.INVISIBLE);
+            llDeleteMapGroup.setVisibility(View.GONE);
             llCreateMapGroup.setVisibility(View.GONE);
-            viewContour.setVisibility(View.GONE);
+            viewContourOne.setVisibility(View.GONE);
+            viewContourTwo.setVisibility(View.GONE);
             return;
         }
         Schedule schedule = scheduleMap.get(strDate);
@@ -147,15 +157,27 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         tvScheduleRegion.setText(schedule.getRegion());
         tvScheduleMeetingTime.setText(schedule.getOnlyTime());
         tvScheduleWriter.setText(schedule.getWriter());
+
         llScheduleInfo.setVisibility(View.VISIBLE);
+        llDeleteMapGroup.setVisibility(View.VISIBLE);
         llCreateMapGroup.setVisibility(View.VISIBLE);
-        viewContour.setVisibility(View.VISIBLE);
+        viewContourOne.setVisibility(View.VISIBLE);
+        viewContourTwo.setVisibility(View.VISIBLE);
+
+        String participateStr = (schedule.isParticipate()) ? "취소" : "참석";
+        tvScheduleParticipate.setText(participateStr);
+        presenter.callParticipantCount(schedule.getId());
+    }
+
+    @Override
+    public void setParticipantCount(int participantCount) {
+        tvScheduleParticipantNum.setText(participantCount + "명");
     }
 
     @Override
     public void onMonthChanged(MaterialCalendarView materialCalendarView, CalendarDay calendarDay) {
         String strDate = DateUtils.convertDateFormat(calendarDay);
-        presenter.callSchedules(clubId, strDate);
+        presenter.callSchedules(clubId, PrefUtils.readMemberEmailFrom(context), strDate);
     }
 
     @Override
@@ -173,13 +195,13 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     }
 
     private void callDeleteSchedule() {
-        if(calendarView.getSelectedDate() == null) {
+        if (calendarView.getSelectedDate() == null) {
             ToastUtils.showToast(context, "날짜를 선택해주세요");
             return;
         }
 
         Long scheduleId = getScheduleId();
-        if(scheduleId != null) {
+        if (scheduleId != null) {
             presenter.callDeleteSchedule(scheduleId);
         }
     }
@@ -196,7 +218,7 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     }
 
     private void startScheduleCreateActivity() {
-        if(calendarView.getSelectedDate() == null) {
+        if (calendarView.getSelectedDate() == null) {
             ToastUtils.showToast(context, "날짜를 선택해주세요");
             return;
         }
@@ -210,25 +232,38 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     public void onActivityResult(ActivityResultEvent activityResultEvent) {
         onActivityResult(activityResultEvent.getRequestCode(), activityResultEvent.getResultCode(), activityResultEvent.getData());
         if (activityResultEvent.getRequestCode() == 1111 && activityResultEvent.getResultCode() == 1111) {
-            presenter.callSchedules(clubId, calendarView.getCurrentDate().getDate().toString());
+            presenter.callSchedules(clubId, PrefUtils.readMemberEmailFrom(context), calendarView.getCurrentDate().getDate().toString());
         }
     }
 
-    private void callCreateParticipant() {
+    private void callChangeParticipant() {
         String strDate = calendarView.getSelectedDate().getDate().toString();
         Long scheduleId = scheduleMap.get(strDate).getId();
         String email = PrefUtils.readMemberEmailFrom(context);
         String name = PrefUtils.readMemberNameFrom(context);
 
-        presenter.callCreateParticipant(scheduleId, email, name);
+        presenter.callChangeParticipant(scheduleId, email, name);
+    }
+
+    @Override
+    public void changeParticipant(int participantCount) {
+        String participantStr = tvScheduleParticipate.getText().toString();
+
+        if (participantStr.equals("참석")) {
+            tvScheduleParticipate.setText("취소");
+            tvScheduleParticipantNum.setText(participantCount + "명");
+        } else {
+            tvScheduleParticipate.setText("참석");
+            tvScheduleParticipantNum.setText(participantCount + "명");
+        }
     }
 
     private Long getScheduleId() {
         String strDate = calendarView.getSelectedDate().getDate().toString();
 
         if (!scheduleMap.containsKey(strDate)) {
-               ToastUtils.showToast(context, "삭제할 일정이 없습니다");
-               return null;
+            ToastUtils.showToast(context, "삭제할 일정이 없습니다");
+            return null;
         }
         return scheduleMap.get(strDate).getId();
     }

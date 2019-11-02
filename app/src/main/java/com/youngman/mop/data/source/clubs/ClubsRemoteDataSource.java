@@ -1,7 +1,7 @@
 package com.youngman.mop.data.source.clubs;
 
 import com.youngman.mop.data.ClubPagingResponse;
-import com.youngman.mop.net.RetrofitClient;
+import com.youngman.mop.net.api.RetrofitApiClient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +35,7 @@ public class ClubsRemoteDataSource implements ClubsSource {
                                     int pageNo,
                                     ListApiListener listener) {
 
-        Call<ClubPagingResponse> result = RetrofitClient.getInstance().getRetrofitApiService().callPagingClubsByMember(makeParams(email, pageNo));
+        Call<ClubPagingResponse> result = RetrofitApiClient.getInstance().getRetrofitApiService().callPagingClubsByMember(makeParams(email, pageNo));
         result.enqueue(new Callback<ClubPagingResponse>() {
             @Override
             public void onResponse(Call<ClubPagingResponse> call, Response<ClubPagingResponse> response) {
@@ -66,7 +66,7 @@ public class ClubsRemoteDataSource implements ClubsSource {
                                  Long clubId,
                                  CreateApiListener listener) {
 
-        Call<Void> result = RetrofitClient.getInstance().getRetrofitApiService().callCreateMyClub(makeBody(email, clubId));
+        Call<Void> result = RetrofitApiClient.getInstance().getRetrofitApiService().callCreateMyClub(makeBody(email, clubId));
         result.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

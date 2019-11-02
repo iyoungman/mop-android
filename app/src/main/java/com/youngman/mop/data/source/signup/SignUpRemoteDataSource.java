@@ -1,7 +1,7 @@
 package com.youngman.mop.data.source.signup;
 
 import com.youngman.mop.data.SignUp;
-import com.youngman.mop.net.RetrofitClient;
+import com.youngman.mop.net.api.RetrofitApiClient;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -18,22 +18,19 @@ public class SignUpRemoteDataSource implements SignUpSource {
 
     private static SignUpRemoteDataSource INSTANCE;
 
-
     public static SignUpRemoteDataSource getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new SignUpRemoteDataSource();
         }
-
         return INSTANCE;
     }
 
     public void callSignUp(SignUp signUp, ApiListener listener) {
-
-        Call<Boolean> result = RetrofitClient.getInstance().getRetrofitApiService().callSingUp(signUp);
-        result.enqueue(new Callback<Boolean>() {
+        Call<Void> result = RetrofitApiClient.getInstance().getRetrofitApiService().callSingUp(signUp);
+        result.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if(response.isSuccessful() && response.body() != null) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
                     listener.onSuccess();
                     return;
                 }
@@ -41,7 +38,7 @@ public class SignUpRemoteDataSource implements SignUpSource {
             }
 
             @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 listener.onFail("통신에 실패하였습니다.");
             }
         });

@@ -25,7 +25,6 @@ import com.youngman.mop.view.club.presenter.ClubPresenter;
 import com.youngman.mop.view.clubinfo.ClubInfoFragment;
 import com.youngman.mop.view.clubstatistics.ClubStatisticsActivity;
 import com.youngman.mop.view.map.MapActivity;
-import com.youngman.mop.view.mapmemberadd.MapMemberAddActivity;
 import com.youngman.mop.view.schedule.ScheduleFragment;
 
 public class ClubActivity extends AppCompatActivity implements ClubContract.View, NavigationView.OnNavigationItemSelectedListener {
@@ -152,28 +151,23 @@ public class ClubActivity extends AppCompatActivity implements ClubContract.View
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//        switch (menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
 //            case R.id.menu_add_map_member:
 //                startSideMenu("MapMemberAddActivity");
 //                break;
-//            case R.id.menu_club_statistics:
-//                startSideMenu("ClubStatisticsActivity");
-//                break;
-//        }
-//
-//        dlSideMenu.closeDrawer(GravityCompat.START);
-        return false;
-    }
-
-    private void startSideMenu(String activityName) {
-        if (!isClubChair) {
-            ToastUtils.showToast(context, "동호회장 권한이 없습니다");
-            return;
+            case R.id.menu_club_statistics:
+                if (!isClubChair) {
+                    ToastUtils.showToast(context, "동호회장 권한이 없습니다");
+                    break;
+                }
+                Intent intent = new Intent(context, ClubStatisticsActivity.class);
+                intent.putExtra("EXTRA_CLUB_ID", clubId);
+                startActivity(intent);
+                break;
         }
-        Class<?> cls = activityName.equals("MapMemberAddActivity") ? MapMemberAddActivity.class : ClubStatisticsActivity.class;
-        Intent intent = new Intent(context, cls);
-        intent.putExtra("EXTRA_CLUB_ID", clubId);
-        startActivity(intent);
+
+        dlSideMenu.closeDrawer(GravityCompat.START);
+        return false;
     }
 
     @Override

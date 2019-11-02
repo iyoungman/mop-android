@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.FirebaseApp;
 import com.youngman.mop.R;
 import com.youngman.mop.data.SignUp;
 import com.youngman.mop.data.source.signup.SignUpRepository;
+import com.youngman.mop.lib.fcm.FcmTokenService;
+import com.youngman.mop.util.LogUtils;
 import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.signup.presenter.SignUpContract;
 import com.youngman.mop.view.signup.presenter.SignUpPresenter;
@@ -53,6 +56,7 @@ public class SignUpActivity extends Activity implements SignUpContract.View {
                 .name(etName.getText().toString())
                 .mobile(etMobile.getText().toString())
                 .hobby(etHobby.getText().toString())
+                .fcmToken(FcmTokenService.getFcmToken())
                 .build()
         ));
     }

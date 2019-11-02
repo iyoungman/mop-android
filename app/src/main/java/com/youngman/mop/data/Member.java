@@ -20,12 +20,8 @@ public class Member implements Serializable {
 
 
     @Builder
-    public Member(String email,
-                  String name,
-                  String mobile,
-                  String hobby,
-                  String introduce) {
-
+    public Member(String email, String name, String mobile,
+                  String hobby, String introduce) {
         this.email = email;
         this.name = name;
         this.mobile = mobile;

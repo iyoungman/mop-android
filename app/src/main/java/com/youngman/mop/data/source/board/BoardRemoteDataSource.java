@@ -1,7 +1,7 @@
 package com.youngman.mop.data.source.board;
 
 import com.youngman.mop.data.BoardPagingResponse;
-import com.youngman.mop.net.RetrofitClient;
+import com.youngman.mop.net.api.RetrofitApiClient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,6 @@ public class BoardRemoteDataSource implements BoardSource {
 
     private static BoardRemoteDataSource INSTANCE;
 
-
     public static BoardRemoteDataSource getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new BoardRemoteDataSource();
@@ -35,7 +34,7 @@ public class BoardRemoteDataSource implements BoardSource {
                                  int pageNo,
                                  ListApiListener listener) {
 
-        Call<BoardPagingResponse> result = RetrofitClient.getInstance().getRetrofitApiService().callPagingBoards(makeParams(clubId, pageNo));
+        Call<BoardPagingResponse> result = RetrofitApiClient.getInstance().getRetrofitApiService().callPagingBoards(makeParams(clubId, pageNo));
         result.enqueue(new Callback<BoardPagingResponse>() {
             @Override
             public void onResponse(Call<BoardPagingResponse> call, Response<BoardPagingResponse> response) {

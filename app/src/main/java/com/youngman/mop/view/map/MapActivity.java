@@ -2,10 +2,8 @@ package com.youngman.mop.view.map;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,7 +40,6 @@ import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.map.adapter.MemberLocationsAdapter;
 import com.youngman.mop.view.map.presenter.MapContract;
 import com.youngman.mop.view.map.presenter.MapPresenter;
-import com.youngman.mop.view.mapmemberadd.MapMemberAddActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -224,17 +221,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         IconGenerator iconGenerator = MapHelper.createIconGenerator(context);
         for (int i = 0; i < myRoutes.size(); i++) {
             if (i == 0 || i == myRoutes.size() - 1) {
-                String title = (i == 0) ? "start" : "end";
+                String title = (i == 0) ? "START" : "END";
                 addTextMarkerToMap(iconGenerator, title, myRoutes.get(i));
-                continue;
             }
-            addTextMarkerToMap(iconGenerator, String.valueOf(i), myRoutes.get(i));
         }
     }
 
     private void addPolylineOptionsToMap() {
         PolylineOptions polylineOptions = new PolylineOptions();
-        polylineOptions.width(5);
+        polylineOptions.width(7);
         polylineOptions.color(Color.GREEN);
         polylineOptions.addAll(myRoutes);
         mGoogleMap.addPolyline(polylineOptions);
@@ -249,9 +244,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void startMapMemberAddActivity(Long clubId) {
-        Intent intent = new Intent(context, MapMemberAddActivity.class);
-        intent.putExtra("EXTRA_CLUB_ID", clubId);
-        startActivity(intent);
+        presenter.callEmergencyToOthers();
+//        Intent intent = new Intent(context, MapMemberAddActivity.class);
+//        intent.putExtra("EXTRA_CLUB_ID", clubId);
+//        startActivity(intent);
+    }
+
+    @Override
+    public void showSuccessMessage() {
+        ToastUtils.showToast(context, "긴급 메세지 전송");
     }
 
     private void showMapOutDialog() {
@@ -290,7 +291,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         GoogleDirection.withServerKey(getString(R.string.google_direction_server_api_key))
                 .from(Iterables.getLast(myRoutes))//내 위치
                 .to(otherLocation)//상대 위치
-                .transportMode(TransportMode.TRANSIT)
+                .transportMode(TransportMode.WALKING)
                 .execute(this);
     }
 
@@ -319,7 +320,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onDirectionFailure(Throwable t) {
-        Snackbar.make(llMapRoute, t.getMessage(), Snackbar.LENGTH_SHORT).show();
+        ToastUtils.showToast(context, t.getMessage());
     }
 
     @Override
