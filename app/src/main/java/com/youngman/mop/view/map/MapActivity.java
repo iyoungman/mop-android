@@ -1,9 +1,14 @@
 package com.youngman.mop.view.map;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +28,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -93,7 +97,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         presenter = new MapPresenter(this);
         presenter.setMemberLocationsAdapterView(memberLocationsAdapter);
         presenter.setMemberLocationsAdapterModel(memberLocationsAdapter);
-        simpleLocation = new SimpleLocation(this, false, false, 10 * 1000, true);//30초
+        simpleLocation = new SimpleLocation(this, true, false, 3 * 1000, false);//1000이 1초
         clubId = getIntent().getLongExtra("EXTRA_CLUB_ID", 1);
 
         checkValidateMapAndMember();
@@ -147,21 +151,24 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ToastUtils.showToast(context, "Return");
+            return;
+        }
+
         mGoogleMap.getUiSettings().setZoomGesturesEnabled(true);
         mGoogleMap.setMaxZoomPreference(20);
         mGoogleMap.setMinZoomPreference(10);
 
-        simpleLocation.setListener(() -> llMapRefresh.performClick());
+        simpleLocation.setListener(this::callMapRefresh);
     }
 
     private void callMapRefresh() {
-        ToastUtils.showToast(context, String.valueOf(++count));
+//        ToastUtils.showToast(context, String.valueOf(++count));
 
-        presenter.callMapRefresh(clubId,
-                PrefUtils.readMemberEmailFrom(context),
+        presenter.callMapRefresh(clubId, PrefUtils.readMemberEmailFrom(context),
                 new LatLng(simpleLocation.getLatitude(), simpleLocation.getLongitude()),
-                PrefUtils.readMemberNameFrom(context),
-                DateUtils.convertDateTimeFormatNow()
+                PrefUtils.readMemberNameFrom(context), DateUtils.convertDateTimeFormatNow()
         );
     }
 
@@ -173,23 +180,28 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mGoogleMap.clear();
         mGoogleMap.addMarker(markLocation(myLocation));
         otherLocations.forEach(m -> mGoogleMap.addMarker(markLocation(m)));
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation.getLocationInfo().getLatLng(), 16));
+
+        CameraUpdate center = CameraUpdateFactory.newLatLngZoom(myLocation.getLocationInfo().getLatLng(), 17);
+        mGoogleMap.moveCamera(center);
         myRoutes.add(myLocation.getLocationInfo().getLatLng());
     }
 
     private MarkerOptions markLocation(MemberLocation memberLocation) {
+        String imageName = "img_map_red";
+        if (memberLocation.getEmail().equals(PrefUtils.readMemberEmailFrom(context))) {
+            imageName = "img_map_blue";
+        }
+
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(memberLocation.getLocationInfo().getLatLng());
         markerOptions.title(memberLocation.getLocationInfo().getName());
-        markerOptions.icon(decideBitmapDescriptor(memberLocation.getEmail()));
-
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons(imageName, 55, 55)));
         return markerOptions;
     }
 
-    private BitmapDescriptor decideBitmapDescriptor(String email) {
-        return email.equals(PrefUtils.readMemberEmailFrom(context)) ?
-                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED) ://자기 자신
-                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);//다른 멤버들
+    private Bitmap resizeMapIcons(String iconName, int width, int height) {
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(iconName, "drawable", getPackageName()));
+        return Bitmap.createScaledBitmap(imageBitmap, width, height, false);
     }
 
     private void drawMyRoute() {
@@ -229,7 +241,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void addPolylineOptionsToMap() {
         PolylineOptions polylineOptions = new PolylineOptions();
-        polylineOptions.width(7);
+        polylineOptions.width(9);
         polylineOptions.color(Color.GREEN);
         polylineOptions.addAll(myRoutes);
         mGoogleMap.addPolyline(polylineOptions);
@@ -285,13 +297,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void drawDirection(LatLng otherLocation) {
-        ToastUtils.showToast(context, "Direction Drawing...");
+        ToastUtils.showToast(context, "일단 대중교통 경로...");
 
         GoogleDirectionConfiguration.getInstance().setLogEnabled(true);
         GoogleDirection.withServerKey(getString(R.string.google_direction_server_api_key))
                 .from(Iterables.getLast(myRoutes))//내 위치
                 .to(otherLocation)//상대 위치
-                .transportMode(TransportMode.WALKING)
+                .transportMode(TransportMode.TRANSIT)
                 .execute(this);
     }
 
@@ -341,4 +353,5 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapFragment.onPause();
         super.onPause();
     }
+
 }

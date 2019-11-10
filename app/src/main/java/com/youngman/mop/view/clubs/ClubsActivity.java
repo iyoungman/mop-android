@@ -90,7 +90,8 @@ public class ClubsActivity extends AppCompatActivity implements ClubsContract.Vi
     }
 
     private void startClubSearchActivity() {
-        Intent intent = new Intent(context, ClubSearchActivity.class);
-        startActivity(intent);
+        ToastUtils.showToast(context, "추후 구현 예정");
+//        Intent intent = new Intent(context, ClubSearchActivity.class);
+//        startActivity(intent);
     }
 }

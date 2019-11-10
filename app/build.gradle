@@ -66,6 +66,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.google.firebase:firebase-database:17.0.0'
     implementation 'com.google.firebase:firebase-messaging:18.0.0'
+    implementation 'com.firebase:firebase-jobdispatcher:0.6.0'
 
     // Sliding Up Panel
     implementation 'com.sothree.slidinguppanel:library:3.4.0'

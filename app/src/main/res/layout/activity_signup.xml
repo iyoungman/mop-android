@@ -29,6 +29,7 @@
             android:layout_height="0dp"
             android:layout_weight="0.15"
             android:hint="아이디"
+            android:privateImeOptions="defaultInputmode=english"
             android:gravity="center"
             android:textColorHint="@color/md_grey_800"
             android:background="@drawable/et_border"/>
@@ -51,10 +52,12 @@
             android:layout_height="0dp"
             android:layout_weight="0.15"
             android:layout_marginTop="10dp"
-            android:inputType="textPersonName"
+            android:inputType="text"
+            android:privateImeOptions="defaultInputmode=korean"
             android:hint="이름"
             android:gravity="center"
             android:textColorHint="@color/md_grey_800"
+            android:maxLength="3"
             android:background="@drawable/et_border"/>
 
         <EditText
@@ -76,8 +79,8 @@
             android:layout_height="0dp"
             android:layout_weight="0.15"
             android:layout_marginTop="10dp"
-            android:ems="10"
-            android:inputType="phone"
+            android:inputType="text"
+            android:privateImeOptions="defaultInputmode=korean"
             android:hint="취미"
             android:gravity="center"
             android:textColorHint="@color/md_grey_800"

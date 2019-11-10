@@ -4,6 +4,7 @@ import com.youngman.mop.data.BoardPagingResponse;
 import com.youngman.mop.data.source.board.BoardRepository;
 import com.youngman.mop.data.source.board.BoardSource;
 import com.youngman.mop.listener.OnBasicItemClickListener;
+import com.youngman.mop.util.ToastUtils;
 import com.youngman.mop.view.board.adpater.BoardAdapterContract;
 
 /**
@@ -45,8 +46,8 @@ public class BoardPresenter implements BoardContract.Presenter, OnBasicItemClick
 
     @Override
     public void onStartItemClick(int position) {
-        Long boardId = adapterModel.getItem(position).getId();
-        boardView.startBoardDetailActivity(boardId);
+//        Long boardId = adapterModel.getItem(position).getId();
+        boardView.startBoardDetailActivity(0L);
     }
 
     @Override

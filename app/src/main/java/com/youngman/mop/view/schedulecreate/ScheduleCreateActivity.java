@@ -53,7 +53,15 @@ public class ScheduleCreateActivity extends Activity implements ScheduleCreateCo
         String scheduleDate = getIntent().getStringExtra("EXTRA_SELECTED_DATE");
         etMeetingDate.setText(scheduleDate);
 
-        btnCreateSchedule.setOnClickListener(view -> presenter.callCreateSchedule(Schedule.builder()
+        btnCreateSchedule.setOnClickListener(view -> callCreateSchedule(clubId));
+    }
+
+    private void callCreateSchedule(Long clubId) {
+        if (etMeetingHour.getText().toString().length() != 2 || etMeetingMinute.getText().toString().length() != 2) {
+            ToastUtils.showToast(context, "'12' : '00' 형태로 입력해주세요");
+        }
+
+        presenter.callCreateSchedule(Schedule.builder()
                 .name(etName.getText().toString())
                 .content(etContent.getText().toString())
                 .region(etRegion.getText().toString())
@@ -61,13 +69,12 @@ public class ScheduleCreateActivity extends Activity implements ScheduleCreateCo
                 .meetingTime(getMeetingDateTime())
                 .clubId(clubId)
                 .build()
-        ));
+        );
     }
 
     private String getMeetingDateTime() {
         return DateUtils.convertToStrDateTime(etMeetingDate.getText().toString(),
-                etMeetingHour.getText().toString(),
-                etMeetingMinute.getText().toString()
+                etMeetingHour.getText().toString(), etMeetingMinute.getText().toString()
         );
     }
 

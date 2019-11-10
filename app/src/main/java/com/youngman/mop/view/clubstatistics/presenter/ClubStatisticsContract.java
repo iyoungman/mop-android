@@ -12,6 +12,7 @@ public interface ClubStatisticsContract {
 
     interface View {
         void drawBarChart(List<BarModel> barModels);
+        void setDateRange(String startDate, String endDate);
         void setSignCount(int currentCount, int allCount);
         void showErrorMessage(String message);
     }

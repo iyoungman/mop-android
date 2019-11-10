@@ -20,7 +20,6 @@ public class ClubPagingResponse {
     @SerializedName("last")
     private boolean isLast;
 
-
     public ClubPagingResponse(List<Club> clubs, boolean isLast) {
         this.clubs = clubs;
         this.isLast = isLast;

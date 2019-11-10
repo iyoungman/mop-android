@@ -24,7 +24,13 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDKMUtW3JdEoBLMcZzG8zjtqGSEq0vJUzo" />
+            android:value="AIzaSyDKMUtW3JdEoBLMcZzG8zjtqGSEq0vJUzo" /> <!-- 토큰 자동 생성 방지 -->
+        <meta-data
+            android:name="firebase_messaging_auto_init_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -51,8 +57,7 @@
         <activity android:name=".view.club.ClubActivity" />
         <activity android:name=".view.map.MapActivity" />
         <activity android:name=".view.clubsearch.ClubSearchActivity" />
-        <activity android:name=".view.clubstatistics.ClubStatisticsActivity"/>
-
+        <activity android:name=".view.clubstatistics.ClubStatisticsActivity" />
         <activity
             android:name=".view.mapmemberadd.MapMemberAddActivity"
             android:theme="@android:style/Theme.Dialog" />
@@ -66,9 +71,20 @@
             android:name=".view.boardcreate.BoardCreateActivity"
             android:theme="@android:style/Theme.Dialog" />
 
-        <service android:name=".lib.fcm.PushNotificationService">
+        <activity
+            android:name=".view.fcmalert.FcmAlertActivity"
+            android:theme="@android:style/Theme.Dialog" />
+
+        <service android:name=".lib.fcm.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".lib.fcm.MyJobService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
     </application>

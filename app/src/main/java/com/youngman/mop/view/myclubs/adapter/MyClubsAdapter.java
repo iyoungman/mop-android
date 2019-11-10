@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.youngman.mop.data.Club;
+import com.youngman.mop.util.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;

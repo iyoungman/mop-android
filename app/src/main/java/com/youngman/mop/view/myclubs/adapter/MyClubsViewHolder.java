@@ -30,10 +30,8 @@ public class MyClubsViewHolder extends RecyclerView.ViewHolder {
     private OnMyClubsItemClickListener onMyClubsItemClickListener;
 
 
-    public MyClubsViewHolder(Context context,
-                             ViewGroup parent,
+    public MyClubsViewHolder(Context context, ViewGroup parent,
                              OnMyClubsItemClickListener onMyClubsItemClickListener) {
-
         super(LayoutInflater.from(context).inflate(R.layout.item_myclubs, parent, false));
         this.context = context;
         this.tvMyClubName = itemView.findViewById(R.id.tv_myclub_name);

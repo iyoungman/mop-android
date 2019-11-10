@@ -19,18 +19,16 @@ public class MemberLocationsViewHolder extends RecyclerView.ViewHolder {
     private TextView tvMapMemberName;
     private OnBasicItemClickListener onBasicItemClickListener;
 
-
-    public MemberLocationsViewHolder(Context context,
-                                     ViewGroup parent,
+    public MemberLocationsViewHolder(Context context, ViewGroup parent,
                                      OnBasicItemClickListener onBasicItemClickListener) {
-
         super(LayoutInflater.from(context).inflate(R.layout.item_member_locations, parent, false));
         this.tvMapMemberName = itemView.findViewById(R.id.tv_map_member_name);
         this.onBasicItemClickListener = onBasicItemClickListener;
     }
 
     public void onBind(MemberLocation memberLocation, int position) {
-        tvMapMemberName.setText(memberLocation.getLocationInfo().getName());
+        String name = memberLocation.getLocationInfo().getName();
+        tvMapMemberName.setText(name.substring(name.length() - 2, name.length()));
 
         itemView.setOnClickListener(view -> {
             onBasicItemClickListener.onStartItemClick(position);

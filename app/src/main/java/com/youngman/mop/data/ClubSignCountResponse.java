@@ -32,4 +32,13 @@ public class ClubSignCountResponse {
                 .mapToInt(c -> (int) c.getCount())
                 .sum();
     }
+
+    public String getStartDate() {
+        return clubSignCounts.get(0).getStatisticsDate();
+    }
+
+    public String getEndDate() {
+        return clubSignCounts.get(clubSignCounts.size() - 1).getStatisticsDate();
+    }
+
 }

@@ -28,6 +28,7 @@ public class ClubStatisticsPresenter implements ClubStatisticsContract.Presenter
             public void onSuccess(ClubSignCountResponse clubSignCountResponse) {
                 List<BarModel> barModels = clubSignCountResponse.toBarModels();
                 statisticsView.drawBarChart(barModels);
+                statisticsView.setDateRange(clubSignCountResponse.getStartDate(), clubSignCountResponse.getEndDate());
                 statisticsView.setSignCount(clubSignCountResponse.getAllSignCount(), clubSignCountResponse.getAllSignCount());
             }
 

@@ -152,14 +152,17 @@ public class ClubActivity extends AppCompatActivity implements ClubContract.View
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
-//            case R.id.menu_add_map_member:
-//                startSideMenu("MapMemberAddActivity");
-//                break;
-            case R.id.menu_club_statistics:
+            case R.id.menu_add_map_member:
                 if (!isClubChair) {
                     ToastUtils.showToast(context, "동호회장 권한이 없습니다");
                     break;
                 }
+                break;
+            case R.id.menu_club_statistics:
+//                if (!isClubChair) {
+//                    ToastUtils.showToast(context, "동호회장 권한이 없습니다");
+//                    break;
+//                }
                 Intent intent = new Intent(context, ClubStatisticsActivity.class);
                 intent.putExtra("EXTRA_CLUB_ID", clubId);
                 startActivity(intent);

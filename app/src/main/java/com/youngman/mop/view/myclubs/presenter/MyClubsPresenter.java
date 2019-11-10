@@ -49,6 +49,7 @@ public class MyClubsPresenter implements MyClubsContract.Presenter, OnMyClubsIte
             public void onSuccess() {
                 adapterModel.deleteItem(position);
                 adapterView.notifyAdapter();
+                myClubView.showErrorMessage("삭제 성공");
             }
             @Override
             public void onFail(String message) {

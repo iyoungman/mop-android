@@ -113,7 +113,7 @@ public class BoardFragment extends Fragment implements BoardContract.View, OnLoa
 
     @Override
     public void startBoardDetailActivity(Long boardId) {
-
+        ToastUtils.showToast(context, "추후 구현 예정");
     }
 
     @Override
