@@ -23,8 +23,10 @@
         android:theme="@style/AppTheme">
 
         <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDKMUtW3JdEoBLMcZzG8zjtqGSEq0vJUzo" /> <!-- 토큰 자동 생성 방지 -->
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyDKMUtW3JdEoBLMcZzG8zjtqGSEq0vJUzo" />
+
+        <!-- 토큰 자동 생성 방지 -->
         <meta-data
             android:name="firebase_messaging_auto_init_enabled"
             android:value="false" />

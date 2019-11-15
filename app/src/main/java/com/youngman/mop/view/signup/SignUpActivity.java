@@ -50,6 +50,8 @@ public class SignUpActivity extends Activity implements SignUpContract.View {
 
         presenter = new SignUpPresenter(this, SignUpRepository.getInstance());
 
+        LogUtils.logInfo(FcmTokenService.getFcmToken());
+
         btnSignUp.setOnClickListener(view -> presenter.callSignUp(SignUp.builder()
                 .email(etEmail.getText().toString())
                 .pw(etPw.getText().toString())

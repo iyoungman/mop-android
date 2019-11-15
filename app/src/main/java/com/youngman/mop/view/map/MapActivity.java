@@ -16,11 +16,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.akexorcist.googledirection.DirectionCallback;
-import com.akexorcist.googledirection.GoogleDirection;
-import com.akexorcist.googledirection.config.GoogleDirectionConfiguration;
-import com.akexorcist.googledirection.constant.TransportMode;
-import com.akexorcist.googledirection.model.Direction;
 import com.akexorcist.googledirection.model.Route;
 import com.akexorcist.googledirection.util.DirectionConverter;
 import com.google.android.gms.maps.CameraUpdate;
@@ -38,6 +33,8 @@ import com.google.maps.android.ui.IconGenerator;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.youngman.mop.R;
 import com.youngman.mop.lib.realtimedb.MemberLocation;
+import com.youngman.mop.lib.tamp.TMapDirectionService;
+import com.youngman.mop.lib.tamp.TMapDirectionServiceCallback;
 import com.youngman.mop.util.DateUtils;
 import com.youngman.mop.util.PrefUtils;
 import com.youngman.mop.util.ToastUtils;
@@ -50,7 +47,7 @@ import java.util.List;
 
 import im.delight.android.location.SimpleLocation;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, MapContract.View, DirectionCallback {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, MapContract.View {
 
     private Context context;
     private RecyclerView recyclerView;
@@ -68,8 +65,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private boolean isPossibleRefreshMap = true;
     private boolean isDrawPolylines = true;
     private List<LatLng> myRoutes = new ArrayList<>();
-
-    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,8 +159,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void callMapRefresh() {
-//        ToastUtils.showToast(context, String.valueOf(++count));
-
         presenter.callMapRefresh(clubId, PrefUtils.readMemberEmailFrom(context),
                 new LatLng(simpleLocation.getLatitude(), simpleLocation.getLongitude()),
                 PrefUtils.readMemberNameFrom(context), DateUtils.convertDateTimeFormatNow()
@@ -297,42 +290,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void drawDirection(LatLng otherLocation) {
-        ToastUtils.showToast(context, "일단 대중교통 경로...");
-
-        GoogleDirectionConfiguration.getInstance().setLogEnabled(true);
-        GoogleDirection.withServerKey(getString(R.string.google_direction_server_api_key))
-                .from(Iterables.getLast(myRoutes))//내 위치
-                .to(otherLocation)//상대 위치
-                .transportMode(TransportMode.TRANSIT)
-                .execute(this);
+        TMapDirectionService tMapDirectionService = new TMapDirectionService(context, new TMapDirectionServiceCallback() {
+            @Override
+            public void onSuccess(ArrayList<LatLng> directionPoints) {
+                if (directionPoints == null || directionPoints.size() == 0) {
+                    ToastUtils.showToast(context, "해당 경로가 없습니다");
+                } else {
+                    mGoogleMap.addPolyline(DirectionConverter.createPolyline(context, directionPoints, 5, Color.GREEN));
+                    setCameraWithCoordinationBounds(directionPoints.get(0), Iterables.getLast(directionPoints));
+                }
+            }
+            @Override
+            public void onFailure(String message) {
+                ToastUtils.showToast(context, message);
+            }
+        });
+        tMapDirectionService.execute(Iterables.getLast(myRoutes), otherLocation);
     }
 
-    @Override
-    public void onDirectionSuccess(Direction direction, String rawBody) {
-        ToastUtils.showToast(context, "Success : " + direction.getStatus());
-        isPossibleRefreshMap = false;
-        isDrawPolylines = false;
-
-        if (direction.isOK()) {
-            Route route = direction.getRouteList().get(0);
-            ArrayList<LatLng> directionPositions = route.getLegList().get(0).getDirectionPoint();
-            mGoogleMap.addPolyline(DirectionConverter.createPolyline(this, directionPositions, 5, Color.GREEN));
-            setCameraWithCoordinationBounds(route);
-        } else {
-            ToastUtils.showToast(context, direction.getStatus());
-        }
-    }
-
-    private void setCameraWithCoordinationBounds(Route route) {
-        LatLng southwest = route.getBound().getSouthwestCoordination().getCoordination();
-        LatLng northeast = route.getBound().getNortheastCoordination().getCoordination();
-        LatLngBounds bounds = new LatLngBounds(southwest, northeast);
+    private void setCameraWithCoordinationBounds(LatLng start, LatLng end) {
+        LatLngBounds bounds = new LatLngBounds(start, end);
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
-    }
-
-    @Override
-    public void onDirectionFailure(Throwable t) {
-        ToastUtils.showToast(context, t.getMessage());
     }
 
     @Override

@@ -15,6 +15,7 @@ import com.youngman.mop.R;
 import com.youngman.mop.util.LogUtils;
 import com.youngman.mop.view.fcmalert.FcmAlertActivity;
 import com.youngman.mop.view.clubstatistics.ClubStatisticsActivity;
+import com.youngman.mop.view.signin.SignInActivity;
 
 import java.util.List;
 
@@ -70,7 +71,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void notifyBackground(RemoteMessage remoteMessage) {
-        Intent intent = new Intent(this, ClubStatisticsActivity.class);
+        Intent intent = new Intent(this, SignInActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
