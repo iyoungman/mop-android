@@ -54,8 +54,7 @@ dependencies {
     // Location
     implementation 'com.github.delight-im:Android-SimpleLocation:v1.0.1'
     // Map Direction
-    // TMap 으로 대체
-
+    implementation 'com.akexorcist:googledirectionlibrary:1.1.1'
     // Google FireBase
     implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.google.firebase:firebase-database:17.0.0'

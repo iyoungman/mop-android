@@ -42,7 +42,7 @@ public class TMapDirectionService extends AsyncTask<LatLng, Integer, ArrayList<T
 //            TMapPoint endPoint = convertLatLngToTMapPint(new LatLng());
 
             TMapData tmapData = new TMapData();
-            TMapPolyLine tMapPolyLine = tmapData.findPathDataWithType(TMapData.TMapPathType.CAR_PATH, startPoint, endPoint);
+            TMapPolyLine tMapPolyLine = tmapData.findPathDataWithType(TMapData.TMapPathType.PEDESTRIAN_PATH, startPoint, endPoint);
             return tMapPolyLine.getLinePoint();
 
         } catch (Exception e) {

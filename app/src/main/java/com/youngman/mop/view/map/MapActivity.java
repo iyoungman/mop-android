@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.common.collect.Iterables;
+import com.google.maps.android.SphericalUtil;
 import com.google.maps.android.ui.IconGenerator;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.youngman.mop.R;
@@ -309,8 +310,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void setCameraWithCoordinationBounds(LatLng start, LatLng end) {
-        LatLngBounds bounds = new LatLngBounds(start, end);
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+        LatLngBounds.Builder bounds = new LatLngBounds.Builder();
+        bounds.include(start);
+        bounds.include(end);
+
+        LatLngBounds tmpBounds = bounds.build();
+        LatLng center = tmpBounds.getCenter();
+        LatLng northEast = LatLngBoundsHelper.move(center, 709, 709);
+        LatLng southWest = LatLngBoundsHelper.move(center, -709, -709);
+        bounds.include(southWest);
+        bounds.include(northEast);
+
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 10));
     }
 
     @Override
